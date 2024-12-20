@@ -9,45 +9,37 @@
             </div>
             <div class="grid place-items-center h-full basis-1/6">
                 <div class="">
-                    <A>View All</A>
+                    <a href="<?php echo get_permalink(get_option('page_for_posts')); ?>" class="hover:underline">
+                        View All
+                    </a>
                 </div>
             </div>
         </div>
         <div class="w-full flex flex-wrap justify-between">
-            <?php if(have_posts()): ?>
-                <?php while(have_posts()): the_post(); ?>
+            <?php if (have_posts()) : ?>
+                <?php while (have_posts()) : the_post(); ?>
                     <div class="w-[47%] grow-0 py-7 flex flex-col gap-5">
                         <div class="w-full bg-green-500 h-[471px]">
-                            h
+                            <!-- Thumbnail or placeholder -->
+                            <a href="<?php the_permalink(); ?>">
+                                <img class="w-full h-full object-cover" alt="<?php the_title(); ?>" src="<?php echo get_the_post_thumbnail_url(null, 'large'); ?>" />
+                            </a>
                         </div>
                         <div class="w-full h-16">
                             <div class="w-full font-semibold text-xl">
-                                <?php the_title(); ?>
+                                <a href="<?php the_permalink(); ?>" class="hover:underline">
+                                    <?php the_title(); ?>
+                                </a>
                             </div>
                             <div class="w-full text-[#999999] text-base font-medium">
-                                Post in <?php the_category(','); ?> <?php the_date(); ?>
+                                Post in <?php the_category(', '); ?> <?php echo get_the_date(); ?>
                             </div>
-
                         </div>
                     </div>
                 <?php endwhile; ?>
+            <?php else : ?>
+                <p>No posts available.</p>
             <?php endif; ?>
-            <?php for($i =0; $i < 4;$i++): ?>
-                <div class="w-[47%] grow-0 py-7 flex flex-col gap-5">
-                    <div class="w-full bg-green-500 h-[471px]">
-                        h
-                    </div>
-                    <div class="w-full h-16">
-                        <div class="w-full font-semibold text-xl">
-                            Nigerian Cinemas Prepare for POST-COVID –19
-                        </div>
-                        <div class="w-full text-[#999999] text-base font-medium">
-                            Post in News 09.12.2018
-                        </div>
-
-                    </div>
-                </div>
-            <?php endfor; ?>
         </div>
     </div>
 </div>
