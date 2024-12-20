@@ -1,0 +1,11 @@
+/**
+Theme Name: CEAN WP Theme
+Theme URI: https://ceanigeria.com/
+Author: Fusion Intelligence
+Author URI: https://fusionintel.io/
+ */
+
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
