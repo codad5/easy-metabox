@@ -23,7 +23,7 @@
         <!-- Logo Section -->
         <div class="h-full px-20 grid place-items-center">
             <div class="w-16 aspect-square grid place-items-center">
-                <a class="" href="/">LOGO</a>
+                <a class="" href="/"><img src="<?php echo CeanWP_Functions::get_common_icon_url('cean-logo'); ?>" alt="Logo" class="h-full w-full object-contain" /></a>
             </div>
         </div>
 

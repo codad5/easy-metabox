@@ -11,29 +11,7 @@
         <div class="w-full">
             <div class="w-full h-[444px] flex justify-center items-center gap-2.5">
                 <?php
-                $team_members = [
-                    [
-                        'name' => 'Patrick Lee',
-                        'title' => 'Chairman',
-                        'description' => 'Patrick is a conscientious and professional Executive with extensive experience in the Nigerian Cinema Industry.'
-                    ],
-                    [
-                        'name' => 'Moses Babatope',
-                        'title' => 'Secretary',
-                        'description' => 'Moses is passionate about taking Nigerian films across the globe, accessing new markets and delivering returns to stakeholders.'
-                    ],
-                    [
-                        'name' => 'Opeyemi Agayi',
-                        'title' => 'Treasurer',
-                        'description' => 'Opeyemi has over 15 years of combined business management, entertainment, advisory, and entrepreneurship experience.'
-                    ],
-                    [
-                        'name' => 'Michael Ndiomu',
-                        'title' => 'Exco',
-                        'description' => 'Michael is a financial services expert with experience in several banks including UBA and Access Bank Plc.'
-                    ]
-                ];
-
+                $team_members = CeanWP_Functions::get_team_members_list();
                 foreach ($team_members as $member):
                     $image_file = strtolower(str_replace(' ', '-', $member['name'])) . '.png';
                     ?>

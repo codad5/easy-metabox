@@ -3,25 +3,22 @@
 include_once __DIR__ . '/includes/cean-class-autoloader.php';
 
 use CeanWP\Core\CeanWP;
+use CeanWP\Models\Cean_WP_Top_Grossing_Movies;
 
-class CeanWP_Functions
+class CeanWP_Functions extends CeanWP
 {
     function launch(): void
     {
         CeanWP::start();
     }
 
-    static function get_distributors_list(): array
+    static function get_all_time_top_grossing_movies(): array
     {
-        return CeanWP::get_distributors_list();
+        // getting all time grossing movies
+        return Cean_WP_Top_Grossing_Movies::get_top_grossing_movies();
     }
 
-    static function get_partners_list(): array
-    {
-        return CeanWP::get_partners_list();
-    }
 }
-
 
 $ceanwp = new CeanWP_Functions();
 $ceanwp->launch();

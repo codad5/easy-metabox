@@ -627,6 +627,10 @@ video {
   z-index: 50;
 }
 
+.row-auto {
+  grid-row: auto;
+}
+
 .inline-block {
   display: inline-block;
 }
@@ -857,6 +861,18 @@ video {
   width: 100%;
 }
 
+.w-2\/3 {
+  width: 66.666667%;
+}
+
+.w-3\/4 {
+  width: 75%;
+}
+
+.w-6 {
+  width: 1.5rem;
+}
+
 .min-w-\[350px\] {
   min-width: 350px;
 }
@@ -917,6 +933,10 @@ video {
   list-style-type: none;
 }
 
+.grid-flow-row {
+  grid-auto-flow: row;
+}
+
 .grid-flow-col {
   grid-auto-flow: column;
 }
@@ -927,6 +947,10 @@ video {
 
 .grid-rows-5 {
   grid-template-rows: repeat(5, minmax(0, 1fr));
+}
+
+.grid-rows-3 {
+  grid-template-rows: repeat(3, minmax(0, 1fr));
 }
 
 .flex-col {
@@ -1055,6 +1079,19 @@ video {
   row-gap: 7rem;
 }
 
+.gap-x-3\.5 {
+  -moz-column-gap: 0.875rem;
+       column-gap: 0.875rem;
+}
+
+.gap-y-5 {
+  row-gap: 1.25rem;
+}
+
+.gap-y-1 {
+  row-gap: 0.25rem;
+}
+
 .space-y-2\.5 > :not([hidden]) ~ :not([hidden]) {
   --tw-space-y-reverse: 0;
   margin-top: calc(0.625rem * calc(1 - var(--tw-space-y-reverse)));
@@ -1174,8 +1211,23 @@ video {
   --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
 }
 
+.from-\[\#1A1A1A\]\/100 {
+  --tw-gradient-from: rgb(26 26 26 / 1) var(--tw-gradient-from-position);
+  --tw-gradient-to: rgb(26 26 26 / 0) var(--tw-gradient-to-position);
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
+}
+
 .to-black\/90 {
   --tw-gradient-to: rgb(0 0 0 / 0.9) var(--tw-gradient-to-position);
+}
+
+.to-\[\#1A1A1A\]\/0 {
+  --tw-gradient-to: rgb(26 26 26 / 0) var(--tw-gradient-to-position);
+}
+
+.object-contain {
+  -o-object-fit: contain;
+     object-fit: contain;
 }
 
 .object-cover {
@@ -1302,6 +1354,11 @@ video {
   padding-bottom: 1.75rem;
 }
 
+.px-3 {
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
+}
+
 .pb-14 {
   padding-bottom: 3.5rem;
 }
@@ -1364,6 +1421,11 @@ video {
 .text-xs {
   font-size: 0.75rem;
   line-height: 1rem;
+}
+
+.text-3xl {
+  font-size: 1.875rem;
+  line-height: 2.25rem;
 }
 
 .font-bold {
@@ -1434,10 +1496,6 @@ video {
 .placeholder-\[\#262626\]::placeholder {
   --tw-placeholder-opacity: 1;
   color: rgb(38 38 38 / var(--tw-placeholder-opacity, 1));
-}
-
-.filter {
-  filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
 }
 
 .scrollbar::-webkit-scrollbar-track {

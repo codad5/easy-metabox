@@ -20,7 +20,7 @@
         <div class="w-full flex justify-between h-full">
             <div class="w-80 h-36 flex flex-col justify-between gap-8">
                 <div class="w-full">
-                    <img class="h-28 aspect-square" alt="" src="<?php echo get_theme_file_uri("assets/images/cean-logo.png"); ?>"/>
+                    <img class="h-28 aspect-square" alt="" src="<?php echo CeanWP_Functions::get_common_icon_url('cean-logo'); ?>"/>
                 </div>
                 <div class="w-full border border-[#262626] py-2.5 px-5">
                     <div class="w-full flex justify-start gap-1.5">

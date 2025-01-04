@@ -43,4 +43,28 @@
         </div>
     </div>
 </div>
+<?php
+get_template_part(
+    'template-parts/commons/brand-list-1',
+    null,
+    [
+        'section_title' => 'Board of Trustees',
+        'section_description' => 'Guiding the Vision and Mission of CEAN with Wisdom and Leadership',
+        'section_items' => CeanWP_Functions::get_board_of_trustees_list(),
+    ]
+);
+?>
+
+<?php
+get_template_part(
+    'template-parts/commons/brand-list-1',
+    null,
+    [
+        'section_title' => 'Esteemed Members',
+        'section_description' => 'United by Passion, Driving Growth and Innovation in the Cinema Industry',
+        'section_items' => CeanWP_Functions::get_esteemed_members_list()
+    ]
+);
+?>
+
 <?php get_footer(); ?>

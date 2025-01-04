@@ -4,23 +4,55 @@ namespace CeanWP\Libs;
 
 use WP_Post;
 
+
+/**
+ * MetaBox Class
+ *
+ * Creates and manages custom meta boxes for WordPress posts/pages with various input types.
+ * Handles the creation, display, and saving of custom meta fields.
+ *
+ * @package CeanWP\Libs
+ */
 class MetaBox
 {
+    /** @var string Unique identifier for the meta box */
     private string $id;
+
+    /** @var string Title displayed at the top of the meta box */
     private string $title;
+
+    /** @var string Post type or screen where the meta box appears */
     private string $screen;
+
+    /** @var string Nonce field name for security verification */
     private string $nonce;
-    private string $context = 'normal'; // 'normal', 'advanced', or 'side'
-    private string $priority = 'default'; // 'default', 'high', 'low', or 'core'
+
+    /** @var string Context where the meta box appears ('normal', 'advanced', or 'side') */
+    private string $context = 'normal';
+
+    /** @var string Priority of the meta box ('default', 'high', 'low', or 'core') */
+    private string $priority = 'default';
+
+    /** @var array HTML generators for different input types */
     private array $input_type_html = [];
 
+    /** @var ?WP_Post Current post object */
     public ?WP_Post $post = null;
 
+    /** @var \Closure Callback function for rendering meta box content */
     private \Closure $customise_callback;
 
-
+    /** @var array Collection of field configurations */
     private array $fields = [];
-    function __construct($id, $title, $screen) {
+
+    /**
+     * Constructor for the MetaBox class
+     *
+     * @param string $id Unique identifier for the meta box
+     * @param string $title Title displayed at the top of the meta box
+     * @param string $screen Post type or screen where the meta box appears
+     */
+    function __construct(string $id, string $title, string $screen) {
         $this->id         = $id;
         $this->title      = $title;
         $this->screen     = $screen;
@@ -28,21 +60,37 @@ class MetaBox
         $this->customise_callback = fn($post) => $this->callback($post);
     }
 
-    function set($property, $value) : MetaBox {
+    /**
+     * Generic setter for class properties
+     *
+     * @param string $property Name of the property to set
+     * @param mixed $value Value to set
+     * @return MetaBox Returns self for method chaining
+     */
+    function set(string $property, mixed $value) : MetaBox {
         $this->$property = $value;
         return $this;
     }
 
     /**
-     * To set the nonce key
-     * @param string $nonce
+     * Sets custom nonce key for the meta box
+     *
+     * @param string $nonce Custom nonce key
+     * @return MetaBox Returns self for method chaining
      */
-    function set_nonce($nonce) : MetaBox {
+    function set_nonce(string $nonce) : MetaBox {
         $this->nonce = $nonce;
         return $this;
     }
 
-    function show( WP_Post  $post  = null) {
+    /**
+     * Adds the meta box to WordPress admin
+     *
+     * @param WP_Post|null $post Current post object
+     * @return void
+     */
+    function show( WP_Post  $post  = null): void
+    {
         $this->post = $post;
         add_meta_box(
             $this->id,
@@ -68,7 +116,18 @@ class MetaBox
     }
 
 
-    function add_field($id, $label, $type, $options = [], $attributes = [], $options_attributes = []): MetaBox
+    /**
+     * Adds a new field to the meta box
+     *
+     * @param string $id Unique identifier for the field
+     * @param string $label Label displayed above the field
+     * @param string $type Input type (text, textarea, select, etc.)
+     * @param array $options Options for select, radio, checkbox fields
+     * @param array $attributes HTML attributes for the input
+     * @param array $options_attributes Additional options for field configuration
+     * @return MetaBox Returns self for method chaining
+     */
+    function add_field(string $id, string $label, string $type, array $options = [], array $attributes = [], array $options_attributes = []): MetaBox
     {
         $this->fields[] = [
             ...$options_attributes,
@@ -82,13 +141,26 @@ class MetaBox
         return $this;
     }
 
+    /**
+     * Sets custom callback for meta box content rendering
+     *
+     * @param \Closure $callback Function to render meta box content
+     * @return self Returns self for method chaining
+     */
     function set_callback(\Closure $callback): self {
         $this->customise_callback = $callback;
         return $this;
     }
 
 
-    function callback($post = null) {
+    /**
+     * Default callback for rendering meta box content
+     *
+     * @param WP_Post|null $post Current post object
+     * @return void
+     */
+    function callback(WP_Post $post = null): void
+    {
         wp_nonce_field(basename(__FILE__), $this->nonce);
         foreach ($this->fields as $field) {
             $value = get_post_meta($post->ID, $field['id'], true);
@@ -97,7 +169,15 @@ class MetaBox
         }
     }
 
-    function all_meta($post_id, string $strip = null) {
+    /**
+     * Retrieves all meta values for a post
+     *
+     * @param int $post_id Post ID
+     * @param string|null $strip Prefix to strip from meta keys
+     * @return array Array of meta values
+     */
+    function all_meta(int $post_id, string $strip = null): array
+    {
         $meta = [];
         $save_data = get_post_meta($post_id);
         foreach ($this->fields as $field) {
@@ -108,6 +188,11 @@ class MetaBox
         return $meta;
     }
 
+    /**
+     * Sets up default HTML generators for different input types
+     *
+     * @return void
+     */
     private function setup_input_type_html(): void
     {
         $this->input_type_html = [
@@ -162,13 +247,26 @@ class MetaBox
      * @param \Closure $callback A function that generates the HTML for the input type. The function should accept the following parameters:
      * - string $id The ID of the input field.
      * - array $data The data for the input field. This includes the label, default value, and any other attributes.
-     * - Major keys in
+     * - Major keys in the $data array:
+     *   - label: The label for the input field.
+     *   - default: The default value for the input field.
+     *   - attributes: An array of HTML attributes for the input field.
+     *   - options: An array of options for select, radio, and checkbox fields.
+     *   - options_attributes: Additional options for field configuration.
      * @return void
      */
     public function set_input_type_html(string $type, \Closure $callback): void {
         $this->input_type_html[$type] = $callback;
     }
 
+    /**
+     * Generates HTML for default input types
+     *
+     * @param string $type Input type
+     * @param string $id Field identifier
+     * @param array $data Field configuration data
+     * @return string Generated HTML
+     */
     function generate_default_input_type_html(string $type, string $id, array $data): string {
         $default_value = esc_attr($data['default'] ?? '');
         $attributes = isset($data['attributes']) && is_array($data['attributes']) ? $data['attributes'] : [];
@@ -240,6 +338,14 @@ class MetaBox
         return $html;
     }
 
+    /**
+     * Outputs HTML for a specific input type
+     *
+     * @param string $type Input type
+     * @param string $id Field identifier
+     * @param array $data Field configuration data
+     * @return void
+     */
     function print_input_type(string $type, string $id, array $data): void {
         if (empty($this->input_type_html)) {
             $this->setup_input_type_html();
@@ -251,7 +357,13 @@ class MetaBox
         echo $this->generate_default_input_type_html($type, $id, $data);
     }
 
-    function save($post_id): bool {
+    /**
+     * Saves meta box field values
+     *
+     * @param int $post_id Post ID
+     * @return bool Success status
+     */
+    function save(int $post_id): bool {
 
         if ( defined('DOING_AUTOSAVE') && DOING_AUTOSAVE ) {
             return false;
@@ -288,9 +400,10 @@ class MetaBox
     }
 
     /**
-     * A helper function to convert an array of CSS styles to a string format.
-     * @param array $styles
-     * @return string
+     * Converts array of CSS styles to string
+     *
+     * @param array $styles Array of CSS properties and values
+     * @return string CSS string
      */
     function style_to_string(array $styles): string
     {
@@ -302,9 +415,10 @@ class MetaBox
     }
 
     /**
-     * A helper function to convert an array of attributes to a string format.
-     * @param array $attributes
-     * @return string
+     * Converts array of HTML attributes to string
+     *
+     * @param array $attributes Array of HTML attributes and values
+     * @return string Attributes string
      */
     function attributes_to_string(array $attributes): string
     {
@@ -316,12 +430,19 @@ class MetaBox
     }
 
     /**
-     * @return array
+     * Gets all registered fields
+     *
+     * @return array Array of field configurations
      */
     function get_fields(): array {
         return $this->fields;
     }
 
+    /**
+     * Gets HTML for all registered fields
+     *
+     * @return array Array of generated HTML for each field
+     */
     function get_fields_html(): array {
         $html = [];
         foreach ($this->fields as $field) {
