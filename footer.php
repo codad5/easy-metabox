@@ -22,77 +22,39 @@
                 <div class="w-full">
                     <img class="h-28 aspect-square" alt="" src="<?php echo get_theme_file_uri("assets/images/cean-logo.png"); ?>"/>
                 </div>
-
                 <div class="w-full border border-[#262626] py-2.5 px-5">
                     <div class="w-full flex justify-start gap-1.5">
-                        <div class="bg-[#999999] w-5 aspect-square">
-
-                        </div>
+                        <div class="bg-[#999999] w-5 aspect-square"></div>
                         <div class="h-full grow-1 ">
                             <input class="w-full h-full bg-transparent placeholder-[#262626] placeholder:text-sm" type="email" placeholder="Enter Your Email"/>
                         </div>
-                        <div class="h-6 aspect-square bg-green-500">
-
-                        </div>
+                        <div class="h-6 aspect-square bg-green-500"></div>
                     </div>
                 </div>
             </div>
             <nav class="w-4/6 flex" aria-label="Footer Navigation">
                 <?php
-                $footer_nav = [
-                    "Useful Links" => [
-                        "/home" => "Home",
-                        "/services" => "Services",
-                        "/news" => "News",
-                        "/testimonials" => "Testimonials",
-                        "/advisors" => "Advisors",
-                        "/contact-us" => "Contact Us"
-                    ],
-                    "Services" => [
-                        "/market-research" => "Market Research",
-                        "/financial-modeling" => "Financial Modeling",
-                        "/service-management" => "Service Management",
-                        "/human-resource" => "Human Resource",
-                        "/corporate-management" => "Corporate Management",
-                        "/legal-solutions" => "Legal Solutions",
-                        "/tax-planning" => "Tax Planning",
-                        "/financial-planning" => "Financial Planning"
-                    ],
-                    "Support" => [
-                        "/documentation" => "Documentation",
-                        "/faq" => "F.A.Q",
-                        "/support-policy" => "Support Policy",
-                        "/privacy" => "Privacy / Terms of Use",
-                        "/advertise" => "Advertise"
-                    ],
-                    "Careers" => [
-                        "/deals-coupons" => "Deals & Coupons",
-                        "/how-it-works" => "How it Works",
-                        "/articles-tips" => "Articles & Tips",
-                        "/terms-of-service" => "Terms of Service"
-                    ],
-                    "Terms & Privacy" => [
-                        "/get-the-theme" => "Get The Theme",
-                        "/privacy-security" => "Privacy & Security",
-                        "/terms-conditions" => "Terms & Conditions",
-                        "/cookie-policy" => "Cookie Policy"
-                    ]
-                ];
+                $footer_menus = array(
+                    'useful-links' => 'Useful Links',
+                    'services' => 'Services',
+                    'support' => 'Support',
+                    'careers' => 'Careers',
+                    'terms-privacy' => 'Terms & Privacy'
+                );
 
-                foreach ($footer_nav as $section => $links): ?>
+                foreach ($footer_menus as $menu_location => $menu_title): ?>
                     <div class="basis-1/5 w-1/5 flex flex-col gap-7">
                         <h3 class="w-full font-medium text-lg">
-                            <?php echo $section; ?>
+                            <?php echo $menu_title; ?>
                         </h3>
-                        <ul class="w-full text-sm font-medium text-[#999999] list-none flex flex-col justify-between gap-3">
-                            <?php foreach ($links as $url => $link): ?>
-                                <li class="w-full">
-                                    <a href="<?php echo $url; ?>" class="text-[#999999]">
-                                        <?php echo $link; ?>
-                                    </a>
-                                </li>
-                            <?php endforeach; ?>
-                        </ul>
+                        <?php
+                        wp_nav_menu(array(
+                            'theme_location' => $menu_location,
+                            'container' => false,
+                            'menu_class' => 'w-full text-sm font-medium text-[#999999] list-none flex flex-col justify-between gap-3',
+                            'link_class' => 'text-[#999999]'
+                        ));
+                        ?>
                     </div>
                 <?php endforeach; ?>
             </nav>
@@ -104,15 +66,9 @@
                 © <?php echo date("Y"); ?> CEAN. All rights reserved
             </div>
             <div class="h-5 flex justify-evenly gap-3.5">
-                <div class="h-full aspect-square bg-primary-green">
-
-                </div>
-                <div class="h-full aspect-square bg-blue-700">
-
-                </div>
-                <div class="h-full aspect-square bg-amber-500">
-
-                </div>
+                <div class="h-full aspect-square bg-primary-green"></div>
+                <div class="h-full aspect-square bg-blue-700"></div>
+                <div class="h-full aspect-square bg-amber-500"></div>
             </div>
             <div class="font-semibold text-sm text-[#999999]">
                 Designed by Fusion Intelligence

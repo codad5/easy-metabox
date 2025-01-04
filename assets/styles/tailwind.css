@@ -711,6 +711,10 @@ video {
   height: 1.5rem;
 }
 
+.h-8 {
+  height: 2rem;
+}
+
 .h-96 {
   height: 24rem;
 }
@@ -821,6 +825,10 @@ video {
   width: 15rem;
 }
 
+.w-8 {
+  width: 2rem;
+}
+
 .w-80 {
   width: 20rem;
 }
@@ -847,6 +855,10 @@ video {
 
 .w-full {
   width: 100%;
+}
+
+.min-w-\[350px\] {
+  min-width: 350px;
 }
 
 .shrink-0 {
@@ -977,6 +989,10 @@ video {
   gap: 3rem;
 }
 
+.gap-2 {
+  gap: 0.5rem;
+}
+
 .gap-2\.5 {
   gap: 0.625rem;
 }
@@ -1085,6 +1101,11 @@ video {
   border-color: rgb(38 38 38 / var(--tw-border-opacity, 1));
 }
 
+.border-primary-green {
+  --tw-border-opacity: 1;
+  border-color: rgb(1 139 141 / var(--tw-border-opacity, 1));
+}
+
 .border-l-\[\#262626\] {
   --tw-border-opacity: 1;
   border-left-color: rgb(38 38 38 / var(--tw-border-opacity, 1));
@@ -1093,6 +1114,11 @@ video {
 .bg-\[\#1A1A1A\] {
   --tw-bg-opacity: 1;
   background-color: rgb(26 26 26 / var(--tw-bg-opacity, 1));
+}
+
+.bg-\[\#333333\] {
+  --tw-bg-opacity: 1;
+  background-color: rgb(51 51 51 / var(--tw-bg-opacity, 1));
 }
 
 .bg-\[\#999999\] {
@@ -1157,6 +1183,10 @@ video {
      object-fit: cover;
 }
 
+.p-10 {
+  padding: 2.5rem;
+}
+
 .p-2\.5 {
   padding: 0.625rem;
 }
@@ -1175,6 +1205,11 @@ video {
 
 .p-8 {
   padding: 2rem;
+}
+
+.px-2 {
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
 }
 
 .px-20 {
@@ -1205,6 +1240,11 @@ video {
 .px-7 {
   padding-left: 1.75rem;
   padding-right: 1.75rem;
+}
+
+.py-1 {
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
 }
 
 .py-10 {
@@ -1356,6 +1396,11 @@ video {
   color: rgb(120 130 138 / var(--tw-text-opacity, 1));
 }
 
+.text-\[\#7E7E81\] {
+  --tw-text-opacity: 1;
+  color: rgb(126 126 129 / var(--tw-text-opacity, 1));
+}
+
 .text-\[\#999999\] {
   --tw-text-opacity: 1;
   color: rgb(153 153 153 / var(--tw-text-opacity, 1));
@@ -1389,6 +1434,10 @@ video {
 .placeholder-\[\#262626\]::placeholder {
   --tw-placeholder-opacity: 1;
   color: rgb(38 38 38 / var(--tw-placeholder-opacity, 1));
+}
+
+.filter {
+  filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
 }
 
 .scrollbar::-webkit-scrollbar-track {

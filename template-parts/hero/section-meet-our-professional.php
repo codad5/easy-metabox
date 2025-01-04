@@ -10,24 +10,50 @@
         </div>
         <div class="w-full">
             <div class="w-full h-[444px] flex justify-center items-center gap-2.5">
-                <?php for($i = 0; $i < 4; $i++): ?>
-                <div class="w-[305px] h-full p-6 flex flex-col gap-5">
-                    <div class="w-full aspect-square">
-                        <img class="" src="<?php echo get_theme_file_uri("assets/images/patrick-lee.png"); ?>" alt="" />
+                <?php
+                $team_members = [
+                    [
+                        'name' => 'Patrick Lee',
+                        'title' => 'Chairman',
+                        'description' => 'Patrick is a conscientious and professional Executive with extensive experience in the Nigerian Cinema Industry.'
+                    ],
+                    [
+                        'name' => 'Moses Babatope',
+                        'title' => 'Secretary',
+                        'description' => 'Moses is passionate about taking Nigerian films across the globe, accessing new markets and delivering returns to stakeholders.'
+                    ],
+                    [
+                        'name' => 'Opeyemi Agayi',
+                        'title' => 'Treasurer',
+                        'description' => 'Opeyemi has over 15 years of combined business management, entertainment, advisory, and entrepreneurship experience.'
+                    ],
+                    [
+                        'name' => 'Michael Ndiomu',
+                        'title' => 'Exco',
+                        'description' => 'Michael is a financial services expert with experience in several banks including UBA and Access Bank Plc.'
+                    ]
+                ];
+
+                foreach ($team_members as $member):
+                    $image_file = strtolower(str_replace(' ', '-', $member['name'])) . '.png';
+                    ?>
+                    <div class="w-[305px] h-full p-6 flex flex-col gap-5">
+                        <div class="w-full aspect-square">
+                            <img class="" src="<?php echo get_theme_file_uri("assets/images/people/{$image_file}"); ?>" alt="<?php echo $member['name']; ?>" />
+                        </div>
+                        <div class="flex w-full flex-grow flex-col gap-1">
+                            <div class="w-full font-semibold text-xl">
+                                <?php echo $member['name']; ?>
+                            </div>
+                            <div class="w-full text-[#018B8D] text-base font-semibold">
+                                <?php echo $member['title']; ?>
+                            </div>
+                            <div class="w-full text-base font-medium text-[#999999]">
+                                <?php echo $member['description']; ?>
+                            </div>
+                        </div>
                     </div>
-                    <div class="flex w-full flex-grow flex-col gap-1">
-                        <div class="w-full font-semibold text-xl">
-                            Patrick Lee
-                        </div>
-                        <div class="w-full text-[#018B8D] text-base font-semibold">
-                            Chairman
-                        </div>
-                        <div class="w-full text-base font-medium text-[#999999]">
-                            Patrick is a conscientious and professional Executive with extensive experience in the Nigerian Cinema Industry.
-                        </div>
-                    </div>
-                </div>
-                <?php endfor; ?>
+                <?php endforeach; ?>
             </div>
         </div>
         <div class="w-full flex justify-center items-end pt-8">
@@ -36,8 +62,6 @@
                     Meet Our Team
                 </span>
             </div>
-
         </div>
     </div>
-
 </div>

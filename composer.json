@@ -1,0 +1,10 @@
+{
+    "name": "cean-wp/core",
+    "description": "For cean wp theme",
+    "autoload": {
+        "psr-4": {
+            "CeanWP\\": "CeanWP/"
+        }
+    },
+    "require": {}
+}

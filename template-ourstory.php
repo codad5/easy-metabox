@@ -24,4 +24,23 @@
 
 </div>
 <?php get_template_part('template-parts/our-story/section', 'our-excos'); ?>
+<div class="w-full h-14">
+
+</div>
+<?php get_template_part('template-parts/our-story/section', 'our-achievement'); ?>
+<div class="w-full h-14">
+
+</div>
+<div class="w-full px-20">
+    <div class="w-full flex flex-col gap-2.5 justify-center items-center py-12">
+        <div class="w-full">
+            <span class="py-1 px-2 font-medium text-base bg-[#333333]">
+                Meet the Visionaries
+            </span>
+        </div>
+        <div class="w-full font-semibold text-4xl">
+            Uniting Leadership and Expertise to Shape Cinema's Future
+        </div>
+    </div>
+</div>
 <?php get_footer(); ?>
