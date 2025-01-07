@@ -8,6 +8,23 @@ trait Models
 {
     private array $metaBoxes = [];
 
+    function get_post_type(): string
+    {
+        return self::POST_TYPE;
+    }
+
+    function get_expected_fields(): array
+    {
+        // expected fields sample data ['name' => ['required' => true, 'type' => 'string'], 'email' => ['required' => true, 'type' => 'email']]
+        $expected_fields = [];
+        foreach($this->metaBoxes as $metaBox) {
+            foreach ($metaBox->get_fields() as $field) {
+                $expected_fields[$field['id']] = ['required' => $field['attributes']['required'] ?? $field['required'] ?? false, 'type' => $field['type'], 'label' => $field['label'], 'options' => $field['options'] ?? []];
+            }
+        }
+        return $expected_fields;
+    }
+
     function register_metabox(MetaBox $metabox): void {
         $this->metaBoxes[] = $metabox;
         add_action("add_meta_boxes_".self::POST_TYPE, [$metabox, 'show']);

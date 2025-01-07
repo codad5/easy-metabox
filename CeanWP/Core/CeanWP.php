@@ -4,6 +4,7 @@ namespace CeanWP\Core;
 
 use CeanWP\Controllers\CEAN_Menu;
 use CeanWP\Controllers\CountryHelper;
+use CeanWP\Controllers\FrontendFormSubmission;
 use CeanWP\Models\Cean_WP_Top_Grossing_Movies;
 use CeanWP\Models\CeanWP_Contact_Form;
 use CeanWP\Types\Models;
@@ -35,6 +36,7 @@ class CeanWP
         add_action('after_setup_theme', array($this, 'cean_wp_theme_supports'));
         $this->setup_models();
         CEAN_Menu::init();
+        FrontendFormSubmission::get_instance()->add_form_from_model(CeanWP_Contact_Form::init(), callback: [CeanWP_Contact_Form::init(), 'save_post_from_frontend'])->listen_to_form_submission();
     }
 
     function register_model(Models $model): void

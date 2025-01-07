@@ -113,4 +113,46 @@ class CeanWP_Contact_Form implements Models
         $this->register_metabox($meta_box);
     }
 
+
+
+    static function save_post_from_frontend($data)
+    {
+        /* exmaple of data Array
+(
+    [_cean_contact_first_name] => Chibueze
+    [_cean_contact_last_name] => Aniezeofor
+    [_cean_contact_email] => Aniezeoformic@gmail.com
+    [_cean_contact_country] => ng
+    [_cean_contact_phone] => 08142572488
+    [_cean_contact_inquiry_type] => General Inquiry
+    [_cean_contact_heard_about_us] => Friend
+    [_cean_contact_message] => Something
+)*/
+        $post_data = [
+            'post_title' => $data['_cean_contact_first_name'] . ' ' . $data['_cean_contact_last_name'],
+            'post_type' => self::POST_TYPE,
+            'post_status' => 'publish',
+            'meta_input' => [
+                self::META_PREFIX . 'first_name' => $data['_cean_contact_first_name'],
+                self::META_PREFIX . 'last_name' => $data['_cean_contact_last_name'],
+                self::META_PREFIX . 'email' => $data['_cean_contact_email'],
+                self::META_PREFIX . 'country' => $data['_cean_contact_country'],
+                self::META_PREFIX . 'phone' => $data['_cean_contact_phone'],
+                self::META_PREFIX . 'inquiry_type' => $data['_cean_contact_inquiry_type'],
+                self::META_PREFIX . 'heard_about_us' => $data['_cean_contact_heard_about_us'],
+                self::META_PREFIX . 'message' => $data['_cean_contact_message'],
+            ]
+        ];
+
+        $post_id = wp_insert_post($post_data);
+        if (is_wp_error($post_id)) {
+            return $post_id;
+        }
+        // send email to admin
+        $email = get_option('admin_email');
+        $subject = "New Contact Form Submission from {$data['_cean_contact_first_name']} {$data['_cean_contact_last_name']}";
+        $message = $data['_cean_contact_message'];
+        return wp_mail($email, $subject, $message);
+    }
+
 }

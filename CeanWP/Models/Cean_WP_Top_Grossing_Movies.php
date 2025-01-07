@@ -122,7 +122,7 @@ class Cean_WP_Top_Grossing_Movies implements Models
 
 
 
-    function setup_metabox()
+    function setup_metabox(): void
     {
         // id, title, screen
         $meta_box = new MetaBox('movie_details', 'Movie Details', self::POST_TYPE);
@@ -130,6 +130,7 @@ class Cean_WP_Top_Grossing_Movies implements Models
         $meta_box->add_field(self::META_PREFIX . 'movie_id', 'Movie ID', 'text');
         $meta_box->add_field(self::META_PREFIX . 'release_date', 'Release Date', 'date');
         $meta_box->add_field(self::META_PREFIX . 'image_url', 'Image URL', 'url');
+        $meta_box->add_field(self::META_PREFIX . 'cinema_name', 'Cinema Name', 'text');
         $this->register_metabox($meta_box);
 
     }

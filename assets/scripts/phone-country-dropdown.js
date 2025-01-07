@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const dropdownMenu = document.getElementById('cean_dropdownMenu');
     const selectedFlag = document.getElementById('cean_selectedFlag');
     const selectedCode = document.getElementById('cean_selectedCode');
-    const countryCodeInput = document.querySelector('[name="cean_country_code"]');
+    const countryCodeInput = document.querySelector('[name="_cean_contact_country"]');
 
     // Function to monitor changes on selectedCurrentCountryCode
     let handler = {
@@ -40,6 +40,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 <button
                     class="flex w-full items-center px-4 py-2 text-sm bg-secondary-black"
                     data-code="${i}"
+                    type="button"
                 >
                     <span class="text-xl fi fi-${i.toLowerCase()}"></span>
                     <span class="mr-2">${countries[i]}</span>
