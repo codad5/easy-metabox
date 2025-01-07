@@ -9,6 +9,7 @@
         .menu-item a {
             color: #7E7E81; /* Default color */
             text-decoration: none;
+            text-transform: capitalize;
         }
         .current-menu-item a,
         .current_page_item a {
@@ -34,7 +35,7 @@
                 wp_nav_menu(
                     array(
                         'theme_location' => 'top-menu',
-                        'menu_class' => 'flex gap-7 text-[#7E7E81] h-full w-full list-none items-center justify-center gap-6',
+                        'menu_class' => 'flex gap-7 text-[#7E7E81] h-full w-full list-none items-center justify-center gap-6 capitalize',
                         'container' => '',
                     )
                 );

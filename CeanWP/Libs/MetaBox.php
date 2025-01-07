@@ -295,9 +295,8 @@ class MetaBox
         if (isset($attributes['style'])) {
             $attributes['style'] = is_array($attributes['style']) ? esc_attr($this->style_to_string($attributes['style'])) : esc_attr($attributes['style']);
         }
-
         // Escape individual attributes
-        $attributes_as_string = $this->attributes_to_string(array_map('esc_attr', $attributes));
+        $attributes_as_string = $this->attributes_to_string($attributes);
 
         $html = "<div class=\"ceanwpmetabox-field\">";
         $html .= "<label for=\"" . esc_attr($id) . "\" class=\"ceanwpmetabox-label\">";
@@ -404,7 +403,14 @@ class MetaBox
         }
 
         $has_error = array_filter($this->fields, function($field){
-           $valid = InputValidator::validate($field['type'], $_POST[$field['id']] ?? '', $field);
+//            echo '<pre>';
+//            var_dump($field);
+//            var_dump($_POST[$field['id']]);
+//            echo '</pre>';
+            if((empty($_POST[$field['id']])) && ($field['attributes']['required'] ?? false) === false){
+                return false;
+            }
+           $valid = InputValidator::validate($field['type'], $_POST[$field['id']], $field);
            return !$valid;
         });
 
@@ -479,7 +485,10 @@ class MetaBox
     {
         $string_attributes = '';
         foreach ($attributes as $key => $value) {
-            $string_attributes .= esc_attr($key) . '="' . esc_attr($value) . '" ';
+            if(strtolower($key) === 'required' && !$value){
+                continue;
+            }
+            $string_attributes .= esc_attr($key) . '="' .  esc_attr($value) . '" ';
         }
         return rtrim($string_attributes);
     }

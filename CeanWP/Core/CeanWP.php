@@ -7,6 +7,7 @@ use CeanWP\Controllers\CountryHelper;
 use CeanWP\Controllers\FrontendFormSubmission;
 use CeanWP\Models\Cean_WP_Top_Grossing_Movies;
 use CeanWP\Models\CeanWP_Contact_Form;
+use CeanWP\Models\CeanWP_FAQ;
 use CeanWP\Types\Models;
 
 class CeanWP
@@ -25,8 +26,9 @@ class CeanWP
     static function start(): void
     {
         $cean_wp_functions = new CeanWP();
-        $cean_wp_functions->register_model(Cean_WP_Top_Grossing_Movies::init());
-        $cean_wp_functions->register_model(CeanWP_Contact_Form::init());
+        $cean_wp_functions->register_model(Cean_WP_Top_Grossing_Movies::get_instance());
+        $cean_wp_functions->register_model(CeanWP_Contact_Form::get_instance());
+        $cean_wp_functions->register_model(CeanWP_FAQ::get_instance());
         $cean_wp_functions->load();
     }
 
@@ -36,7 +38,7 @@ class CeanWP
         add_action('after_setup_theme', array($this, 'cean_wp_theme_supports'));
         $this->setup_models();
         CEAN_Menu::init();
-        FrontendFormSubmission::get_instance()->add_form_from_model(CeanWP_Contact_Form::init(), callback: [CeanWP_Contact_Form::init(), 'save_post_from_frontend'])->listen_to_form_submission();
+        FrontendFormSubmission::get_instance()->add_form_from_model(CeanWP_Contact_Form::get_instance(), callback: [CeanWP_Contact_Form::get_instance(), 'save_post_from_frontend'])->listen_to_form_submission();
     }
 
     function register_model(Models $model): void
@@ -47,7 +49,7 @@ class CeanWP
     private function setup_models(): void
     {
         foreach ($this->models as $model) {
-            $model->init();
+            $model->get_instance();
         }
     }
 
@@ -365,6 +367,29 @@ class CeanWP
         }
         return '';
     }
+
+
+    static function get_all_time_top_grossing_movies(): array
+    {
+        // getting all time grossing movies
+        return Cean_WP_Top_Grossing_Movies::get_top_grossing_movies();
+    }
+
+    static function get_inquiry_type() : array
+    {
+        return CeanWP_Contact_Form::INQUIRY_TYPES;
+    }
+
+    static function get_heard_about_us() : array
+    {
+        return CeanWP_Contact_Form::HEARD_ABOUT_US;
+    }
+
+    static function get_faqs($count = -1): array
+    {
+        return CeanWP_FAQ::get_faqs($count);
+    }
+
 
 }
 

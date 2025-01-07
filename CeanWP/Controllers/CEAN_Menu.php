@@ -51,12 +51,19 @@ class CEAN_Menu {
                 'capability' => 'manage_options',
                 'callback' => false
             ],
+            'edit.php?post_type=cean_faq' => [
+                'parent' => self::MENU_SLUG,
+                'title' => esc_html__('FAQs', 'cean-wp-theme'),
+                'capability' => 'manage_options',
+                'callback' => false
+            ],
             'cean-theme-settings' => [
                 'parent' => self::MENU_SLUG,
                 'title' => esc_html__('Theme Settings', 'cean-wp-theme'),
                 'capability' => 'manage_options',
                 'callback' => 'render_settings_page'
             ],
+
             // Add more submenus as needed
         ];
     }

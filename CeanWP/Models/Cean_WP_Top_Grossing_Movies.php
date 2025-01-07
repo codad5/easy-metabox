@@ -16,7 +16,7 @@ class Cean_WP_Top_Grossing_Movies implements Models
     const META_PREFIX = '_cean_movie_';
     static Cean_WP_Top_Grossing_Movies $instance;
 
-    static function init(): self
+    static function get_instance(): self
     {
         if (!isset(self::$instance)) {
             self::$instance = new self();

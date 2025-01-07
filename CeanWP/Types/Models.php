@@ -8,7 +8,7 @@ use WP_Post_Type;
 
 interface Models
 {
-    static function init(): self;
+    static function get_instance(): self;
     static function register_post_type() : WP_Error|WP_Post_Type;
     function register_metabox(MetaBox $metabox): void;
     function save_post(int $post_id): void;

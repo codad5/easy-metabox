@@ -29,7 +29,7 @@ class CeanWP_Contact_Form implements Models
 
     static CeanWP_Contact_Form $instance;
 
-    static function init(): self
+    static function get_instance(): self
     {
         if (isset(self::$instance)) {
             return self::$instance;
