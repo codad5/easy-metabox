@@ -13,6 +13,16 @@ trait Models
         add_action("add_meta_boxes_".self::POST_TYPE, [$metabox, 'show']);
     }
 
+    final static function register_post_type(): \WP_Error|\WP_Post_Type
+    {
+        $args =  array_merge(self::get_post_type_args(), [
+            'show_in_menu' => false
+        ]);
+//        echo "<pre>";
+//        print_r($args);
+//        echo "</pre>";
+        return register_post_type(self::POST_TYPE, $args);
+    }
     /**
      * Save meta box data
      */
@@ -34,5 +44,7 @@ trait Models
         }
 
     }
+
+
 
 }

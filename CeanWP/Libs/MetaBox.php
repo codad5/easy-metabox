@@ -45,6 +45,9 @@ class MetaBox
     /** @var array Collection of field configurations */
     private array $fields = [];
 
+    /** @var bool Show admin error */
+    private bool $show_admin_error = true;
+
     /**
      * Constructor for the MetaBox class
      *
@@ -58,6 +61,7 @@ class MetaBox
         $this->screen     = $screen;
         $this->nonce      = $id . '-nonce';
         $this->customise_callback = fn($post) => $this->callback($post);
+        $this->show_admin_error();
     }
 
     /**
@@ -82,6 +86,17 @@ class MetaBox
         $this->nonce = $nonce;
         return $this;
     }
+
+    /**
+     * Sets the context where the meta box appears
+     *
+     * @param bool $show_admin_error
+     * @return void Returns self for method chaining
+     */
+    function set_show_admin_error(bool $show_admin_error): void {
+        $this->show_admin_error = $show_admin_error;
+    }
+
 
     /**
      * Adds the meta box to WordPress admin
@@ -238,6 +253,9 @@ class MetaBox
             'file' => function ($id, $data) {
                 return $this->generate_default_input_type_html('file', $id, $data);
             },
+            'option' => function ($id, $data) {
+                return $this->generate_default_input_type_html('option', $id, $data);
+            },
         ];
     }
 
@@ -294,7 +312,7 @@ class MetaBox
                 $html .= "</textarea>";
                 break;
 
-            case 'select':
+            case 'select' :
                 $html .= "<select id=\"" . esc_attr($id) . "\" name=\"" . esc_attr($id . (($data['attributes']['multiple'] ?? false) ? '[]' : '')) . "\" $attributes_as_string>";
                 foreach ($data['options'] as $option => $option_data) {
                     $option_label = is_array($option_data) ? esc_html($option_data['label'] ?? $option) : esc_html($option_data);
@@ -385,9 +403,30 @@ class MetaBox
             return false;
         }
 
+        $has_error = array_filter($this->fields, function($field){
+           $valid = InputValidator::validate($field['type'], $_POST[$field['id']] ?? '', $field);
+           return !$valid;
+        });
+
+        if(!empty($has_error)){
+            if($this->show_admin_error){
+                add_filter('redirect_post_location', function($location) use ($has_error){
+                    $error_message = implode(', ', array_map(function($field){
+                        return $field['label'];
+                    }, $has_error));
+                    set_transient('ceanwp_error', urlencode("Error saving fields: \" {$error_message} \" "), 30);
+                    return add_query_arg('ceanwp_error', urlencode("Error saving fields: {$error_message}"), $location);
+                });
+            }
+            remove_action('save_post', [$this, 'save']);
+            return false;
+        }
+
         $names = array_map(function($field){
             return $field['id'];
         }, $this->fields);
+
+
 
         $final_bool = true;
         foreach ($names as $name) {
@@ -397,6 +436,22 @@ class MetaBox
             $final_bool = $final_bool && (update_post_meta($post_id, $name, $data) || $old_data == $data);
         }
         return $final_bool;
+    }
+
+    function show_admin_error(): void
+    {
+        if($this->show_admin_error){
+            add_action('admin_notices', [$this, 'admin_error']);
+        }
+    }
+
+    function admin_error(): void {
+        $error = get_transient('ceanwp_error');
+        if($error){
+            $error = urldecode($error);
+            echo "<div class='notice notice-error is-dismissible'><p>{$error}</p></div>";
+            delete_transient('ceanwp_error');
+        }
     }
 
     /**
@@ -450,4 +505,7 @@ class MetaBox
         }
         return $html;
     }
+
+
+
 }

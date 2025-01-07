@@ -3,7 +3,10 @@
 namespace CeanWP\Core;
 
 use CeanWP\Controllers\CEAN_Menu;
+use CeanWP\Controllers\CountryHelper;
 use CeanWP\Models\Cean_WP_Top_Grossing_Movies;
+use CeanWP\Models\CeanWP_Contact_Form;
+use CeanWP\Types\Models;
 
 class CeanWP
 {
@@ -12,6 +15,8 @@ class CeanWP
         'menus' => [self::class, 'cean_wp_menus'],
     ];
 
+    private array $models = [];
+
     public function __construct()
     {
     }
@@ -19,6 +24,8 @@ class CeanWP
     static function start(): void
     {
         $cean_wp_functions = new CeanWP();
+        $cean_wp_functions->register_model(Cean_WP_Top_Grossing_Movies::init());
+        $cean_wp_functions->register_model(CeanWP_Contact_Form::init());
         $cean_wp_functions->load();
     }
 
@@ -26,15 +33,36 @@ class CeanWP
     {
         add_action('wp_enqueue_scripts', array($this, 'cean_wp_enqueue_scripts'));
         add_action('after_setup_theme', array($this, 'cean_wp_theme_supports'));
-        (new \CeanWP\Models\Cean_WP_Top_Grossing_Movies)->init();
+        $this->setup_models();
         CEAN_Menu::init();
+    }
+
+    function register_model(Models $model): void
+    {
+        $this->models[] = $model;
+    }
+
+    private function setup_models(): void
+    {
+        foreach ($this->models as $model) {
+            $model->init();
+        }
     }
 
     function cean_wp_enqueue_scripts(): void
     {
         $ver = rand();
+
+        wp_enqueue_script('cean-phone-country-dropdown', get_template_directory_uri() . '/assets/scripts/phone-country-dropdown.js', array('jquery'), $ver, true);
+        wp_localize_script('cean-phone-country-dropdown', 'ceanPhoneCountryDropdown', [
+            'countryCode' => CountryHelper::getAllCountriesPhoneCode(),
+            'defaultCountryCode' => 'us'
+        ]);
+
         wp_enqueue_style('cean-wp-tailwind', get_template_directory_uri() . '/assets/styles/tailwind.css', array(), $ver);
+        wp_enqueue_style('cean-wp-flag-icon', get_template_directory_uri() . '/assets/libs/flag-icons/css/flag-icons.min.css', array(), $ver);
     }
+
 
     function cean_wp_theme_supports(): void
     {
@@ -243,6 +271,27 @@ class CeanWP
         return apply_filters('cean_wp_team_members_list', $team_members);
     }
 
+    static function get_contact_socials() : array {
+        $socials = [
+            [
+                'title' => 'Twitter',
+                'url' => 'https://twitter.com/ceanigeria',
+                'icon' => 'twitter',
+            ],
+            [
+                'title' => 'Medium',
+                'url' => 'https://medium.com/ceanigeria',
+                'icon' => 'medium',
+            ],
+            [
+                'title' => 'LinkedIn',
+                'url' => 'https://linkedin.com/ceanigeria',
+                'icon' => 'linkedin',
+            ],
+        ];
+        return apply_filters('cean_wp_contact_socials', $socials);
+    }
+
 
     /**
      * Get the common social media icons used in the theme.
@@ -255,6 +304,7 @@ class CeanWP
             'instagram' => '/images/icons/socials/instagram.svg',
             'twitter' => '/images/icons/socials/twitter.svg',
             'linkedin' => '/images/icons/socials/linkedin.svg',
+            'medium' => '/images/icons/socials/medium.svg',
         ];
 
     }
@@ -271,6 +321,11 @@ class CeanWP
             self::common_social_icons(),
             [
                 'cean-logo' => '/images/cean-logo.png',
+
+//                assets icon
+                'arrow-tr' => '/images/icons/arrow-tr.png',
+                'external-link' => '/images/icons/arrow-tr.png',
+
                 // Add the logos for partners and distributors here
                 'filmhouse' => '/images/partners/filmhouse.png',
                 'comscore' => '/images/partners/comscore.png',
@@ -311,4 +366,3 @@ class CeanWP
 
 }
 
-CeanWP::start();

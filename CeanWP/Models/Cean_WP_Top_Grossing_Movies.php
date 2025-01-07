@@ -134,23 +134,19 @@ class Cean_WP_Top_Grossing_Movies implements Models
 
     }
 
-    /**
-     * Register the custom post type
-     */
-    static function register_post_type() :  WP_Error|WP_Post_Type {
-        $labels = array(
-            'name'               => __('Top Grossing Movies', 'cean-wp-theme'),
-            'singular_name'      => __('Movie', 'cean-wp-theme'),
-            'add_new'            => __('Add New Movie', 'cean-wp-theme'),
-            'add_new_item'       => __('Add New Movie', 'cean-wp-theme'),
-            'edit_item'          => __('Edit Movie', 'cean-wp-theme'),
-            'view_item'          => __('View Movie', 'cean-wp-theme'),
-            'search_items'       => __('Search Movies', 'cean-wp-theme'),
-            'not_found'          => __('No movies found', 'cean-wp-theme'),
-        );
-
-        $args = array(
-            'labels'              => $labels,
+    static function get_post_type_args(): array
+    {
+        return array(
+            'labels'              => array(
+                'name'               => __('Top Grossing Movies', 'cean-wp-theme'),
+                'singular_name'      => __('Movie', 'cean-wp-theme'),
+                'add_new'            => __('Add New Movie', 'cean-wp-theme'),
+                'add_new_item'       => __('Add New Movie', 'cean-wp-theme'),
+                'edit_item'          => __('Edit Movie', 'cean-wp-theme'),
+                'view_item'          => __('View Movie', 'cean-wp-theme'),
+                'search_items'       => __('Search Movies', 'cean-wp-theme'),
+                'not_found'          => __('No movies found', 'cean-wp-theme'),
+            ),
             'public'              => true,
             'show_in_menu'        => false,
             'menu_position'       => 5,
@@ -161,10 +157,7 @@ class Cean_WP_Top_Grossing_Movies implements Models
             'show_in_rest'        => true, // Enable Gutenberg editor
             'publicly_queryable'  => true,
         );
-
-        return register_post_type(self::POST_TYPE, $args);
     }
-
 
     /**
      * Get top grossing movies for a specific month and year

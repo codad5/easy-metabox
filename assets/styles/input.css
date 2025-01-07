@@ -9,3 +9,7 @@ Author URI: https://fusionintel.io/
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+select::-ms-expand {
+    display: none;
+}

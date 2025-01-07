@@ -6,5 +6,7 @@
             "CeanWP\\": "CeanWP/"
         }
     },
-    "require": {}
+    "require": {
+      "ext-fileinfo": "*"
+    }
 }
