@@ -48,6 +48,9 @@ class MetaBox
     /** @var bool Show admin error */
     private bool $show_admin_error = true;
 
+    /** @var string Path to templates directory */
+    private string $templates_path;
+
     /**
      * Constructor for the MetaBox class
      *
@@ -62,6 +65,15 @@ class MetaBox
         $this->nonce      = $id . '-nonce';
         $this->customise_callback = fn($post) => $this->callback($post);
         $this->show_admin_error();
+
+        // Set templates path - you might want to make this configurable
+        $this->templates_path = get_template_directory() . 'templates-parts/';
+
+        // Make sure to add wp_enqueue_media() when needed
+        add_action('admin_enqueue_scripts', function() {
+            wp_enqueue_media();
+        });
+
     }
 
     /**
@@ -178,7 +190,8 @@ class MetaBox
     {
         wp_nonce_field(basename(__FILE__), $this->nonce);
         foreach ($this->fields as $field) {
-            $value = get_post_meta($post->ID, $field['id'], true);
+            $m = isset($field['attributes']['multiple']) && $field['attributes']['multiple'] == true;
+            $value = get_post_meta($post->ID, $field['id'], !$m);
             $field['default'] = $value;
             $this->print_input_type($field['type'], $field['id'], $field);
         }
@@ -256,8 +269,13 @@ class MetaBox
             'option' => function ($id, $data) {
                 return $this->generate_default_input_type_html('option', $id, $data);
             },
+            'wp_media' => function ($id, $data) {
+                return $this->generate_default_input_type_html('wp_media', $id, $data);
+            },
         ];
     }
+
+
 
     /**
      * Set a custom HTML generator for a specific input type.
@@ -345,6 +363,10 @@ class MetaBox
                 $html .= "<input type=\"number\" id=\"" . esc_attr($id) . "\" name=\"" . esc_attr($id) . "\" value=\"" . esc_attr($default_value) . "\" $attributes_as_string />";
                 break;
 
+            case "wp_media":
+                $html .= $this->generate_wp_media_html($id, $data);
+                break;
+
             default:
                 $html .= "<input type=\"$type\" id=\"" . esc_attr($id) . "\" name=\"" . esc_attr($id) . "\" value=\"" . esc_attr($default_value) . "\" $attributes_as_string />";
                 break;
@@ -353,6 +375,39 @@ class MetaBox
         $html .= "</div>";
 
         return $html;
+    }
+
+    /**
+     * Generates HTML for WordPress media input using template
+     *
+     * @param string $id Field identifier
+     * @param array $data Field configuration data
+     * @return string Generated HTML
+     */
+    private function generate_wp_media_html(string $id, array $data): string
+    {
+        $default_value = $data['default'] ?? '';
+        $attributes = isset($data['attributes']) && is_array($data['attributes']) ? $data['attributes'] : [];
+        $attributes['class'] = esc_attr(($attributes['class'] ?? '') . ' ceanwpmetabox-input');
+        $required = !empty($attributes['required']);
+        $multiple = $attributes['multiple'] ?? false;
+        $attributes_as_string = $this->attributes_to_string($attributes);
+        $label = $data['label'];
+        // Start output buffering
+        ob_start();
+
+        get_template_part('template-parts/metabox/media-field', null, array(
+            'id' => $id,
+            'label' => $label,
+            'default_value' => $default_value,
+            'attributes' => $attributes,
+            'required' => $required,
+            'attributes_as_string' => $attributes_as_string,
+            'multiple' => $multiple,
+        ));
+
+        // Get the buffered content
+        return ob_get_clean();
     }
 
     /**
@@ -403,10 +458,6 @@ class MetaBox
         }
 
         $has_error = array_filter($this->fields, function($field){
-//            echo '<pre>';
-//            var_dump($field);
-//            var_dump($_POST[$field['id']]);
-//            echo '</pre>';
             if((empty($_POST[$field['id']])) && ($field['attributes']['required'] ?? false) === false){
                 return false;
             }
@@ -433,15 +484,64 @@ class MetaBox
         }, $this->fields);
 
 
+        return $this->save_fields($post_id);
 
-        $final_bool = true;
-        foreach ($names as $name) {
-            $data = sanitize_text_field($_POST[$name] ?? '');
-            // check if data is same as the one in the database
-            $old_data = get_post_meta($post_id, $name, true);
-            $final_bool = $final_bool && (update_post_meta($post_id, $name, $data) || $old_data == $data);
+//        $final_bool = true;
+//        foreach ($names as $name) {
+//            $data = sanitize_text_field($_POST[$name] ?? '');
+//            // check if data is same as the one in the database
+//            $old_data = get_post_meta($post_id, $name, true);
+//            $final_bool = $final_bool && (update_post_meta($post_id, $name, $data) || $old_data == $data);
+//        }
+//        return $final_bool;
+    }
+
+
+    /**
+     * Saves field values to post meta
+     */
+    private function save_fields(int $post_id): bool
+    {
+        $success = true;
+        foreach ($this->fields as $field) {
+            $field_id = $field['id'];
+//            var_dump($field);
+            // Handle different field types
+            if ($field['type'] === 'wp_media' && ($field['attributes']['multiple'] ?? false)) {
+                // Handle multiple media values
+                $media_ids = isset($_POST[$field_id]) ? (array) $_POST[$field_id] : [];
+                $sanitized_ids = array_map('absint', $media_ids);
+
+                // Delete existing meta
+                delete_post_meta($post_id, $field_id);
+
+                // Add new values
+                foreach ($sanitized_ids as $media_id) {
+                    if ($media_id > 0) {
+                        add_post_meta($post_id, $field_id, $media_id);
+                    }
+                }
+            } else {
+                // Handle single value fields
+                $value = $_POST[$field_id] ?? '';
+                $sanitized_value = $this->sanitize_field_value($value, $field['type']);
+                $success = $success && (update_post_meta($post_id, $field_id, $sanitized_value) !== false);
+            }
         }
-        return $final_bool;
+        return $success;
+    }
+
+    /**
+     * Sanitizes field value based on type
+     */
+    private function sanitize_field_value($value, string $type)
+    {
+        switch ($type) {
+            case 'wp_media':
+                return absint($value);
+            default:
+                return sanitize_text_field($value);
+        }
     }
 
     function show_admin_error(): void

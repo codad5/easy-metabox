@@ -48,11 +48,35 @@ class InputValidator
 
             case 'file':
                 return self::validate_file($value, $field);
+            case 'wp_media':
+                return self::validate_wp_media($value, $field);
 
             default:
                 // Custom types or unsupported types are assumed valid for now.
                 return true;
         }
+    }
+
+
+    static function validate_wp_media($value, array $field): bool
+    {
+        if(!is_array($value) || (empty($value) && $field['attributes']['required'])) {
+            return false;
+        }
+
+//        check if exceeds the maximum number of files
+        if(isset($field['attributes']['max']) && count($value) > $field['attributes']['max']) {
+            return false;
+        }
+
+        foreach ($value as $file) {
+            $exists = wp_get_attachment_image_url($file);
+            if(!$exists) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     /**
