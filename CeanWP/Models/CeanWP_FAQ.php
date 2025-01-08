@@ -96,7 +96,7 @@ class CeanWP_FAQ implements Models
 
         $meta_box->add_field(self::META_PREFIX . 'category', 'Category', 'select', self::FAQ_CATEGORIES);
         $meta_box->add_field(self::META_PREFIX . 'order', 'Display Order', 'number');
-        $meta_box->add_field(self::META_PREFIX . 'featured', 'Featured FAQ', 'checkbox');
+//        $meta_box->add_field(self::META_PREFIX . 'wp_media', 'media', 'wp_media', [], ['multiple' => true]);
 
         $this->register_metabox($meta_box);
     }

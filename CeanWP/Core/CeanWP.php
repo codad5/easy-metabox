@@ -6,6 +6,7 @@ use CeanWP\Controllers\CEAN_Menu;
 use CeanWP\Controllers\CountryHelper;
 use CeanWP\Controllers\FrontendFormSubmission;
 use CeanWP\Models\Cean_WP_Top_Grossing_Movies;
+use CeanWP\Models\CeanWP_BoxOffice;
 use CeanWP\Models\CeanWP_Contact_Form;
 use CeanWP\Models\CeanWP_FAQ;
 use CeanWP\Types\Models;
@@ -29,6 +30,7 @@ class CeanWP
         $cean_wp_functions->register_model(Cean_WP_Top_Grossing_Movies::get_instance());
         $cean_wp_functions->register_model(CeanWP_Contact_Form::get_instance());
         $cean_wp_functions->register_model(CeanWP_FAQ::get_instance());
+        $cean_wp_functions->register_model(CeanWP_BoxOffice::get_instance());
         $cean_wp_functions->load();
     }
 
@@ -43,7 +45,9 @@ class CeanWP
 
     function register_model(Models $model): void
     {
-        $this->models[] = $model;
+        if(!in_array($model, $this->models)){
+            $this->models[] = $model;
+        }
     }
 
     private function setup_models(): void
@@ -329,6 +333,7 @@ class CeanWP
 //                assets icon
                 'arrow-tr' => '/images/icons/arrow-tr.png',
                 'external-link' => '/images/icons/arrow-tr.png',
+                'white-left-arrow' => '/images/icons/arrow-l-w.svg',
 
                 // Add the logos for partners and distributors here
                 'filmhouse' => '/images/partners/filmhouse.png',
@@ -390,6 +395,16 @@ class CeanWP
         return CeanWP_FAQ::get_faqs($count);
     }
 
+
+    static function get_reports(): array
+    {
+        return CeanWP_BoxOffice::get_reports();
+    }
+
+    static function get_report(int $id): array
+    {
+        return CeanWP_BoxOffice::get_report($id);
+    }
 
 }
 

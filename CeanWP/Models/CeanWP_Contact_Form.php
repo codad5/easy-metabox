@@ -66,6 +66,10 @@ class CeanWP_Contact_Form implements Models
             'menu_icon'           => 'dashicons-email',
             'supports'            => ['title'],
             'show_in_rest'        => false,
+            'capability_type'     => 'post',
+            'capabilities'        => array(
+                'create_posts' => 'do_not_allow',
+            ),
         );
 
     }

@@ -62,6 +62,21 @@ trait Models
 
     }
 
+    static function  get_posts($args = []): array
+    {
+        $args = array_merge($args, ['post_type' => self::POST_TYPE]);
+        return get_posts($args);
+    }
+
+    static function get_post($id)
+    {
+        $post = get_post($id);
+        $meta = get_post_meta($id);
+        return [
+            'post' => $post,
+            'meta' => $meta
+        ];
+    }
 
 
 }
