@@ -79,7 +79,8 @@ class CeanWP
 
         wp_enqueue_style('cean-wp-tailwind', get_template_directory_uri() . '/assets/styles/tailwind.css', array(), $ver);
         wp_enqueue_style('cean-wp-flag-icon', get_template_directory_uri() . '/assets/libs/flag-icons/css/flag-icons.min.css', array(), $ver);
-        wp_enqueue_style('cean-swiper-css', get_template_directory_uri() . '/assets/libs/swiper/swiper-bundle.min.css', array(), $ver);
+//        wp_enqueue_style('cean-swiper-css', get_template_directory_uri() . '/assets/libs/swiper/swiper-bundle.min.css', array(), $ver);
+        wp_enqueue_style('cean-urbanist-font', get_template_directory_uri() . '/assets/fonts/urbanist/urbanist.css', array(), $ver);
     }
 
 
