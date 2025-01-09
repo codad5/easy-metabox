@@ -1,0 +1,59 @@
+name: Build and Release WordPress Theme
+
+on:
+  release:
+    types:
+      - created
+
+jobs:
+  build-and-zip:
+    name: Build and Zip Theme
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4.1.1
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4.0.1
+        with:
+          node-version: '20.11.0'
+          cache: 'npm'
+
+      - name: Install Node.js Dependencies
+        run: npm ci
+
+      - name: Build TailwindCSS
+        run: npm run build
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2.28.0
+        with:
+          php-version: '8.3'
+          tools: composer:v2.7.1
+
+      - name: Prepare Theme Zip
+        run: |
+          mkdir theme-build
+          rsync -av --exclude='node_modules' \
+                    --exclude='vendor' \
+                    --exclude='composer.json' \
+                    --exclude='composer.lock' \
+                    --exclude='package.json' \
+                    --exclude='package-lock.json' \
+                    --exclude='tailwind.config.js' \
+                    --exclude='postcss.config.js' \
+                    --exclude='.git*' \
+                    --exclude='*.zip' \
+                    --exclude='.github' \
+                    ./ ./theme-build
+          cd theme-build
+          zip -r ../theme.zip .
+          cd ..
+
+      - name: Upload Release Asset
+        uses: softprops/action-gh-release@v0.1.15
+        with:
+          files: theme.zip
