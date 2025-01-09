@@ -33,7 +33,7 @@
                                 'poster' => $data['posterUrl'] ?? get_theme_file_uri("assets/images/gang-of-lagos.jpg"),
                                 'duration' => $data['duration'] ?? 'n/a',
                                 'rating' => $data['filmRating'] ?? 'unrated',
-                                'permalink' => $data['permalink'] ?? '#'
+                                'permalink' => "/movies/{$data['id']}"
                             ];
                         }, $new_release['data'])
                 ]) ?>

@@ -225,7 +225,8 @@ class Cean_WP_Movies implements Models
         if (!$post) {
             return null;
         }
-
+        $poster_id = get_post_meta($id, self::META_PREFIX . 'movie_poster', true);
+        $poster_url = $poster_id ? wp_get_attachment_image_url($poster_id, 'large') : get_theme_file_uri("assets/images/gang-of-lagos.jpg");
         return array(
             'title'      => $post->post_title,
             'box_office' => get_post_meta($id, self::META_PREFIX . 'box_office', true),
@@ -236,11 +237,33 @@ class Cean_WP_Movies implements Models
             'director' => get_post_meta($id, self::META_PREFIX . 'director', true),
             'cast' => get_post_meta($id, self::META_PREFIX . 'cast', true),
             'distributor' => get_post_meta($id, self::META_PREFIX . 'distributor', true),
-            'movie_poster' => get_post_meta($id, self::META_PREFIX . 'movie_poster', true),
+            'movie_poster' => $poster_url,
             'permalink'  => get_permalink($id),
             'trailer_url' => get_post_meta($id, self::META_PREFIX . 'trailer_url', true),
             'content'    => $post->post_content,
             'date_modified' => get_the_modified_date('F j, Y', $id),
         );
     }
+
+    static function map_reach_movie_data_to_cean_usable(array $movie): array
+    {
+        return [
+            'title'         => $movie['name'],
+            'box_office'    => '',
+            'movie_id'      => $movie['id'],
+            'release_date'  => $movie['releaseDate'],
+            'cinema_name'   => $movie['distributor'],
+            'genre'         => implode(", ", array_map(fn($genre) => $genre['genre'], $movie['filmGenre'])),
+            'director'      => '',
+            'cast'           => is_array($movie['casts']) ? implode(", ", $movie['casts']) : $movie['casts'],
+            'distributor'   => $movie['distributor'],
+            'movie_poster'  => $movie['posterUrl'],
+            'permalink'     => $movie['linkUrl'],
+            'trailer_url'   => $movie['trailerUrl'],
+            'content'       => $movie['synopsis'],
+            'date_modified' => $movie['dateModified'] ?? '',
+        ];
+    }
+
+
 }

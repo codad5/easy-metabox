@@ -21,6 +21,15 @@ class ReachCinemaAPI extends  APIHelper
                 'perPage' => null
             ]
         ],
+        'movie' => [
+            'route' => '/Films/{{film_id}}',
+            'method' => 'GET',
+            // in mins
+            'cache' => 15,
+            'params' => [
+                'film_id'
+            ]
+        ],
 //        'coin-info' => [
 //            'route' => '/coins/{{coin_id}}',
 //            'method' => 'GET',
@@ -80,6 +89,20 @@ class ReachCinemaAPI extends  APIHelper
     {
         try {
             return self::make_request('coming-soon');
+        } catch (\Exception $e) {
+            return [
+                'error' => $e->getMessage(),
+                'code' => $e->getCode()
+            ];
+        }
+    }
+
+    static function get_movie($film_id): array
+    {
+        try {
+            return self::make_request('movie', [], [
+                'film_id' => $film_id
+            ]);
         } catch (\Exception $e) {
             return [
                 'error' => $e->getMessage(),

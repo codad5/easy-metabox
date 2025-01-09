@@ -5,7 +5,7 @@
         return [
             'title' => $data['name'],
             'poster' => $data['posterUrl'] ?? get_theme_file_uri("assets/images/gang-of-lagos.jpg"),
-            'permalink' => $data['permalink'] ?? '#',
+            'permalink' => "/movies/{$data['id']}",
             'distributor' => $data['distributor'] ?? 'Film One',
         ];
     }, $movies['data']); ?>
@@ -20,7 +20,7 @@
                     <div class="w-full h-full absolute inset-0 bg-gradient-to-b from-black/0 to-black/90"></div>
                 </div>
                 <div class="w-full  h-11">
-                    <h4 class="font-semibold text-sm"><?php echo $movie['title']; ?></h4>
+                    <h4 class="font-semibold text-sm"><a href="<?php echo $movie['permalink']; ?>" ><?php echo $movie['title']; ?></a></h4>
                     <div class="font-normal text-xs text-[#78828A]"><?php echo $movie['distributor']; ?></div>
                 </div>
             </div>

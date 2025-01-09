@@ -1,6 +1,8 @@
 <?php get_header(); ?>
 <?php $cean_current_page_id = get_the_ID(); ?>
-<?php $post = CeanWP_Functions::get_movie($cean_current_page_id); ?>
+<?php $movie_id = get_query_var('movie_id') ?? false; ?>
+
+<?php $post = empty($movie_id) ? CeanWP_Functions::get_movie($cean_current_page_id) : CeanWP_Functions::get_movie_details_from_reach($movie_id); ?>
 
 <div class="w-full px-20 py-16 flex flex-col gap-12">
     <div class="w-full">
@@ -13,7 +15,7 @@
     </div>
     <?php if (!empty($post['title'])): ?>
     <div class="w-full max-h-[709px] relative overflow-hidden">
-        <img src="<?php echo !empty($post['movie_poster']) ? wp_get_attachment_image_url($post['movie_poster'], 'large') : get_theme_file_uri("assets/images/gang-of-lagos.jpg");?>" alt="movie image" class="w-full h-full object-cover" />
+        <img src="<?php echo !empty($post['movie_poster']) ? $post['movie_poster'] : get_theme_file_uri("assets/images/gang-of-lagos.jpg");?>"  class="w-full h-full object-cover" alt="<?php echo $post['title']; ?>">
         <div class="flex flex-col gap-5 justify-end py-4 items-center w-full h-full absolute inset-0 bg-gradient-to-b from-black/0 to-black/90">
             <div class="w-full text-center">
                 <h1 class="font-bold text-4xl">

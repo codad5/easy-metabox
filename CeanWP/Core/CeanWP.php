@@ -6,6 +6,7 @@ use CeanWP\Controllers\CEAN_Menu;
 use CeanWP\Controllers\CountryHelper;
 use CeanWP\Controllers\FrontendFormSubmission;
 use CeanWP\Controllers\ReachCinemaAPI;
+use CeanWP\Controllers\RewriteRules;
 use CeanWP\Controllers\Settings;
 use CeanWP\Models\Cean_WP_Movies;
 use CeanWP\Models\CeanWP_BoxOffice;
@@ -29,6 +30,7 @@ class CeanWP
     static function start(): void
     {
         $cean_wp_functions = new CeanWP();
+        RewriteRules::turn_on();
         Settings::load();
         $cean_wp_functions->register_model(Cean_WP_Movies::get_instance());
         $cean_wp_functions->register_model(CeanWP_Contact_Form::get_instance());
@@ -425,6 +427,16 @@ class CeanWP
     static function get_coming_soon_from_reach(): array
     {
         return ReachCinemaAPI::get_coming_soon_movies();
+    }
+
+    static function get_movie_details_from_reach($film_id): ?array
+    {
+        $movie_data = ReachCinemaAPI::get_movie($film_id);
+        if (!isset($movie_data['data'])) {
+            return null;
+        }
+        $movie_data = $movie_data['data'];
+        return Cean_WP_Movies::map_reach_movie_data_to_cean_usable($movie_data);
     }
 
 }
