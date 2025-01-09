@@ -2,12 +2,15 @@
 
 namespace CeanWP\Models;
 
+use CeanWP\Core\CeanWP;
 use CeanWP\Libs\MetaBox;
 use CeanWP\Types\Models;
 use WP_Error;
 use WP_Post_Type;
 use WP_Query;
 use CeanWP\Traits\Models as ModelsTrait;
+
+// https://mail.google.com/mail/u/0/?pli=1#inbox
 
 class Cean_WP_Movies implements Models
 {
@@ -227,6 +230,11 @@ class Cean_WP_Movies implements Models
         }
         $poster_id = get_post_meta($id, self::META_PREFIX . 'movie_poster', true);
         $poster_url = $poster_id ? wp_get_attachment_image_url($poster_id, 'large') : get_theme_file_uri("assets/images/gang-of-lagos.jpg");
+        $movie_id = get_post_meta($id, self::META_PREFIX . 'movie_id', true);
+        $movie_details_from_reach = [];
+        if($movie_id) {
+            $movie_details_from_reach = CeanWP::get_movie_details_from_reach($movie_id);
+        }
         return array(
             'title'      => $post->post_title,
             'box_office' => get_post_meta($id, self::META_PREFIX . 'box_office', true),
@@ -242,6 +250,7 @@ class Cean_WP_Movies implements Models
             'trailer_url' => get_post_meta($id, self::META_PREFIX . 'trailer_url', true),
             'content'    => $post->post_content,
             'date_modified' => get_the_modified_date('F j, Y', $id),
+            ...($movie_details_from_reach ?: [])
         );
     }
 
