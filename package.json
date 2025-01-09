@@ -5,7 +5,7 @@
   },
   "scripts": {
     "tailwindcss:watch": "tailwindcss -i assets/styles/input.css -o ./assets/styles/tailwind.css --watch",
-    'tailwindcss:build': 'tailwindcss -i assets/styles/input.css -o ./assets/styles/tailwind.css',
-    'build': 'npm run tailwindcss:build'
+    "tailwindcss:build": "tailwindcss -i assets/styles/input.css -o ./assets/styles/tailwind.css",
+    "build": "npm run tailwindcss:build"
   }
 }
