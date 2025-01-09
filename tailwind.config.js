@@ -8,7 +8,10 @@ module.exports = {
         'primary-green': '#018B8D',
         'primary-black': '#141414',
         'secondary-black': '#262626',
-      }
+      },
+      fontFamily: {
+        urbanist: ['Urbanist', 'sans-serif'],
+      },
     },
   },
   plugins: [
