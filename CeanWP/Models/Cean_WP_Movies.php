@@ -9,12 +9,12 @@ use WP_Post_Type;
 use WP_Query;
 use CeanWP\Traits\Models as ModelsTrait;
 
-class Cean_WP_Top_Grossing_Movies implements Models
+class Cean_WP_Movies implements Models
 {
     use ModelsTrait;
     const POST_TYPE = 'top_grossing_movie';
     const META_PREFIX = '_cean_movie_';
-    static Cean_WP_Top_Grossing_Movies $instance;
+    static Cean_WP_Movies $instance;
 
     static function get_instance(): self
     {
@@ -131,6 +131,18 @@ class Cean_WP_Top_Grossing_Movies implements Models
         $meta_box->add_field(self::META_PREFIX . 'release_date', 'Release Date', 'date');
         $meta_box->add_field(self::META_PREFIX . 'image_url', 'Image URL', 'url');
         $meta_box->add_field(self::META_PREFIX . 'cinema_name', 'Cinema Name', 'text');
+//        add gerne field
+        $meta_box->add_field(self::META_PREFIX . 'genre', 'Genre', 'select', ['action' => 'action', 'comedy' => 'comedy', 'drama' => 'drama', 'horror' => 'horror', 'romance' => 'romance', 'sci-fi' => 'sci-fi', 'thriller' => 'thriller']);
+//      director field
+        $meta_box->add_field(self::META_PREFIX . 'director', 'Director', 'text');
+//       add cast field
+        $meta_box->add_field(self::META_PREFIX . 'cast', 'Cast', 'text');
+//       movie poster
+        $meta_box->add_field(self::META_PREFIX . 'movie_poster', 'Movie Poster', 'wp_media', [], ['multiple' => false, 'required' => true]);
+//        distributor / cinema name
+        $meta_box->add_field(self::META_PREFIX . 'distributor', 'Distributor', 'text');
+//        trailer url
+        $meta_box->add_field(self::META_PREFIX . 'trailer_url', 'Trailer URL', 'url');
         $this->register_metabox($meta_box);
 
     }
@@ -139,7 +151,7 @@ class Cean_WP_Top_Grossing_Movies implements Models
     {
         return array(
             'labels'              => array(
-                'name'               => __('Top Grossing Movies', 'cean-wp-theme'),
+                'name'               => __('Movies', 'cean-wp-theme'),
                 'singular_name'      => __('Movie', 'cean-wp-theme'),
                 'add_new'            => __('Add New Movie', 'cean-wp-theme'),
                 'add_new_item'       => __('Add New Movie', 'cean-wp-theme'),
@@ -152,7 +164,7 @@ class Cean_WP_Top_Grossing_Movies implements Models
             'show_in_menu'        => false,
             'menu_position'       => 5,
             'menu_icon'           => 'dashicons-video-alt2',
-            'supports'            => array('title', 'thumbnail'),
+            'supports'            => array('title', 'thumbnail', 'editor'),
             'has_archive'         => true,
             'rewrite'             => array('slug' => 'movies'),
             'show_in_rest'        => true, // Enable Gutenberg editor
@@ -190,12 +202,45 @@ class Cean_WP_Top_Grossing_Movies implements Models
                     'title'      => get_the_title(),
                     'box_office' => get_post_meta(get_the_ID(), self::META_PREFIX . 'box_office', true),
                     'movie_id'   => get_post_meta(get_the_ID(), self::META_PREFIX . 'movie_id', true),
-                    'image_url'  => get_the_post_thumbnail_url(get_the_ID(), 'full')
+                    'release_date' => get_post_meta(get_the_ID(), self::META_PREFIX . 'release_date', true),
+                    'cinema_name' => get_post_meta(get_the_ID(), self::META_PREFIX . 'cinema_name', true),
+                    'genre' => get_post_meta(get_the_ID(), self::META_PREFIX . 'genre', true),
+                    'director' => get_post_meta(get_the_ID(), self::META_PREFIX . 'director', true),
+                    'cast' => get_post_meta(get_the_ID(), self::META_PREFIX . 'cast', true),
+                    'distributor' => get_post_meta(get_the_ID(), self::META_PREFIX . 'distributor', true),
+                    'movie_poster' => get_post_meta(get_the_ID(), self::META_PREFIX . 'movie_poster', true),
+                    'permalink'  => get_permalink(),
+                    'trailer_url' => get_post_meta(get_the_ID(), self::META_PREFIX . 'trailer_url', true),
+                    'date_modified' => get_the_modified_date('F j, Y')
                 );
             }
             wp_reset_postdata();
         }
 
         return $movies;
+    }
+
+    static function get_movie(int $id): ?array {
+        $post = get_post($id);
+        if (!$post) {
+            return null;
+        }
+
+        return array(
+            'title'      => $post->post_title,
+            'box_office' => get_post_meta($id, self::META_PREFIX . 'box_office', true),
+            'movie_id'   => get_post_meta($id, self::META_PREFIX . 'movie_id', true),
+            'release_date' => get_post_meta($id, self::META_PREFIX . 'release_date', true),
+            'cinema_name' => get_post_meta($id, self::META_PREFIX . 'cinema_name', true),
+            'genre' => get_post_meta($id, self::META_PREFIX . 'genre', true),
+            'director' => get_post_meta($id, self::META_PREFIX . 'director', true),
+            'cast' => get_post_meta($id, self::META_PREFIX . 'cast', true),
+            'distributor' => get_post_meta($id, self::META_PREFIX . 'distributor', true),
+            'movie_poster' => get_post_meta($id, self::META_PREFIX . 'movie_poster', true),
+            'permalink'  => get_permalink($id),
+            'trailer_url' => get_post_meta($id, self::META_PREFIX . 'trailer_url', true),
+            'content'    => $post->post_content,
+            'date_modified' => get_the_modified_date('F j, Y', $id),
+        );
     }
 }

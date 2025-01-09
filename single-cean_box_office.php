@@ -4,7 +4,7 @@
 
 <div class="w-full px-20 py-16 flex flex-col gap-5">
     <div class="w-full">
-        <a class="border border-[#1F1F1F] p-3 hover:underline" href="/box-office-reports">
+        <a class="border border-[#1F1F1F] p-3 hover:underline text-[#666666]" href="/box-office-reports">
            <span class="inline-block">
                <img src="<?php echo CeanWP_Functions::get_common_icon_url('white-left-arrow'); ?>"  class="w-3 aspect-square" alt="Back to Reports">
            </span>

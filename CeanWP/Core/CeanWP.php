@@ -5,7 +5,9 @@ namespace CeanWP\Core;
 use CeanWP\Controllers\CEAN_Menu;
 use CeanWP\Controllers\CountryHelper;
 use CeanWP\Controllers\FrontendFormSubmission;
-use CeanWP\Models\Cean_WP_Top_Grossing_Movies;
+use CeanWP\Controllers\ReachCinemaAPI;
+use CeanWP\Controllers\Settings;
+use CeanWP\Models\Cean_WP_Movies;
 use CeanWP\Models\CeanWP_BoxOffice;
 use CeanWP\Models\CeanWP_Contact_Form;
 use CeanWP\Models\CeanWP_FAQ;
@@ -27,7 +29,8 @@ class CeanWP
     static function start(): void
     {
         $cean_wp_functions = new CeanWP();
-        $cean_wp_functions->register_model(Cean_WP_Top_Grossing_Movies::get_instance());
+        Settings::load();
+        $cean_wp_functions->register_model(Cean_WP_Movies::get_instance());
         $cean_wp_functions->register_model(CeanWP_Contact_Form::get_instance());
         $cean_wp_functions->register_model(CeanWP_FAQ::get_instance());
         $cean_wp_functions->register_model(CeanWP_BoxOffice::get_instance());
@@ -62,6 +65,11 @@ class CeanWP
         $ver = rand();
 
         wp_enqueue_script('cean-phone-country-dropdown', get_template_directory_uri() . '/assets/scripts/phone-country-dropdown.js', array('jquery'), $ver, true);
+        wp_enqueue_script('cean-w3-js', get_template_directory_uri() . '/assets/libs/w3/w3.js', [], $ver, true);
+        wp_enqueue_script('cean-swiper-js', get_template_directory_uri() . '/assets/libs/swiper/swiper-bundle.min.js', [], $ver, true);
+        wp_enqueue_script('cean-slideshow', get_template_directory_uri() . '/assets/scripts/slideshow.js', array( 'jquery', 'cean-w3-js', 'cean-swiper-js'), $ver, true);
+
+
         wp_localize_script('cean-phone-country-dropdown', 'ceanPhoneCountryDropdown', [
             'countryCode' => CountryHelper::getAllCountriesPhoneCode(),
             'defaultCountryCode' => 'us'
@@ -69,6 +77,7 @@ class CeanWP
 
         wp_enqueue_style('cean-wp-tailwind', get_template_directory_uri() . '/assets/styles/tailwind.css', array(), $ver);
         wp_enqueue_style('cean-wp-flag-icon', get_template_directory_uri() . '/assets/libs/flag-icons/css/flag-icons.min.css', array(), $ver);
+        wp_enqueue_style('cean-swiper-css', get_template_directory_uri() . '/assets/libs/swiper/swiper-bundle.min.css', array(), $ver);
     }
 
 
@@ -334,6 +343,7 @@ class CeanWP
                 'arrow-tr' => '/images/icons/arrow-tr.png',
                 'external-link' => '/images/icons/arrow-tr.png',
                 'white-left-arrow' => '/images/icons/arrow-l-w.svg',
+                'white-right-arrow' => '/images/icons/arrow-r-w.svg',
 
                 // Add the logos for partners and distributors here
                 'filmhouse' => '/images/partners/filmhouse.png',
@@ -377,8 +387,9 @@ class CeanWP
     static function get_all_time_top_grossing_movies(): array
     {
         // getting all time grossing movies
-        return Cean_WP_Top_Grossing_Movies::get_top_grossing_movies();
+        return Cean_WP_Movies::get_top_grossing_movies();
     }
+
 
     static function get_inquiry_type() : array
     {
@@ -404,6 +415,16 @@ class CeanWP
     static function get_report(int $id): array
     {
         return CeanWP_BoxOffice::get_report($id);
+    }
+
+    static function get_movie(int $id): array
+    {
+        return Cean_WP_Movies::get_movie($id);
+    }
+
+    static function get_coming_soon_from_reach(): array
+    {
+        return ReachCinemaAPI::get_coming_soon_movies();
     }
 
 }

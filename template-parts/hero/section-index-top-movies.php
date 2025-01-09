@@ -19,24 +19,25 @@
         </div>
     </div>
     <div class=" w-full h-12 flex justify-end">
-        <a href="#" class="inline-block font-medium text-sm px-5 py-3.5">
+        <a href="/movies" class="inline-block font-medium text-sm px-5 py-3.5">
             View All
         </a>
     </div>
     <div class=" py-10">
+        <?php $top_movies = CeanWP_Functions::get_all_time_top_grossing_movies(); ?>
         <div class=" w-full overflow-x-scroll flex gap-4 pb-14 scrollbar scrollbar-h-2 scrollbar-thumb-[#E4E4E7] scrollbar-track-transparent">
-            <?php for($i = 0; $i < 9; $i++): ?>
+            <?php foreach ($top_movies as $i => $movie_d): ?>
                 <div class="w-60 inline-block relative shrink-0 rounded-t-lg">
                     <div class="w-full h-[308px] relative rounded-t-lg">
-                        <img src="<?php echo get_theme_file_uri("assets/images/gang-of-lagos.jpg") ?>" class="h-full w-full object-cover rounded-t-lg" />
+                        <img src="<?php echo !empty($movie_d['movie_poster']) ? wp_get_attachment_image_url($movie_d['movie_poster'], 'large') : get_theme_file_uri("assets/images/gang-of-lagos.jpg");?>" alt="movie image" class="w-full h-full object-cover" />
                         <div class="w-full h-full absolute inset-0 bg-gradient-to-b from-black/0 to-black/90"></div>
                     </div>
                     <div class="w-full  h-11">
-                        <h4 class="font-semibold text-sm">Gangs of Lagos</h4>
-                        <div class="font-normal text-xs text-[#78828A]">Film One</div>
+                        <h4 class="font-semibold text-sm"><a href="<?php echo $movie_d['permalink']; ?>" class="text-white"><?php echo $movie_d['title']; ?></a></h4>
+                        <div class="font-normal text-xs text-[#78828A]"><?php echo $movie_d['distributor']  ?? ''; ?></div>
                     </div>
                 </div>
-            <?php endfor; ?>
+            <?php endforeach; ?>
         </div>
     </div>
 </div>

@@ -507,7 +507,7 @@ class MetaBox
             $field_id = $field['id'];
 //            var_dump($field);
             // Handle different field types
-            if ($field['type'] === 'wp_media' && ($field['attributes']['multiple'] ?? false)) {
+            if ($field['type'] === 'wp_media') {
                 // Handle multiple media values
                 $media_ids = isset($_POST[$field_id]) ? (array) $_POST[$field_id] : [];
                 $sanitized_ids = array_map('absint', $media_ids);
@@ -523,9 +523,12 @@ class MetaBox
                 }
             } else {
                 // Handle single value fields
+                var_dump($success);
                 $value = $_POST[$field_id] ?? '';
                 $sanitized_value = $this->sanitize_field_value($value, $field['type']);
                 $success = $success && (update_post_meta($post_id, $field_id, $sanitized_value) !== false);
+                var_dump($success, $field_id, $sanitized_value, update_post_meta($post_id, $field_id, $sanitized_value));
+//                die();
             }
         }
         return $success;
@@ -536,12 +539,10 @@ class MetaBox
      */
     private function sanitize_field_value($value, string $type)
     {
-        switch ($type) {
-            case 'wp_media':
-                return absint($value);
-            default:
-                return sanitize_text_field($value);
-        }
+        return match ($type) {
+            'wp_media', 'number' => absint($value),
+            default => sanitize_text_field($value),
+        };
     }
 
     function show_admin_error(): void

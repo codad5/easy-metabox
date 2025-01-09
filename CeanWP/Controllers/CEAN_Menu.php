@@ -13,7 +13,7 @@ class CEAN_Menu {
     /**
      * Main menu slug
      */
-    const MENU_SLUG = 'cean-theme-settings';
+    const MENU_SLUG = 'cean-theme-menu';
 
     /**
      * Returns an array of menus to be added to the admin menu.
@@ -41,7 +41,7 @@ class CEAN_Menu {
         return [
             'edit.php?post_type=top_grossing_movie' => [
                 'parent' => self::MENU_SLUG,
-                'title' => esc_html__('Top Grossing Movies', 'cean-wp-theme'),
+                'title' => esc_html__('Movies', 'cean-wp-theme'),
                 'capability' => 'manage_options',
                 'callback' => false
             ],
@@ -68,7 +68,7 @@ class CEAN_Menu {
                 'parent' => self::MENU_SLUG,
                 'title' => esc_html__('Theme Settings', 'cean-wp-theme'),
                 'capability' => 'manage_options',
-                'callback' => 'render_settings_page'
+                'callback' => [Settings::class, 'setting_page']
             ],
 
             // Add more submenus as needed
