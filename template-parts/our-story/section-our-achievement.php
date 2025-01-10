@@ -1,16 +1,16 @@
-<div class="w-full px-20">
+<div class="w-full px-4 lg:px-20">
     <div class="w-full flex flex-col gap-10">
         <div class="w-full flex flex-col gap-2 justify-center items-center">
-            <h2 class="w-full text-center text-4xl font-semibold">
+            <h2 class="w-full text-center text-2xl lg:text-4xl font-semibold">
                 Company Achievements
             </h2>
-            <div class="w-3/5 text-[#999999] text-base">
+            <div class="w-full lg:w-3/5 text-[#999999] text-sm lg:text-base text-center lg:text-left">
                 At CEAN, we take pride in our accomplishments and the positive impact we have made on the lives of our members. Here are some of our notable achievements
             </div>
 
         </div>
         <div class="w-full">
-            <div class="flex flex-wrap">
+            <div class="w-full flex lg:flex-wrap flex-col lg:flex-row">
                 <?php
                 $achivements = [
                     [
@@ -32,16 +32,16 @@
                 ]
                 ?>
                 <?php foreach ($achivements as ['title' => $title, 'description' => $description]) : ?>
-                    <div class="p-10 w-1/2">
+                    <div class="p-10 w-full lg:w-1/2">
                         <div class="w-full flex flex-col gap-5">
                             <div class="w-full h-14 flex">
                                 <div class="bg-primary-green h-14 aspect-square">
                                 </div>
-                                <div class="h-full flex items-center w-full p-2.5 font-semibold text-xl">
+                                <div class="h-full flex items-center w-full p-2.5 font-semibold text-lg lg:text-xl">
                                     <?php echo $title; ?>
                                 </div>
                             </div>
-                            <div class="w-full text-[#999999] font-medium text-base">
+                            <div class="w-full text-[#999999] font-medium text-base lg:text-base">
                                 <?php echo $description; ?>
                             </div>
                         </div>

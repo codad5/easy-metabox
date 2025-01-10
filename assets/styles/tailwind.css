@@ -1619,6 +1619,10 @@ video {
   padding-top: 2rem;
 }
 
+.pt-28 {
+  padding-top: 7rem;
+}
+
 .text-center {
   text-align: center;
 }
@@ -1985,6 +1989,14 @@ select::-ms-expand {
     width: 47%;
   }
 
+  .lg\:w-1\/2 {
+    width: 50%;
+  }
+
+  .lg\:w-1\/4 {
+    width: 25%;
+  }
+
   .lg\:shrink {
     flex-shrink: 1;
   }
@@ -2061,6 +2073,14 @@ select::-ms-expand {
     gap: 2rem;
   }
 
+  .lg\:gap-20 {
+    gap: 5rem;
+  }
+
+  .lg\:bg-transparent {
+    background-color: transparent;
+  }
+
   .lg\:object-cover {
     -o-object-fit: cover;
        object-fit: cover;
@@ -2114,8 +2134,22 @@ select::-ms-expand {
     padding-right: 1.75rem;
   }
 
+  .lg\:py-12 {
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+  }
+
+  .lg\:py-20 {
+    padding-top: 5rem;
+    padding-bottom: 5rem;
+  }
+
   .lg\:pt-8 {
     padding-top: 2rem;
+  }
+
+  .lg\:pt-0 {
+    padding-top: 0px;
   }
 
   .lg\:text-left {

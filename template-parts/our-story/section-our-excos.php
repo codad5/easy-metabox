@@ -1,21 +1,21 @@
-<div class="px-20 w-full flex flex-col gap-10">
+<div class="px-4 lg:px-20 w-full flex flex-col gap-10">
     <div class="w-full">
         <div class="w-full text-center">
-            <h2 class="font-semibold text-4xl">Our Excos</h2>
+            <h2 class="font-semibold text-2xl lg:text-4xl">Our Excos</h2>
         </div>
-        <div class="w-full pt-3.5 font-medium text-base text-[#999999] text-center">
+        <div class="w-full pt-3.5 font-medium text-sm lg:text-base text-[#999999] text-center">
             Get to know our team of exceptional individuals steering the Cinema Exhibitors Association of Nigeria (CEAN). These leaders are dedicated to shaping the future of the cinema industry in Nigeria and beyond.
         </div>
     </div>
 
-    <div class="w-full flex gap-5">
+    <div class="w-full flex flex-col lg:flex-row gap-5">
         <?php
         // Retrieve the team members from the function
         $team_members = CeanWP_Functions::get_team_members_list(); // Call the method to get the list
 
         // Loop through each team member
         foreach ($team_members as $member): ?>
-            <div class="h-96 w-1/4">
+            <div class="h-96 w-full lg:w-1/4">
                 <div class="w-full h-2/3 flex justify-center items-center">
                     <div class="h-full flex flex-col gap-4 items-center justify-center">
                         <div class="w-28 rounded-full aspect-square">
