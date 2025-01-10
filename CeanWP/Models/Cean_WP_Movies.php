@@ -10,8 +10,6 @@ use WP_Post_Type;
 use WP_Query;
 use CeanWP\Traits\Models as ModelsTrait;
 
-// https://mail.google.com/mail/u/0/?pli=1#inbox
-
 class Cean_WP_Movies implements Models
 {
     use ModelsTrait;
@@ -256,6 +254,9 @@ class Cean_WP_Movies implements Models
 
     static function map_reach_movie_data_to_cean_usable(array $movie): array
     {
+        $cast = is_array($movie['casts']) ? implode(", ", array_map(function($cast){
+            return $cast['person']['firstName'] . ' ' . $cast['person']['lastName'];
+        } , $movie['casts'])) : $movie['casts'];
         return [
             'title'         => $movie['name'],
             'box_office'    => '',
@@ -264,7 +265,7 @@ class Cean_WP_Movies implements Models
             'cinema_name'   => $movie['distributor'],
             'genre'         => implode(", ", array_map(fn($genre) => $genre['genre'], $movie['filmGenre'])),
             'director'      => '',
-            'cast'           => is_array($movie['casts']) ? implode(", ", $movie['casts']) : $movie['casts'],
+            'cast'           => $cast,
             'distributor'   => $movie['distributor'],
             'movie_poster'  => $movie['posterUrl'],
             'permalink'     => $movie['linkUrl'],

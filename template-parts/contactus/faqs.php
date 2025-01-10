@@ -1,26 +1,24 @@
-<div class="w-full px-36 py-10">
-    <div class="w-full flex flex-col gap-10">
+<div class="w-full px-4 lg:px-36 py-10">
+    <div class="w-full flex flex-col gap-5 lg:gap-10">
         <div class="w-full flex flex-col gap-2.5 ">
-            <h2 class="font-semibold text-4xl">
+            <h2 class="font-semibold text-2xl lg:text-4xl">
                 Asked question
             </h2>
-            <div class="w-full font-normal text-base text-[#999999]">
+            <div class="w-full font-normal text-sm lg:text-base text-[#999999]">
                 If the question is not available on our FAQ section, Feel free to contact us personally, we will resolve your respective doubts.
             </div>
         </div>
-        <pre>
-            <?php
-                $faqs = CeanWP_Functions::get_faqs(8);
-            ?>
-        </pre>
-        <div class="w-full flex justify-between flex-wrap">
+        <?php
+            $faqs = CeanWP_Functions::get_faqs(8);
+        ?>
+        <div class="w-full flex justify-between flex-wrap flex-col lg:flex-row ">
             <?php foreach ($faqs as $i => $faq) : ?>
-                <div class="w-1/2 p-6">
+                <div class="w-full lg:w-1/2 p-6">
                     <details class="w-full group">
                         <summary class="flex justify-between items-center cursor-pointer">
                             <div class="flex items-center gap-4">
-                                <span class="text-base font-semibold"><?php echo $i + 1; ?></span>
-                                <span class="text-white font-medium text-lg"><?php echo esc_html($faq['title']); ?></span>
+                                <span class="text-sm lg:text-base font-semibold"><?php echo $i + 1; ?></span>
+                                <span class="text-white font-medium text-base lg:text-lg"><?php echo esc_html($faq['title']); ?></span>
                             </div>
                             <div class="relative">
                                 <svg class="w-5 h-5 text-white transition-opacity group-open:opacity-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -31,7 +29,7 @@
                                 </svg>
                             </div>
                         </summary>
-                        <div class="px-6 pb-4 text-[#999999] font-normal text-base py-3">
+                        <div class="px-6 pb-4 text-[#999999] font-normal text-sm lg:text-base py-3">
                             <?php echo $faq['content']; ?>
                         </div>
                     </details>

@@ -4,9 +4,9 @@
             <?php echo esc_html($args['section_title'] ?? 'Default Title'); ?>
         </h3>
     </div>
-    <div class="w-full flex flex-col gap-2.5">
+    <div class="w-full flex flex-col gap-2.5 px-5 lg:px-0">
         <?php foreach ($args['contact_methods'] as $contact_method) : ?>
-            <div class="py-3.5 px-5 border border-[#262626] bg-[#1A1A1A] rounded-md">
+            <div class="w-max py-3.5 px-5 border border-[#262626] bg-[#1A1A1A] rounded-md">
                 <a class="font-normal text-sm text-[#999999] flex gap-1"  href="<?php echo esc_url($contact_method['url'] ?? 'https://ceanigeria.com'); ?>">
                     <?php echo esc_html($contact_method['title'] ?? 'Default Title'); ?>
                     <div class="inline-block w-5 aspect-square">

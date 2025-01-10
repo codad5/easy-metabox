@@ -1,8 +1,8 @@
 
-<div class="w-full px-20 py-12">
-    <form method="post" class="w-full px-14 py-12 flex flex-col gap-7">
-        <div class="w-full flex gap-7" >
-            <div class="w-1/3 flex flex-col gap-3.5">
+<div class="w-full px-4 lg:px-20 py-1o lg:py-12">
+    <form method="post" class="w-full px-1 lg:px-14 lg:py-12 flex flex-col gap-5 lg:gap-7 ">
+        <div class="w-full flex gap-5 lg:gap-7 flex-col lg:flex-row" >
+            <div class="w-full lg:w-1/3 flex flex-col gap-3.5">
                 <label class="w-full font-semibold text-base" for="cean_contact_first_name">
                     First Name
                 </label>
@@ -10,7 +10,7 @@
                     <input type="text"  name="_cean_contact_first_name" id="cean_contact_first_name" class="w-full h-full bg-transparent text-base font-normal text-[#999999] outline-none focus:outline-none placeholder-[#666666]" placeholder="Enter first name" />
                 </div>
             </div>
-            <div class="w-1/3 flex flex-col gap-3.5">
+            <div class="w-full lg:w-1/3 flex flex-col gap-3.5">
                 <label class="w-full font-semibold text-base" for="cean_contact_last_name">
                     Last Name
                 </label>
@@ -18,7 +18,7 @@
                     <input type="text" name="_cean_contact_last_name" id="cean_contact_last_name" class="w-full h-full bg-transparent text-base font-normal text-[#999999] outline-none focus:outline-none placeholder-[#666666]" placeholder="Enter Last name" />
                 </div>
             </div>
-            <div class="w-1/3 flex flex-col gap-3.5">
+            <div class="w-full lg:w-1/3 flex flex-col gap-3.5">
                 <label class="w-full font-semibold text-base" for="cean_contact_email">
                     Email
                 </label>
@@ -27,8 +27,8 @@
                 </div>
             </div>
         </div>
-        <div class="w-full flex gap-7" >
-            <div class="w-1/3 flex flex-col gap-3.5">
+        <div class="w-full flex gap-5 lg:gap-7 flex-col lg:flex-row" >
+            <div class="flex-col lg:flex-row flex flex-col gap-3.5">
                 <label class="w-full font-semibold text-base" for="cean_contact_phone">
                     Phone Number
                 </label>
@@ -64,7 +64,7 @@
                     </div>
                 </div>
             </div>
-            <div class="w-1/3 flex flex-col gap-3.5">
+            <div class="flex-col lg:flex-row flex flex-col gap-3.5">
                 <label class="w-full font-semibold text-base" for="cean_inquiry_type">
                     Inquiry Type
                 </label>
@@ -87,7 +87,7 @@
                     </div>
                 </div>
             </div>
-            <div class="w-1/3 flex flex-col gap-3.5">
+            <div class="flex-col lg:flex-row flex flex-col gap-3.5">
                 <label class="w-full font-semibold text-base" for="cean_contact_heard_about_us">
                     How Did You Hear About Us?
                 </label>
@@ -121,18 +121,18 @@
                 </div>
             </div>
         </div>
-            <div class="w-full flex justify-between">
-                <div class="flex items-end">
-                    <div class="w-full h-6">
-                            <input type="checkbox" name="cean_contact_form" id="cean_contact_agree" class="h-full aspect-square" />
-                            <label class="font-normal text-base text-[#999999] ml-2" for="cean_contact_agree">
-                                I agree with Terms of Use and Privacy Policy
-                            </label>
-                    </div>
+        <div class="w-full flex gap-5 lg:gap-0 lg:justify-between flex-col lg:flex-row">
+            <div class="flex items-end">
+                <div class="w-full h-6 flex items-center">
+                        <input type="checkbox" name="cean_contact_form" id="cean_contact_agree" class="h-full aspect-square bg-transparent" />
+                        <label class="font-normal text-base text-[#999999] ml-2" for="cean_contact_agree">
+                            I agree with Terms of Use and Privacy Policy
+                        </label>
                 </div>
-                <button class="bg-primary-green font-normal text-sm py-3.5 px-8 rounded-lg" type="submit">
-                    Send Your Message
-                </button>
             </div>
+            <button class="bg-primary-green font-normal text-sm py-3.5 px-8 rounded-lg" type="submit">
+                Send Your Message
+            </button>
+        </div>
     </form>
 </div>
