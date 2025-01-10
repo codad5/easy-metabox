@@ -4,7 +4,7 @@
 $post = CeanWP_Functions::get_reports();
 ?>
 <?php if (!empty($post)) : ?>
-<div class="w-full px-4 lg:px-20lg:pt-16 py-0 pt-20 lg:py-16">
+<div class="w-full px-4 lg:px-20 lg:pt-16 py-0 pt-20 lg:py-16">
 
     <?php $value = $post[0]; ?>
     <div class="w-full  flex flex-col gap-7 lg:gap-5">
@@ -29,7 +29,7 @@ $post = CeanWP_Functions::get_reports();
 </div>
 <div class="w-full px-4 lg:px-20">
     <div class="w-full flex flex-col">
-        <div class="w-full flex flex-col gap-2.5 lg:gap-4 py-14">
+        <div class="w-full flex flex-col gap-2.5 lg:gap-4 py-14 pb-0 lg:pb-14">
             <div>
                 <div class="font-medium text-sm lg:text-base py-1 px-2 bg-[#333333] rounded w-fit">
                     Stay Informed with Fresh Content

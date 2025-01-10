@@ -1590,6 +1590,10 @@ video {
   padding-top: 5rem;
 }
 
+.pb-0 {
+  padding-bottom: 0px;
+}
+
 .text-center {
   text-align: center;
 }
@@ -2227,6 +2231,10 @@ select::-ms-expand {
 
   .lg\:pt-16 {
     padding-top: 4rem;
+  }
+
+  .lg\:pb-14 {
+    padding-bottom: 3.5rem;
   }
 
   .lg\:text-left {
