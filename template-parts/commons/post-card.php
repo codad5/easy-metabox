@@ -1,4 +1,4 @@
-<div class="w-full flex flex-wrap gap-y-10 gap-x-7 <?php echo $args['cean_wp_exclude_container_class'] ?? ''; ?>">
+<div class="w-full grid grid-cols-1 lg:grid-cols-3 gap-y-7 lg:gap-y-10 gap-x-7 <?php echo $args['cean_wp_exclude_container_class'] ?? ''; ?>">
     <?php
     $query = new WP_Query(array(
         'posts_per_page' => -1, // Retrieve all posts
@@ -11,7 +11,7 @@
             <?php if(in_array(get_the_ID(), [...($args['cean_wp_exclude_posts_id'] ?? [])])): ?>
                 <?php continue; ?>
             <?php endif; ?>
-            <div class="w-[calc((100% - 84px) / 3)] min-w-[350px] h-[291px] flex flex-col gap-2.5">
+            <div class="w-full h-[291px] flex flex-col gap-2.5">
                 <div class="w-full h-3/5 bg-green-500">
                     <img class="w-full h-full object-cover" alt="<?php the_title(); ?>" src="<?php the_post_thumbnail_url('medium'); ?>" />
                 </div>
