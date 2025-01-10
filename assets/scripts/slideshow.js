@@ -1,4 +1,3 @@
-// Slideshow Initialization
 console.log(document.querySelector('.cean-slideshow-item'));
 if (document.querySelector('.cean-slideshow-item')) {
     let ceanSlideShow = w3.slideshow(".cean-slideshow-item", 5000);
@@ -21,8 +20,14 @@ if (document.querySelector('.cean-slideshow-item')) {
 console.log(document.querySelector('.cean-content-swiper'));
 if (document.querySelector('.cean-content-swiper')) {
     let swiper = new Swiper(".cean-content-swiper", {
-        slidesPerView: 5,
-        spaceBetween: 20,
+        slidesPerView: 2,
+        spaceBetween: 16,
+        breakpoints: {
+            1024: {
+                slidesPerView: 5,
+                spaceBetween: 16
+            }
+        },
         pagination: {
             el: ".cean-content-swiper-pagination",
             clickable: true,
@@ -82,3 +87,42 @@ if (document.querySelector('.cean-content-hero-top-movies-swiper')) {
 }
 
 console.log(document.querySelector('.cean-content-hero-new-release-swiper'));
+
+
+// Function to initialize swiper with dynamic suffix
+function initializeSwiper(suffix) {
+    const swiperSelector = `.cean-content-swiper-${suffix}`;
+    const swiperElement = document.querySelector(swiperSelector);
+
+    if (swiperElement) {
+        console.log(`Initializing swiper: ${suffix}`);
+        return new Swiper(swiperSelector, {
+            slidesPerView: 2,
+            spaceBetween: 16,
+            breakpoints: {
+                1024: {
+                    slidesPerView: 5,
+                    spaceBetween: 16
+                }
+            },
+            pagination: {
+                el: `${swiperSelector}-pagination`,
+                clickable: true,
+            },
+            navigation: {
+                nextEl: `${swiperSelector}-next`,
+                prevEl: `${swiperSelector}-prev`,
+            }
+        });
+    }
+    return null;
+}
+
+// Initialize different swipers
+document.addEventListener('DOMContentLoaded', () => {
+    // Initialize Top Grossing Movies Swiper
+    initializeSwiper('top-grossing');
+
+    // Initialize New Releases Swiper
+    initializeSwiper('new-releases');
+});
