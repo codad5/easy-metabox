@@ -347,6 +347,7 @@ class CeanWP
                 'external-link' => '/images/icons/arrow-tr.png',
                 'white-left-arrow' => '/images/icons/arrow-l-w.svg',
                 'white-right-arrow' => '/images/icons/arrow-r-w.svg',
+                'menu-icon' => '/images/icons/menu-icon.svg',
 
                 // Add the logos for partners and distributors here
                 'filmhouse' => '/images/partners/filmhouse.png',
