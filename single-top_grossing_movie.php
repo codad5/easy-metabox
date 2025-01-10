@@ -77,6 +77,14 @@
             </div>
         </div>
     </div>
+    <?php else: ?>
+        <div class="w-full flex flex-col gap-5 items-center justify-center">
+            <div class="w-full text-center">
+                <h1 class="font-bold text-4xl">
+                    Movie Not Found
+                </h1>
+            </div>
+        </div>
     <?php endif; ?>
 </div>
 

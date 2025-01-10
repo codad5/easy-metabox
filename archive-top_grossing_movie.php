@@ -26,7 +26,7 @@
             <?php $new_release = CeanWP_Functions::get_coming_soon_from_reach(); ?>
             <?php if(!isset($new_release['error']) && isset($new_release['data'])): ?>
                 <?php get_template_part('template-parts/movies/content-slider', null, [
-                        'title' => 'Top Grossing Movies',
+                        'title' => 'New Releases',
                         'movies' => array_map(function ($data) {
                             return [
                                 'title' => $data['name'],

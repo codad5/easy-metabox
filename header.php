@@ -1,8 +1,9 @@
 <!-- Basic HTML scaffolding -->
 <!DOCTYPE html>
-<html lang="en">
-<head>
+<html lang="en" class="">
+<head >
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php bloginfo('name'); ?><?php wp_title(' | ', true, 'left'); ?></title>
     <style>
         /* Add CSS for the navigation links */
@@ -18,18 +19,18 @@
     </style>
     <?php wp_head(); ?>
 </head>
-<body class="bg-primary-black text-white">
-<header class="h-20 w-full bg-header-color sticky top-0 z-50">
-    <div class="w-full container h-full flex justify-between items-center">
+<body class="bg-primary-black text-white font-urbanist w-screen min-h-screen">
+<header class="h-20 w-full bg-header-color fixed lg:sticky top-0 z-50 font-urbanist overflow-x-hidden">
+    <div class="w-full  h-full flex justify-between items-center">
         <!-- Logo Section -->
-        <div class="h-full px-20 grid place-items-center">
+        <div class="h-full px-4 lg:px-20 grid place-items-center">
             <div class="w-16 aspect-square grid place-items-center">
                 <a class="" href="/"><img src="<?php echo CeanWP_Functions::get_common_icon_url('cean-logo'); ?>" alt="Logo" class="h-full w-full object-contain" /></a>
             </div>
         </div>
 
         <!-- Navigation Menu -->
-        <div class="flex-grow h-full">
+        <div class="hidden lg:inline-block  flex-grow h-full">
             <nav class="h-full w-full">
                 <?php
                 wp_nav_menu(
@@ -44,7 +45,7 @@
         </div>
 
         <!-- Signup/Login Section -->
-        <div class="h-full px-20 grid place-items-center">
+        <div class="hidden lg:grid  h-full px-20  place-items-center">
             <div class="w-full h-full flex justify-center items-center gap-7">
                 <div class="">
                     <a href="<?php echo get_home_url(); ?>">Signup</a>
@@ -57,4 +58,4 @@
     </div>
 </header>
 
-<main class="w-full">
+<main class="w-full font-urbanist">

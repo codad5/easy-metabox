@@ -1,14 +1,14 @@
-<div class="w-full px-20">
-    <div class="w-full flex">
-        <div class="basis-2/5 w-2/5 flex items-center">
-            <div class="w-4/5 flex flex-col gap-2.5">
+<div class="w-full px-4 lg:px-20">
+    <div class="w-full flex flex-col lg:flex-row">
+        <div class="w-full basis-full lg:basis-2/5 lg:w-2/5 flex items-center">
+            <div class="w-full lg:w-4/5 flex flex-col gap-2.5">
                 <h2 class="text-4xl font-semibold">Our Values</h2>
                 <div class="font-medium text-base text-[#999999]">
                     Our story is one of continuous growth and evolution. We started as a small team with big dreams, determined to promote the big screen and transform the movie-going experience in Nigeria.
                 </div>
             </div>
         </div>
-        <div class="basis-3/5 w-3/5 p-7 flex flex-col gap-12">
+        <div class="w-full basis-full lg:basis-3/5 lg:w-3/5 p-6 lg:p-7 flex flex-col gap-12">
             <?php
             $values = [
                 [
@@ -35,7 +35,7 @@
             ?>
 
             <?php foreach (array_chunk($values, 2) as $row): ?>
-                <div class="w-full flex gap-12 justify-center">
+                <div class="w-full flex flex-col lg:flex-row gap-12 justify-center">
                     <?php foreach ($row as ['title' => $title, 'description' => $description, 'icon' => $icon]): ?>
                         <div class="h-full basis-1/2 flex-col flex gap-4">
                             <div class="flex gap-2.5 items-center w-full">
