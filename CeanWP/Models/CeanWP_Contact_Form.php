@@ -119,19 +119,8 @@ class CeanWP_Contact_Form implements Models
 
 
 
-    static function save_post_from_frontend($data)
+    static function save_post_from_frontend($data): WP_Error|bool|int
     {
-        /* exmaple of data Array
-(
-    [_cean_contact_first_name] => Chibueze
-    [_cean_contact_last_name] => Aniezeofor
-    [_cean_contact_email] => Aniezeoformic@gmail.com
-    [_cean_contact_country] => ng
-    [_cean_contact_phone] => 08142572488
-    [_cean_contact_inquiry_type] => General Inquiry
-    [_cean_contact_heard_about_us] => Friend
-    [_cean_contact_message] => Something
-)*/
         $post_data = [
             'post_title' => $data['_cean_contact_first_name'] . ' ' . $data['_cean_contact_last_name'],
             'post_type' => self::POST_TYPE,
@@ -148,6 +137,32 @@ class CeanWP_Contact_Form implements Models
             ]
         ];
 
+        // validate data
+        if (empty($data['_cean_contact_first_name'])) {
+            return new WP_Error('first_name', 'First Name is required');
+        }
+        if (empty($data['_cean_contact_last_name'])) {
+            return new WP_Error('last_name', 'Last Name is required');
+        }
+        if (empty($data['_cean_contact_email'])) {
+            return new WP_Error('email', 'Email is required');
+        }
+        if (empty($data['_cean_contact_country'])) {
+            return new WP_Error('country', 'Country is required');
+        }
+        if (empty($data['_cean_contact_phone'])) {
+            return new WP_Error('phone', 'Phone Number is required');
+        }
+        if (empty($data['_cean_contact_inquiry_type'])) {
+            return new WP_Error('inquiry_type', 'Inquiry Type is required');
+        }
+        if (empty($data['_cean_contact_heard_about_us'])) {
+            return new WP_Error('heard_about_us', 'How Did You Hear About Us? is required');
+        }
+        if (empty($data['_cean_contact_message'])) {
+            return new WP_Error('message', 'Message is required');
+        }
+
         $post_id = wp_insert_post($post_data);
         if (is_wp_error($post_id)) {
             return $post_id;
@@ -156,7 +171,11 @@ class CeanWP_Contact_Form implements Models
         $email = get_option('admin_email');
         $subject = "New Contact Form Submission from {$data['_cean_contact_first_name']} {$data['_cean_contact_last_name']}";
         $message = $data['_cean_contact_message'];
-        return wp_mail($email, $subject, $message);
+        // send email to user
+        $user_subject = "Thank you for contacting us!";
+        $user_message = "We have received your message and will get back to you shortly.";
+
+        return wp_mail($email, $subject, $message) && wp_mail($data['_cean_contact_email'], $user_subject, $user_message);
     }
 
 }

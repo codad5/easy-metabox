@@ -58,8 +58,15 @@ class FrontendFormSubmission
             try {
                 foreach ($this->forms as $form_name => $form) {
                     if (isset($_REQUEST[$form_name]) && $_SERVER['REQUEST_METHOD'] === strtoupper($form['method'])) {
-                        $this->process_form($form_name, $form);
+                        $data = $this->process_form($form_name, $form);
+                        if(is_array($data)) {
+                            $errors = [...$errors, ...$data];
+                        }
                     }
+                }
+
+                if (!empty($errors)) {
+                    throw new \Exception(json_encode($errors));
                 }
                 // if the method type is post it should make a get request to the same page
                 // to avoid resubmission of the form
@@ -74,7 +81,7 @@ class FrontendFormSubmission
         });
     }
 
-    private function process_form(string $form_name, array $form): void
+    private function process_form(string $form_name, array $form): true|array
     {
         $errors = [];
         $data = [];
@@ -88,10 +95,9 @@ class FrontendFormSubmission
             }
         }
         if (empty($errors)) {
-            $form['callback']($data);
-        } else {
-            wp_send_json_error($errors);
+            return $form['callback']($data) ?? true;
         }
+        return $errors;
     }
 
 }

@@ -28,7 +28,7 @@
             </div>
         </div>
         <div class="w-full flex gap-5 lg:gap-7 flex-col lg:flex-row" >
-            <div class="flex-col lg:flex-row flex flex-col gap-3.5">
+            <div class="flex-col flex  gap-3.5 w-full lg:w-1/3 ">
                 <label class="w-full font-semibold text-base" for="cean_contact_phone">
                     Phone Number
                 </label>
@@ -64,7 +64,7 @@
                     </div>
                 </div>
             </div>
-            <div class="flex-col lg:flex-row flex flex-col gap-3.5">
+            <div class="flex-col flex gap-3.5 w-full lg:w-1/3 ">
                 <label class="w-full font-semibold text-base" for="cean_inquiry_type">
                     Inquiry Type
                 </label>
@@ -87,7 +87,7 @@
                     </div>
                 </div>
             </div>
-            <div class="flex-col lg:flex-row flex flex-col gap-3.5">
+            <div class="flex-col flex gap-3.5 w-full lg:w-1/3 ">
                 <label class="w-full font-semibold text-base" for="cean_contact_heard_about_us">
                     How Did You Hear About Us?
                 </label>

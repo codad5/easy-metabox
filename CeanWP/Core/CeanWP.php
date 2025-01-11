@@ -45,7 +45,14 @@ class CeanWP
         add_action('after_setup_theme', array($this, 'cean_wp_theme_supports'));
         $this->setup_models();
         CEAN_Menu::init();
-        FrontendFormSubmission::get_instance()->add_form_from_model(CeanWP_Contact_Form::get_instance(), callback: [CeanWP_Contact_Form::get_instance(), 'save_post_from_frontend'])->listen_to_form_submission();
+        FrontendFormSubmission::get_instance()
+            ->add_form_from_model(
+                CeanWP_Contact_Form::get_instance(),
+                callback: [
+                    CeanWP_Contact_Form::get_instance(),
+                    'save_post_from_frontend'
+                ])
+            ->listen_to_form_submission();
     }
 
     function register_model(Models $model): void
