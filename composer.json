@@ -3,7 +3,9 @@
     "description": "For cean wp theme",
     "autoload": {
         "psr-4": {
-            "CeanWP\\": "CeanWP/"
+            "CeanWP\\": "CeanWP/",
+            "YahnisElsts\\PluginUpdateChecker\\": "plugin-update-checker/"
+
         }
     },
     "require": {

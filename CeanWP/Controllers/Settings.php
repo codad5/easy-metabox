@@ -13,6 +13,16 @@ class Settings {
             'description' => 'Enter your Reach API key here',
             'tab' => 'api',
         ],
+//        setting for GitHub personal access token to enable auto updates
+        [
+            'option_name' => 'github_personal_access_token',
+            'label' => 'GitHub Personal Access Token',
+            'type' => 'text',
+            'default' => '',
+            'placeholder' => 'Your GitHub Personal Access Token',
+            'description' => 'Enter your GitHub Personal Access Token here',
+            'tab' => 'api',
+        ],
     ];
 
     static function load() {
