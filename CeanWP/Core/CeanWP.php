@@ -448,5 +448,27 @@ class CeanWP
         return Cean_WP_Movies::map_reach_movie_data_to_cean_usable($movie_data);
     }
 
+    static function get_best_slide_show_content($limit = 5) : array {
+        $best = [];
+        try {
+            $best = ReachCinemaAPI::get_coming_soon_movies();
+            if (isset($best['data'])) {
+                $best = $best['data'];
+                $best = array_map(function ($movie) {
+                    return Cean_WP_Movies::map_reach_movie_data_to_cean_usable($movie);
+                }, $best);
+                return $best;
+            }
+            else {
+                $best = Cean_WP_Movies::get_top_grossing_movies();
+            }
+        } catch (\Exception $e) {
+            $best = Cean_WP_Movies::get_top_grossing_movies();
+        }
+        finally {
+            return array_slice($best, 0, $limit);
+        }
+    }
+
 }
 

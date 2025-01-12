@@ -268,7 +268,7 @@ class Cean_WP_Movies implements Models
             'cast'           => $cast,
             'distributor'   => $movie['distributor'],
             'movie_poster'  => $movie['posterUrl'],
-            'permalink'     => $movie['linkUrl'],
+            'permalink'     => "/movies/{$movie['id']}",
             'trailer_url'   => $movie['trailerUrl'],
             'content'       => $movie['synopsis'],
             'date_modified' => $movie['dateModified'] ?? '',
