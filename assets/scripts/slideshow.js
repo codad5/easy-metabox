@@ -90,7 +90,7 @@ console.log(document.querySelector('.cean-content-hero-new-release-swiper'));
 
 
 // Function to initialize swiper with dynamic suffix
-function initializeSwiper(suffix) {
+function initializeSwiper(suffix, args = {}) {
     const swiperSelector = `.cean-content-swiper-${suffix}`;
     const swiperElement = document.querySelector(swiperSelector);
 
@@ -112,7 +112,8 @@ function initializeSwiper(suffix) {
             navigation: {
                 nextEl: `${swiperSelector}-next`,
                 prevEl: `${swiperSelector}-prev`,
-            }
+            },
+            ...args
         });
     }
     return null;
@@ -121,8 +122,18 @@ function initializeSwiper(suffix) {
 // Initialize different swipers
 document.addEventListener('DOMContentLoaded', () => {
     // Initialize Top Grossing Movies Swiper
-    initializeSwiper('top-grossing');
+    initializeSwiper('top-grossing', {
+        autoplay: {
+            delay: 2500,
+            disableOnInteraction: false,
+        },
+    });
 
     // Initialize New Releases Swiper
-    initializeSwiper('new-releases');
+    initializeSwiper('new-releases', {
+        autoplay: {
+            delay: 2500,
+            disableOnInteraction: false,
+        },
+    });
 });
