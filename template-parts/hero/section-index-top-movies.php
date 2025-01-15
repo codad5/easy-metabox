@@ -1,4 +1,4 @@
-<div class=" w-full px-4 lg:px-20 py-6">
+<div class=" w-full px-4 lg:px-20 py-3 lg:py-6">
     <div class=" w-full flex lg:h-24 flex-col lg:flex-row gap-4 lg:gap-0 py-6 lg:py-0">
         <div class="w-full lg:w-3/5 lg:h-full flex flex-col lg:inline-block gap-2.5 lg:gap-0">
             <div class="w-full font-medium text-sm lg:text-base">
@@ -34,7 +34,7 @@
                     </div>
                     <div class="w-full  h-11">
                         <h4 class="font-semibold text-sm"><a href="<?php echo $movie_d['permalink']; ?>" class="text-white"><?php echo $movie_d['title']; ?></a></h4>
-                        <div class="font-normal text-xs text-[#78828A]"><?php echo $movie_d['distributor']  ?? ''; ?></div>
+                        <div class="font-normal text-xs text-[#78828A]">₦<?php echo number_format($movie_d['box_office']); ?></div>
                     </div>
                 </div>
             <?php endforeach; ?>

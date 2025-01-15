@@ -470,5 +470,12 @@ class CeanWP
         }
     }
 
+
+    static function get_hero_wallpaper() : string
+    {
+        $url = Settings::get('hero_wall_paper');
+        return empty($url) ? get_theme_file_uri('assets/images/index-hero-image.png') : $url;
+    }
+
 }
 

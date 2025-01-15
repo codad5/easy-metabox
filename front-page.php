@@ -3,8 +3,8 @@
 <div class="w-full h-14"></div>
 <?php get_template_part('template-parts/hero/section', 'partners-marquee'); ?>
 <div class="w-full h-14 lg:h-16"></div>
-<?php get_template_part('template-parts/hero/section', 'index-new-release'); ?>
 <?php get_template_part('template-parts/hero/section', 'index-top-movies'); ?>
+<?php get_template_part('template-parts/hero/section', 'index-new-release'); ?>
 <div class="w-full h-14 lg:h-16"></div>
 <?php get_template_part('template-parts/hero/section', 'our-mission'); ?>
 <div class="w-full h-14 lg:h-16"></div>

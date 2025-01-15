@@ -81,7 +81,7 @@ class FrontendFormSubmission
         });
     }
 
-    private function process_form(string $form_name, array $form): true|array
+    private function process_form(string $form_name, array $form): bool|array
     {
         $errors = [];
         $data = [];

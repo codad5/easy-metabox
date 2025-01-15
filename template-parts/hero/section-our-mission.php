@@ -27,7 +27,7 @@
                     <div class="container font-semibold text-2xl">
                         <?= htmlspecialchars($item['title']); ?>
                     </div>
-                    <div class="container font-medium text-base text-[#999999]">
+                    <div class="container font-medium text-sm lg:text-base text-[#999999]">
                         <?= htmlspecialchars($item['description']); ?>
                     </div>
                 </div>

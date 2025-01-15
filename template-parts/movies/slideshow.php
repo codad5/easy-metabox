@@ -12,7 +12,7 @@
                        <a href="<?php echo $slide['permalink']; ?>" class="text-white hover:text-[#FFD700]"><?php echo $slide['title']; ?></a>
                     </h3>
                     <div class="w-4/5 text-center font-semibold text-sm lg:text-base text-[#999999]">
-                        <?php echo $slide['content']; ?>
+                        <?php echo $slide['content'] ?? ''; ?>
                     </div>
                 </div>
             </div>

@@ -522,13 +522,9 @@ class MetaBox
                     }
                 }
             } else {
-                // Handle single value fields
-                var_dump($success);
                 $value = $_POST[$field_id] ?? '';
                 $sanitized_value = $this->sanitize_field_value($value, $field['type']);
                 $success = $success && (update_post_meta($post_id, $field_id, $sanitized_value) !== false);
-                var_dump($success, $field_id, $sanitized_value, update_post_meta($post_id, $field_id, $sanitized_value));
-//                die();
             }
         }
         return $success;

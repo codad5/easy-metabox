@@ -83,7 +83,6 @@ $post = CeanWP_Functions::get_reports();
         </div>
         </div>
     </div>
-</div>
 <?php endif; ?>
 
 <?php get_footer(); ?>

@@ -23,6 +23,15 @@ class Settings {
             'description' => 'Enter your GitHub Personal Access Token here',
             'tab' => 'api',
         ],
+        [
+            'option_name' => 'hero_wall_paper',
+            'label' => 'Hero Wall Paper',
+            'type' => 'url',
+            'default' => '',
+            'placeholder' => 'URL to the hero wall paper',
+            'description' => 'Enter the URL to the hero wall paper here',
+            'tab' => 'api',
+        ],
     ];
 
     static function load() {
@@ -87,13 +96,35 @@ class Settings {
                     esc_attr($setting['placeholder'])
                 );
                 break;
-            // Add more input types as needed
+
+            case 'url':
+                printf(
+                    '<input type="url" id="%s" name="%s" value="%s" placeholder="%s" class="regular-text">',
+                    esc_attr($option_name),
+                    esc_attr($option_name),
+                    esc_attr($value),
+                    esc_attr($setting['placeholder'])
+                );
+                break;
+
+            default:
+                // Render an input with the specified type
+                printf(
+                    '<input type="%s" id="%s" name="%s" value="%s" placeholder="%s" class="regular-text">',
+                    esc_attr($setting['type']), // Use the type from the settings array
+                    esc_attr($option_name),
+                    esc_attr($option_name),
+                    esc_attr($value),
+                    esc_attr($setting['placeholder'])
+                );
+                break;
         }
 
         if (!empty($setting['description'])) {
             printf('<p class="description">%s</p>', esc_html($setting['description']));
         }
     }
+
 
     static function setting_page(): void {
         ?>

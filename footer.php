@@ -60,21 +60,37 @@
             </nav>
         </div>
     </div>
-    <div class="w-full bg-[#1A1A1A] px-20">
-        <div class="w-full h-16 flex justify-between">
-            <div class="font-semibold text-sm text-[#999999]">
-                © <?php echo date("Y"); ?> CEAN. All rights reserved
+    <div class="w-full bg-[#1A1A1A] px-4 lg:px-20 py-6">
+        <div class="flex flex-col lg:flex-row justify-between items-center lg:items-start gap-2.5 lg:gap-0">
+            <!-- Social Icons (Responsive positioning) -->
+            <div class="flex justify-center lg:order-2 gap-3.5">
+                <?php
+                $socials = CeanWP_Functions::get_contact_socials(); // Get the social links and icons dynamically
+                ?>
+                <?php foreach ($socials as $social) : ?>
+                    <a href="<?php echo esc_url($social['url']); ?>" class="h-6 w-6 flex justify-center items-center rounded-full bg-[#333333] hover:bg-primary-green transition">
+                        <img
+                                src="<?php echo esc_url(CeanWP_Functions::get_common_icon_url($social['icon'])); ?>"
+                                alt="<?php echo esc_attr($social['title']); ?>"
+                                class="h-full w-auto object-contain"
+                        />
+                    </a>
+                <?php endforeach; ?>
             </div>
-            <div class="h-5 flex justify-evenly gap-3.5">
-                <div class="h-full aspect-square bg-primary-green"></div>
-                <div class="h-full aspect-square bg-blue-700"></div>
-                <div class="h-full aspect-square bg-amber-500"></div>
-            </div>
-            <div class="font-semibold text-sm text-[#999999]">
+
+            <!-- Credit (Responsive positioning) -->
+            <div class="text-center lg:order-1 font-semibold text-sm text-[#999999]">
                 Designed by Fusion Intelligence
+            </div>
+
+            <!-- Copyright (Responsive positioning) -->
+            <div class="text-center lg:order-3 font-semibold text-sm text-[#999999]">
+                © <?php echo date("Y"); ?> CEAN. All rights reserved
             </div>
         </div>
     </div>
+
+
 </footer>
 </main>
 <?php wp_footer(); ?>
