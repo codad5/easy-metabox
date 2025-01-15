@@ -10,7 +10,7 @@ abstract class APIHelper
 
     const CACHE_PREFIX = 'ceanwp_';
     const CACHE_GROUP = 'ceanwp_api_cache';
-    const DEFAULT_CACHE_INTERVAL = 1;
+    const DEFAULT_CACHE_INTERVAL = 5;
     public static function prepare_request_url($url, $params = []): string {
         $url =  $url . '?' . http_build_query($params);
         return rtrim($url, '?#');
@@ -19,10 +19,13 @@ abstract class APIHelper
 
     public static function cache($key, $value, int $expiration = null): bool
     {
+        if(!str_starts_with($key, self::CACHE_PREFIX)) {
+            $key = self::CACHE_PREFIX . $key;
+        }
         if ($expiration === null) {
             $expiration = Settings::get('cache_interval', self::DEFAULT_CACHE_INTERVAL);
         }
-        if(set_transient($key, $value, intval($expiration) * MINUTE_IN_SECONDS)) {
+        if(set_transient(strtolower($key), $value, intval($expiration) * MINUTE_IN_SECONDS)) {
             $previous_cache_key = get_transient( self::CACHE_GROUP ) ?: [];
             $previous_cache_key = array_unique( array_merge( $previous_cache_key, [ $key ] ) );
             set_transient( self::CACHE_GROUP , $previous_cache_key, intval( $expiration ) * MINUTE_IN_SECONDS );
@@ -57,7 +60,7 @@ abstract class APIHelper
         if(!str_starts_with($key, self::CACHE_PREFIX)) {
             $key = self::CACHE_PREFIX . $key;
         }
-        return get_transient($key);
+        return get_transient(strtolower($key));
     }
 
 
@@ -101,9 +104,8 @@ abstract class APIHelper
         }
 
         if ($cache && strtoupper($method) === 'GET') {
-            static::cache($url, $data, is_numeric($cache) ? $cache : Settings::get('cache_interval', self::DEFAULT_CACHE_INTERVAL));
+            static::cache(($url), $data, is_numeric($cache) ? $cache : Settings::get('cache_interval', self::DEFAULT_CACHE_INTERVAL));
         }
-
         return $data;
     }
 
@@ -123,7 +125,8 @@ abstract class APIHelper
 
         $route = static::substitute($route, $substitutions);
         $endpoint_params = $endpoint['params'] ?? [];
-        $params = [...$endpoint_params, ...$params];
+        $params = array_merge($endpoint_params, $params);
+//        die();
 
         // Filter params to match only keys defined in endpoint_params
         $params = array_filter($params, function ($key) use ($endpoint_params) {
