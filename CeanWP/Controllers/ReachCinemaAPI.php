@@ -113,10 +113,6 @@ class ReachCinemaAPI extends  APIHelper
 
     static function validate_coming_soon_good_for_cache($d): bool|int
     {
-        return isset($d['statusText']) && $d['statusText'] === 'OK' ? 15 : false;
-//        echo "<pre>";
-//        var_dump($d);
-//        echo "</pre>";
-//        die();
+        return isset($d['statusText']) && $d['statusText'] === 'OK' ? 2 * 60 : false;
     }
 }

@@ -5,23 +5,24 @@ const archiver = require('archiver');
 // Paths
 const rootDir = path.resolve(__dirname, '../');
 const themeBuildDir = path.join(rootDir, 'theme-build');
-const zipFilePath = path.join(rootDir, 'theme.zip');
+const zipFilePath = path.join(rootDir, 'cean-wp-theme.zip');
 
 // Files and directories to exclude
 const excludePatterns = [
-    'node_modules',
-    'vendor',
-    '.git',
-    '.github',
-    '*.zip',
-    'composer.json',
-    'composer.lock',
-    'package.json',
-    'package-lock.json',
-    'tailwind.config.js',
-    'postcss.config.js',
-    'build-tools',
-    themeBuildDir,
+    'node_modules', // Node.js
+    'vendor', // Composer
+    '.git', // Git
+    '.github', // GitHub Actions
+    '.idea', // PHPStorm
+    '*.zip', // Existing zips
+    'composer.json', // Composer
+    'composer.lock', // Composer
+    'package.json', // NPM / Node.js
+    'package-lock.json', // NPM / Node.js
+    'tailwind.config.js', // Tailwind CSS
+    'postcss.config.js', // PostCSS
+    'build-tools', // Build tools like this script
+    themeBuildDir, // Previous build directory
 ];
 
 // Improved copy function with better pattern matching

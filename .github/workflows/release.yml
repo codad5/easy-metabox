@@ -40,4 +40,4 @@ jobs:
       - name: Upload Release Asset
         uses: softprops/action-gh-release@v0.1.15
         with:
-          files: theme.zip
+          files: cean-wp-theme.zip
