@@ -21,6 +21,7 @@ const excludePatterns = [
     'tailwind.config.js',
     'postcss.config.js',
     'build-tools',
+    themeBuildDir,
 ];
 
 // Improved copy function with better pattern matching

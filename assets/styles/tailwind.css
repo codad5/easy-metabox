@@ -2209,6 +2209,10 @@ select::-ms-expand {
     row-gap: 2.5rem;
   }
 
+  .lg\:overflow-x-hidden {
+    overflow-x: hidden;
+  }
+
   .lg\:bg-transparent {
     background-color: transparent;
   }

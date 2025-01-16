@@ -17,8 +17,8 @@
     </style>
     <?php wp_head(); ?>
 </head>
-<body class="bg-primary-black text-white font-urbanist w-screen min-h-screen">
-<header class="h-20 w-full bg-header-color fixed lg:sticky top-0 z-50 font-urbanist overflow-x-hidden">
+<body class="bg-primary-black text-white font-urbanist w-screen min-h-screen lg:overflow-x-hidden">
+<header class="h-20 w-screen bg-header-color fixed lg:sticky top-0 z-50 font-urbanist overflow-x-hidden">
     <div class="w-full h-full flex justify-between items-center px-4 lg:px-0">
         <!-- Logo Section -->
         <div class="h-full px-4 lg:px-20 grid place-items-center">
@@ -92,4 +92,4 @@
     });
 </script>
 
-<main class="w-full font-urbanist">
+<main class="w-screen font-urbanist">

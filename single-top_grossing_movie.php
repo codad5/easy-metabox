@@ -61,7 +61,7 @@
                 <div class="w-full text-[#999999] text-sm lg:text-basefont-medium">
                     Synopsis
                 </div>
-                <div class="w-full text-white text-sm lg:text-basefont-medium">
+                <div class="w-full text-white text-sm lg:text-basefont-medium text-wrap">
                     <?php echo $post['content']; ?>
                 </div>
             </div>

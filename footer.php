@@ -1,4 +1,5 @@
-<footer class="w-full px-4 lg:px-20">
+</main>
+<footer class="w-screen px-4 lg:px-20 lg:overflow-x-hidden">
     <div class="w-full py-14">
         <div class="w-full flex lg:h-28 flex-col lg:flex-row gap-7 lg:gap-0">
             <div class="w-full lg:basis-9/12 lg:w-9/12 flex flex-col gap-2.5">
@@ -92,7 +93,7 @@
 
 
 </footer>
-</main>
+
 <?php wp_footer(); ?>
 </body>
 </html>
