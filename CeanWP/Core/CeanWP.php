@@ -254,49 +254,65 @@ class CeanWP
     {
         $team_members = [
             [
-                'name' => esc_html__('Patrick Lee', 'cean-wp-theme'),
+                'name' => esc_html__('Ope Ajayi', 'cean-wp-theme'),
+                'img' => 'ope-ajayi.jpg',
                 'title' => esc_html__('Chairman', 'cean-wp-theme'),
-                'description' => esc_html__('Patrick is a conscientious and professional Executive with extensive experience in the Nigerian Cinema Industry.', 'cean-wp-theme'),
+                'description' => esc_html__('Ope Ajayi is the founder and CEO of Cinemax Distribution Limited, a company that provides integrated services across the various film sub-sectors, including production, distribution, and exhibition. He is a film producer and distributor with a passion for creating and delivering quality content that entertains, educates, and inspires audiences.', 'cean-wp-theme'),
                 'socials' => [
                     'instagram' => 'https://www.instagram.com',
                     'twitter' => 'https://www.twitter.com',
-                    'linkedin' => 'https://www.linkedin.com',
+                    'linkedin' => 'https://www.linkedin.com/in/ope-ajayi-6b542a21/',
                 ]
             ],
             [
                 'name' => esc_html__('Moses Babatope', 'cean-wp-theme'),
+                'img' => 'moses-babatope.jpg',
                 'title' => esc_html__('Secretary', 'cean-wp-theme'),
-                'description' => esc_html__('Moses is passionate about taking Nigerian films across the globe, accessing new markets and delivering returns to stakeholders.', 'cean-wp-theme'),
+                'description' => esc_html__('Moses Babatope is a leading figure in the Nigerian and African film industry with over 20 years of experience. He is the Group CEO of Nile Media Entertainment Group and co-founder of FilmHouse Group and Talking Drum Entertainment Limited. He has significantly transformed Nollywood and elevated African films globally.', 'cean-wp-theme'),
                 'socials' => [
+                    'linkedin' => 'https://www.linkedin.com/in/moses-babatope-9ba014134/',
                     'instagram' => 'https://www.instagram.com',
                     'twitter' => 'https://www.twitter.com',
-                    'linkedin' => 'https://www.linkedin.com',
                 ]
             ],
             [
-                'name' => esc_html__('Opeyemi Agayi', 'cean-wp-theme'),
+                'name' => esc_html__('Jonathan Yakubu', 'cean-wp-theme'),
+                'img' => 'jonathan-yakubu.jpg',
                 'title' => esc_html__('Treasurer', 'cean-wp-theme'),
-                'description' => esc_html__('Opeyemi has over 15 years of combined business management, entertainment, advisory, and entrepreneurship experience.', 'cean-wp-theme'),
+                'description' => esc_html__('Jonathan Yakubu is a dynamic senior financial accounting professional with progressive experience in auditing, finance, tax consulting, relationship management, and business development. He is adept at directing complex projects and collaborating with high-performance teams to enhance operations.', 'cean-wp-theme'),
                 'socials' => [
+                    'linkedin' => 'https://www.linkedin.com/in/jonathan-yakubu-fca-fcti-acma-cgma-mba-msc-7122833a/',
                     'instagram' => 'https://www.instagram.com',
                     'twitter' => 'https://www.twitter.com',
-                    'linkedin' => 'https://www.linkedin.com',
                 ]
             ],
             [
-                'name' => esc_html__('Michael Ndiomu', 'cean-wp-theme'),
-                'title' => esc_html__('Exco', 'cean-wp-theme'),
-                'description' => esc_html__('Michael is a financial services expert with experience in several banks including UBA and Access Bank Plc.', 'cean-wp-theme'),
+                'name' => esc_html__('Shileola Ibironke', 'cean-wp-theme'),
+                'img' => 'shileola-ibironke.jpg',
+                'title' => esc_html__('Media and Publicity', 'cean-wp-theme'),
+                'description' => esc_html__('Shileola Ibironke is the MD/CEO of Micromedia Group of Companies, owner of Nigeria’s foremost broadcast content production and distribution company. With over 17 years of experience, she is a result-driven executive dedicated to maximizing organizational efficiency and development.', 'cean-wp-theme'),
                 'socials' => [
+                    'linkedin' => 'https://www.linkedin.com/in/shileola-ibironke-b7a105121/',
                     'instagram' => 'https://www.instagram.com',
                     'twitter' => 'https://www.twitter.com',
-                    'linkedin' => 'https://www.linkedin.com',
+                ]
+            ],
+            [
+                'name' => esc_html__('Patrick Lee', 'cean-wp-theme'),
+                'img' => 'patrick-lee.jpg',
+                'title' => esc_html__('Exco Member', 'cean-wp-theme'),
+                'description' => esc_html__('Patrick Lee is a conscientious and professional executive with extensive experience in the Nigerian Cinema Industry. He was instrumental in the implementation of Ozone Cinemas and the introduction of the cinema reporting system, Comscore, while serving as Chairman of the Cinema Exhibitors Association of Nigeria.', 'cean-wp-theme'),
+                'socials' => [
+                    'linkedin' => 'https://www.linkedin.com/in/patrick-lee-8a9b68189/',
+                    'instagram' => 'https://www.instagram.com',
+                    'twitter' => 'https://www.twitter.com',
                 ]
             ]
         ];
 
         return apply_filters('cean_wp_team_members_list', $team_members);
     }
+
 
     static function get_contact_socials() : array {
         $socials = [

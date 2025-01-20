@@ -96,6 +96,11 @@ async function createZip() {
         console.log('Theme zip prepared successfully!');
     } catch (err) {
         console.error('Error during theme preparation:', err);
+    }finally {
+        console.log('Cleaning up...');
+        if (fs.existsSync(themeBuildDir)) {
+            fs.rmSync(themeBuildDir, { recursive: true, force: true });
+        }
         process.exit(1);
     }
 })();

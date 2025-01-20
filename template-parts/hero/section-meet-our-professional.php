@@ -13,7 +13,7 @@
                 <?php
                 $team_members = CeanWP_Functions::get_team_members_list();
                 foreach ($team_members as $member):
-                    $image_file = strtolower(str_replace(' ', '-', $member['name'])) . '.png';
+                    $image_file = strtolower($member['img'] ?? (str_replace(' ', '-', $member['name']) . '.png'));
                     ?>
                     <div class="w-[305px] h-full p-6 flex flex-col gap-5">
                         <div class="w-full aspect-square">
@@ -27,7 +27,7 @@
                                 <?php echo $member['title']; ?>
                             </div>
                             <div class="w-full text-sm lg:text-base font-medium text-[#999999]">
-                                <?php echo $member['description']; ?>
+                                <?php echo substr($member['description'], 0, 120); ?>...
                             </div>
                         </div>
                     </div>

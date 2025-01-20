@@ -15,13 +15,16 @@
 
         // Loop through each team member
         foreach ($team_members as $member): ?>
+        <?php
+            $image_file = strtolower($member['img'] ?? (str_replace(' ', '-', $member['name']) . '.png'));
+        ?>
             <div class="h-96 w-full lg:w-1/4">
                 <div class="w-full h-2/3 flex justify-center items-center">
                     <div class="h-full flex flex-col gap-4 items-center justify-center">
                         <div class="w-28 rounded-full aspect-square">
                             <!-- Dynamically use the image from the member's name -->
                             <img class="w-full h-full object-cover rounded-full"
-                                 src="<?php echo get_theme_file_uri('assets/images/people/' . strtolower(str_replace(' ', '-', $member['name'])) . '.png'); ?>"
+                                 src="<?php echo get_theme_file_uri('assets/images/people/' . strtolower($image_file)); ?>"
                                  alt="<?php echo esc_attr($member['name']); ?>" />
                         </div>
                         <div class="text-center font-semibold text-lg">
