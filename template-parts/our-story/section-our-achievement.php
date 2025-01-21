@@ -16,26 +16,31 @@
                     [
                         'title' => 'Advancing Local Content',
                         'description' => 'Championed the promotion of Nollywood films, boosting local content in cinemas and driving significant growth in Nigeria’s film industry.',
+                        'icon' => 'bag'
                     ],
                     [
                         'title' => __('Recognition for Excellence', 'cean-wp-theme'),
                         'description' => __('Achieved record-breaking audience attendance through innovative marketing campaigns and partnerships with major film distributors.', 'cean-wp-theme'),
+                        'icon' => 'emergency-lamp'
                     ],
                     [
                         'title' => __('Promoting Collaboration and Community', 'cean-wp-theme'),
                         'description' => __('Successfully unified cinema exhibitors across Nigeria, fostering a collaborative platform that enhances industry standards and practices.', 'cean-wp-theme'),
+                        'icon' => 'puzzle'
                     ],
                     [
                         'title' => __('Stay Ahead of the Curve', 'cean-wp-theme'),
                         'description' => __('Advocating for favorable policies and support from the government, ensuring sustainable growth and development for the Nigerian cinema industry.', 'cean-wp-theme'),
+                        'icon' => 'clipboard'
                     ],
                 ]
                 ?>
-                <?php foreach ($achivements as ['title' => $title, 'description' => $description]) : ?>
+                <?php foreach ($achivements as ['title' => $title, 'description' => $description, 'icon' => $icon]) : ?>
                     <div class="p-10 w-full lg:w-1/2">
                         <div class="w-full flex flex-col gap-5">
                             <div class="w-full h-14 flex">
-                                <div class="bg-primary-green h-14 aspect-square">
+                                <div class="bg-primary-green h-14 aspect-square grid place-items-center">
+                                    <img src="<?php echo CeanWP_Functions::get_common_icon_url($icon); ?>" alt="icon" class=" h-5 aspect-square">
                                 </div>
                                 <div class="h-full flex items-center w-full p-2.5 font-semibold text-lg lg:text-xl">
                                     <?php echo $title; ?>

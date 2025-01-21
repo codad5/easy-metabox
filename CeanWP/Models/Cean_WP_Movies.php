@@ -202,12 +202,15 @@ class Cean_WP_Movies implements Models
         // Query arguments
         $args = array(
             'post_type'      => self::POST_TYPE,
-            'posts_per_page' => $limit,
             'meta_key'       => $meta_key,
             'orderby'        => 'meta_value_num',
             'order'          => 'DESC',
             'meta_query'     => $meta_query
         );
+
+        if($limit > 0) {
+            $args['posts_per_page'] = $limit;
+        }
 
         $query = new WP_Query($args);
         $movies = array();

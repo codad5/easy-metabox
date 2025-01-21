@@ -1715,6 +1715,11 @@ video {
   color: rgb(230 230 230 / var(--tw-text-opacity, 1));
 }
 
+.text-\[\#cccccc\] {
+  --tw-text-opacity: 1;
+  color: rgb(204 204 204 / var(--tw-text-opacity, 1));
+}
+
 .text-gray-400 {
   --tw-text-opacity: 1;
   color: rgb(156 163 175 / var(--tw-text-opacity, 1));

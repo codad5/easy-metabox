@@ -3,8 +3,10 @@
     <div class="w-full lg:w-2/5 lg:basis-2/5 h-full grid place-items-center py-7 lg:py-0">
         <div class="w-full lg:w-3/4 flex flex-col gap-5 lg:gap-7">
             <!-- Icon Placeholder -->
-            <div class="w-full h-14">
-                <div class="h-full aspect-square bg-primary-green"></div>
+            <div class="w-full h-20">
+                <div class="h-full aspect-square  grid place-items-center">
+                    <img src="<?php echo esc_url($args['section_icon'] ?? ''); ?>" alt="icon" class="h-14 aspect-square">
+                </div>
             </div>
             <!-- Section Title -->
             <div class="w-full">

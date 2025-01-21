@@ -367,6 +367,11 @@ class CeanWP
                 'white-left-arrow' => '/images/icons/arrow-l-w.svg',
                 'white-right-arrow' => '/images/icons/arrow-r-w.svg',
                 'menu-icon' => '/images/icons/menu-icon.svg',
+                'clipboard' => '/images/icons/clipboard.png',
+                'emergency-lamp' => '/images/icons/emergency-lamp.png',
+                'puzzle' => '/images/icons/puzzle.png',
+                'bag' => '/images/icons/bag.png',
+                'est-meb' => '/images/icons/est-meb.png',
 
                 // Add the logos for partners and distributors here
                 'filmhouse' => '/images/partners/filmhouse.png',
@@ -407,10 +412,10 @@ class CeanWP
     }
 
 
-    static function get_all_time_top_grossing_movies($by = 'all_time'): array
+    static function get_all_time_top_grossing_movies($by = 'all_time', $limit = 10): array
     {
         // getting all time grossing movies
-        return Cean_WP_Movies::get_top_grossing_movies();
+        return Cean_WP_Movies::get_top_grossing_movies($by, $limit);
     }
 
 

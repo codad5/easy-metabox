@@ -18,7 +18,7 @@
             </div>
         </div>
     </div>
-    <div class=" w-full h-12 flex lg:justify-end">
+    <div class=" w-full h-12 flex lg:justify-end hidden">
         <a href="/movies" class="inline-block font-medium text-sm px-5 py-3.5">
             View All
         </a>
@@ -26,7 +26,7 @@
 
     <?php $top_movies = CeanWP_Functions::get_all_time_top_grossing_movies($args['period'] ?? 'all_time'); ?>
     <!-- Grid for Small Screens -->
-    <div class="lg:hidden grid grid-cols-2 gap-4 py-10">
+    <div class="lg:hidden grid grid-cols-2 gap-4 py-10 gap-y-7">
         <?php foreach ($top_movies as $i => $movie_d): ?>
             <div class="w-full inline-block relative rounded-t-lg">
                 <div class="w-full h-[308px] relative rounded-t-lg">
@@ -35,7 +35,7 @@
                 </div>
                 <div class="w-full h-11">
                     <h4 class="font-semibold text-sm"><a href="<?php echo $movie_d['permalink']; ?>" class="text-white"><?php echo $movie_d['title']; ?></a></h4>
-                    <div class="font-normal text-xs text-[#78828A]">
+                    <div class="font-medium text-sm text-[#cccccc]">
                         ₦<?php echo number_format($movie_d['week_box_office']); ?>
                         (₦<?php echo CeanWP_Functions::formatBoxOffice($movie_d['box_office']); ?>)
                     </div>
@@ -55,7 +55,7 @@
                     </div>
                     <div class="w-full  h-11">
                         <h4 class="font-semibold text-sm"><a href="<?php echo $movie_d['permalink']; ?>" class="text-white"><?php echo $movie_d['title']; ?></a></h4>
-                        <div class="font-normal text-xs text-[#78828A]">
+                        <div class="font-semibold text-lg text-[#cccccc]">
                             ₦<?php echo number_format($movie_d['week_box_office']); ?>
                             (₦<?php echo CeanWP_Functions::formatBoxOffice($movie_d['box_office']); ?>)
                         </div>
