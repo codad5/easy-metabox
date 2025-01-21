@@ -24,7 +24,7 @@
                     <img class="h-14 lg:h-28 aspect-square" alt="" src="<?php echo CeanWP_Functions::get_common_icon_url('cean-logo'); ?>"/>
                 </div>
                 <div class="w-full border border-[#262626] py-2.5 px-5">
-                    <div class="w-full flex justify-start gap-1.5">
+                    <div class="w-full flex justify-start gap-1.5 hidden">
                         <div class="bg-[#999999] w-5 aspect-square"></div>
                         <div class="h-full grow-1 ">
                             <input class="w-full h-full bg-transparent placeholder-[#262626] placeholder:text-sm" type="email" placeholder="Enter Your Email"/>
@@ -33,7 +33,7 @@
                     </div>
                 </div>
             </div>
-            <nav class="w-full lg:w-4/6 flex flex-wrap lg:flex-nowrap gap-y-5" aria-label="Footer Navigation">
+            <nav class="w-full lg:w-4/6 flex flex-wrap lg:flex-nowrap gap-y-5 hidden" aria-label="Footer Navigation">
                 <?php
                 $footer_menus = array(
                     'useful-links' => 'Useful Links',
@@ -81,7 +81,7 @@
 
             <!-- Credit (Responsive positioning) -->
             <div class="text-center lg:order-1 font-semibold text-sm text-[#999999]">
-                Designed by Fusion Intelligence
+                Designed & Built by <a href="https://fusionintel.io/" >Fusion Intelligence </a>
             </div>
 
             <!-- Copyright (Responsive positioning) -->

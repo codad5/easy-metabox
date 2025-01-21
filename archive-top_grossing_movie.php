@@ -12,7 +12,7 @@
         </div>
         <div class="w-full flex flex-col gap-10 lg:gap-20">
             <?php get_template_part('template-parts/movies/content-slider', null, [
-                    'title' => 'Top Grossing Movies',
+                    'title' => 'Top Grossing Movies All time',
                     'swiper_class_name_suffix' => 'top-grossing',
                     'movies' => array_map(function ($data) {
                         return [
@@ -40,6 +40,19 @@
                         }, $new_release['data'])
                 ]) ?>
             <?php endif; ?>
+            <?php get_template_part('template-parts/movies/content-slider', null, [
+                'title' => 'Top Grossing Movies This week',
+                'swiper_class_name_suffix' => 'top-grossing',
+                'movies' => array_map(function ($data) {
+                    return [
+                        'title' => $data['title'],
+                        'poster' => wp_get_attachment_image_url($data['movie_poster'] ?? '', 'full'),
+                        'duration' => $data['duration'] ?? 'n/a',
+                        'rating' => $data['rating'] ?? 'unrated',
+                        'permalink' => $data['permalink'] ?? '#'
+                    ];
+                }, CeanWP_Functions::get_all_time_top_grossing_movies('week'))
+            ]) ?>
         </div>
     </div>
 </div>

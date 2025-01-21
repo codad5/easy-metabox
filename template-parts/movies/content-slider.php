@@ -24,20 +24,30 @@
     </div>
     <div class="swiper-wrapper w-full h-64 lg:h-[308px] flex">
         <?php foreach ($movies as $movie): ?>
-            <div class="swiper-slide h-full w-[181px] lg:w-56 p-3 lg:p-4 inline-flex shrink-0 flex-col gap-4">
-                <a href="<?php echo $movie['permalink']; ?>" class="w-full h-full inline-block">
-                    <div class="w-full h-4/5 basis-4/5 rounded-xl bg-amber-500">
-                        <img src="<?php echo $movie['poster']; ?>" class="w-full h-full object-cover rounded-xl" alt="<?php echo $movie['title']; ?>">
-                    </div>
-                    <div class="w-full flex justify-between items-center text-[#999999]">
-                        <div class="p-1 text-xs bg-[#141414] grow-0 rounded-full">
-                            <?php echo date('H\h i\m', strtotime($movie['duration'])); ?>
-                        </div>
-                        <div class="py-2.5 px-3.5 text-xs bg-[#141414] grow-0 rounded-full">
-                            <?php echo $movie['rating']; ?>
-                        </div>
-                    </div>
-                </a>
+<!--            <div class="swiper-slide h-full w-[181px] lg:w-56 p-3 lg:p-4 inline-flex shrink-0 flex-col gap-4">-->
+<!--                <a href="--><?php //echo $movie['permalink']; ?><!--" class="w-full h-full inline-block">-->
+<!--                    <div class="w-full h-4/5 basis-4/5 rounded-xl bg-amber-500">-->
+<!--                        <img src="--><?php //echo $movie['poster']; ?><!--" class="w-full h-full object-cover rounded-xl" alt="--><?php //echo $movie['title']; ?><!--">-->
+<!--                    </div>-->
+<!--                    <div class="w-full flex justify-between items-center text-[#999999]">-->
+<!--                        <div class="p-1 text-xs bg-[#141414] grow-0 rounded-full">-->
+<!--                            --><?php //echo date('H\h i\m', strtotime($movie['duration'])); ?>
+<!--                        </div>-->
+<!--                        <div class="py-2.5 px-3.5 text-xs bg-[#141414] grow-0 rounded-full">-->
+<!--                            --><?php //echo $movie['rating']; ?>
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </a>-->
+<!--            </div>-->
+            <div class="swiper-slide w-60 inline-block relative shrink-0 rounded-t-lg">
+                <div class="w-full h-[308px] relative rounded-t-lg">
+                    <img class="h-full w-full object-cover rounded-t-lg" src="<?php echo !empty($movie['poster']) ? $movie['poster'] : get_theme_file_uri("assets/images/gang-of-lagos.jpg"); ?>" alt="<?php echo $movie['title']; ?>">
+                    <div class="w-full h-full absolute inset-0 bg-gradient-to-b from-black/0 to-black/90"></div>
+                </div>
+                <div class="w-full  h-11">
+                    <h4 class="font-semibold text-sm"><a href="<?php echo $movie['permalink']; ?>" ><?php echo $movie['title']; ?></a></h4>
+                    <div class="font-normal text-xs text-[#78828A]"><?php echo $movie['distributor'] ?? ''; ?></div>
+                </div>
             </div>
         <?php endforeach; ?>
     </div>

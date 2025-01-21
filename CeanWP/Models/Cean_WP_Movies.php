@@ -127,7 +127,9 @@ class Cean_WP_Movies implements Models
     {
         // id, title, screen
         $meta_box = new MetaBox('movie_details', 'Movie Details', self::POST_TYPE);
-        $meta_box->add_field(self::META_PREFIX . 'box_office', 'Box Office', 'number');
+        $meta_box->add_field(self::META_PREFIX . 'box_office', 'Box Office', 'number', [], ['required' => true]);
+//        week box office amount
+        $meta_box->add_field(self::META_PREFIX . 'week_box_office', 'Week Box Office', 'number', [], ['required' => true]);
         $meta_box->add_field(self::META_PREFIX . 'movie_id', 'Movie ID', 'text');
         $meta_box->add_field(self::META_PREFIX . 'release_date', 'Release Date', 'date');
         $meta_box->add_field(self::META_PREFIX . 'image_url', 'Image URL', 'url');
@@ -174,44 +176,60 @@ class Cean_WP_Movies implements Models
     }
 
     /**
-     * Get top grossing movies for a specific month and year
+     * Get top grossing movies either by weekly or all-time box office earnings.
+     *
+     * @param string|null $type   Criteria for top grossing movies ('week' or 'all_time'). Defaults to 'all_time'.
+     * @param int|null $year   The year to filter by (optional).
+     * @param int|null $month  The month to filter by (optional).
+     * @param int $limit  Number of movies to fetch. Defaults to 10.
+     * @return array              List of top grossing movies.
      */
-    public static function get_top_grossing_movies($year = null, $month = null,  $limit = 10): array {
+    public static function get_top_grossing_movies(?string $type = 'all_time', int $year = null, int $month = null, int $limit = 10): array {
+        // Determine the meta key to use based on the type
+        $meta_key = $type === 'week' ? self::META_PREFIX . 'week_box_office' : self::META_PREFIX . 'box_office';
+
+        // Build meta query for date range if year and month are provided
+        $meta_query = [];
+        if ($year !== null && $month !== null) {
+            $meta_query[] = array(
+                'key'     => self::META_PREFIX . 'release_date',
+                'value'   => array("$year-$month-01", "$year-$month-31"),
+                'type'    => 'DATE',
+                'compare' => 'BETWEEN'
+            );
+        }
+
+        // Query arguments
         $args = array(
             'post_type'      => self::POST_TYPE,
             'posts_per_page' => $limit,
-            'meta_key'       => self::META_PREFIX . 'box_office',
+            'meta_key'       => $meta_key,
             'orderby'        => 'meta_value_num',
             'order'          => 'DESC',
-            'meta_query'     => array(
-                $year === null ? [] : array(
-                    'key'     => self::META_PREFIX . 'release_date',
-                    'value'   => array("$year-$month-01", "$year-$month-31"),
-                    'type'    => 'DATE',
-                    'compare' => 'BETWEEN'
-                )
-            )
+            'meta_query'     => $meta_query
         );
 
         $query = new WP_Query($args);
         $movies = array();
 
+        // Fetch and format movie data
         if ($query->have_posts()) {
             while ($query->have_posts()) {
                 $query->the_post();
                 $movies[] = array(
-                    'title'      => get_the_title(),
-                    'box_office' => get_post_meta(get_the_ID(), self::META_PREFIX . 'box_office', true),
-                    'movie_id'   => get_post_meta(get_the_ID(), self::META_PREFIX . 'movie_id', true),
-                    'release_date' => get_post_meta(get_the_ID(), self::META_PREFIX . 'release_date', true),
-                    'cinema_name' => get_post_meta(get_the_ID(), self::META_PREFIX . 'cinema_name', true),
-                    'genre' => get_post_meta(get_the_ID(), self::META_PREFIX . 'genre', true),
-                    'director' => get_post_meta(get_the_ID(), self::META_PREFIX . 'director', true),
-                    'cast' => get_post_meta(get_the_ID(), self::META_PREFIX . 'cast', true),
-                    'distributor' => get_post_meta(get_the_ID(), self::META_PREFIX . 'distributor', true),
-                    'movie_poster' => get_post_meta(get_the_ID(), self::META_PREFIX . 'movie_poster', true),
-                    'permalink'  => get_permalink(),
-                    'trailer_url' => get_post_meta(get_the_ID(), self::META_PREFIX . 'trailer_url', true),
+                    'title'         => get_the_title(),
+                    'box_office'    => get_post_meta(get_the_ID(), self::META_PREFIX . 'box_office', true),
+                    'week_box_office' => intval(get_post_meta(get_the_ID(), self::META_PREFIX . 'week_box_office', true)),
+                    'movie_id'      => get_post_meta(get_the_ID(), self::META_PREFIX . 'movie_id', true),
+                    'release_date'  => get_post_meta(get_the_ID(), self::META_PREFIX . 'release_date', true),
+                    'cinema_name'   => get_post_meta(get_the_ID(), self::META_PREFIX . 'cinema_name', true),
+                    'genre'         => get_post_meta(get_the_ID(), self::META_PREFIX . 'genre', true),
+                    'director'      => get_post_meta(get_the_ID(), self::META_PREFIX . 'director', true),
+                    'cast'          => get_post_meta(get_the_ID(), self::META_PREFIX . 'cast', true),
+                    'distributor'   => get_post_meta(get_the_ID(), self::META_PREFIX . 'distributor', true),
+                    'movie_poster'  => get_post_meta(get_the_ID(), self::META_PREFIX . 'movie_poster', true),
+                    'permalink'     => get_permalink(),
+                    'trailer_url'   => get_post_meta(get_the_ID(), self::META_PREFIX . 'trailer_url', true),
                     'date_modified' => get_the_modified_date('F j, Y')
                 );
             }
@@ -236,6 +254,7 @@ class Cean_WP_Movies implements Models
         return array(
             'title'      => $post->post_title,
             'box_office' => get_post_meta($id, self::META_PREFIX . 'box_office', true),
+            'week_box_office' => get_post_meta($id, self::META_PREFIX . 'week_box_office', true),
             'movie_id'   => get_post_meta($id, self::META_PREFIX . 'movie_id', true),
             'release_date' => get_post_meta($id, self::META_PREFIX . 'release_date', true),
             'cinema_name' => get_post_meta($id, self::META_PREFIX . 'cinema_name', true),

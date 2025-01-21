@@ -157,7 +157,13 @@ class CeanWP
                 'title' => esc_html__('Ozone Cinemas', 'cean-wp-theme'),
                 'description' => esc_html__('A popular cinema chain in Lagos, known for its state-of-the-art facilities and premium movie experience.', 'cean-wp-theme'),
                 'logo' => 'ozone',
-            ]
+            ],
+//            nile group
+            [
+                'title' => esc_html__('Nile Group', 'cean-wp-theme'),
+                'description' => esc_html__('A leading film distribution company in Nigeria, with a focus on bringing quality international and local films to Nigerian audiences.', 'cean-wp-theme'),
+                'logo' => 'nile-group',
+            ],
         ];
 
         return apply_filters('cean_wp_partners_list', $partners);
@@ -259,8 +265,6 @@ class CeanWP
                 'title' => esc_html__('Chairman', 'cean-wp-theme'),
                 'description' => esc_html__('Ope Ajayi is the founder and CEO of Cinemax Distribution Limited, a company that provides integrated services across the various film sub-sectors, including production, distribution, and exhibition. He is a film producer and distributor with a passion for creating and delivering quality content that entertains, educates, and inspires audiences.', 'cean-wp-theme'),
                 'socials' => [
-                    'instagram' => 'https://www.instagram.com',
-                    'twitter' => 'https://www.twitter.com',
                     'linkedin' => 'https://www.linkedin.com/in/ope-ajayi-6b542a21/',
                 ]
             ],
@@ -271,8 +275,6 @@ class CeanWP
                 'description' => esc_html__('Moses Babatope is a leading figure in the Nigerian and African film industry with over 20 years of experience. He is the Group CEO of Nile Media Entertainment Group and co-founder of FilmHouse Group and Talking Drum Entertainment Limited. He has significantly transformed Nollywood and elevated African films globally.', 'cean-wp-theme'),
                 'socials' => [
                     'linkedin' => 'https://www.linkedin.com/in/moses-babatope-9ba014134/',
-                    'instagram' => 'https://www.instagram.com',
-                    'twitter' => 'https://www.twitter.com',
                 ]
             ],
             [
@@ -282,8 +284,6 @@ class CeanWP
                 'description' => esc_html__('Jonathan Yakubu is a dynamic senior financial accounting professional with progressive experience in auditing, finance, tax consulting, relationship management, and business development. He is adept at directing complex projects and collaborating with high-performance teams to enhance operations.', 'cean-wp-theme'),
                 'socials' => [
                     'linkedin' => 'https://www.linkedin.com/in/jonathan-yakubu-fca-fcti-acma-cgma-mba-msc-7122833a/',
-                    'instagram' => 'https://www.instagram.com',
-                    'twitter' => 'https://www.twitter.com',
                 ]
             ],
             [
@@ -293,8 +293,6 @@ class CeanWP
                 'description' => esc_html__('Shileola Ibironke is the MD/CEO of Micromedia Group of Companies, owner of Nigeria’s foremost broadcast content production and distribution company. With over 17 years of experience, she is a result-driven executive dedicated to maximizing organizational efficiency and development.', 'cean-wp-theme'),
                 'socials' => [
                     'linkedin' => 'https://www.linkedin.com/in/shileola-ibironke-b7a105121/',
-                    'instagram' => 'https://www.instagram.com',
-                    'twitter' => 'https://www.twitter.com',
                 ]
             ],
             [
@@ -304,8 +302,6 @@ class CeanWP
                 'description' => esc_html__('Patrick Lee is a conscientious and professional executive with extensive experience in the Nigerian Cinema Industry. He was instrumental in the implementation of Ozone Cinemas and the introduction of the cinema reporting system, Comscore, while serving as Chairman of the Cinema Exhibitors Association of Nigeria.', 'cean-wp-theme'),
                 'socials' => [
                     'linkedin' => 'https://www.linkedin.com/in/patrick-lee-8a9b68189/',
-                    'instagram' => 'https://www.instagram.com',
-                    'twitter' => 'https://www.twitter.com',
                 ]
             ]
         ];
@@ -318,17 +314,17 @@ class CeanWP
         $socials = [
             [
                 'title' => 'Twitter',
-                'url' => 'https://twitter.com/ceanigeria',
+                'url' => 'https://x.com/FusionIntelTech/',
                 'icon' => 'twitter',
             ],
             [
-                'title' => 'Medium',
-                'url' => 'https://medium.com/ceanigeria',
-                'icon' => 'medium',
+                'title' => 'Instagram',
+                'url' => 'https://www.instagram.com/fusionintelligence/',
+                'icon' => 'instagram',
             ],
             [
                 'title' => 'LinkedIn',
-                'url' => 'https://linkedin.com/ceanigeria',
+                'url' => 'https://www.linkedin.com/company/fusion-intelligence-technologies/',
                 'icon' => 'linkedin',
             ],
         ];
@@ -411,7 +407,7 @@ class CeanWP
     }
 
 
-    static function get_all_time_top_grossing_movies(): array
+    static function get_all_time_top_grossing_movies($by = 'all_time'): array
     {
         // getting all time grossing movies
         return Cean_WP_Movies::get_top_grossing_movies();
@@ -493,5 +489,16 @@ class CeanWP
         return empty($url) ? get_theme_file_uri('assets/images/index-hero-image.png') : $url;
     }
 
+    static  function formatBoxOffice($number): string
+    {
+        if ($number >= 1000000000) {
+            return number_format($number / 1000000000, 1) . 'B'; // Billions
+        } elseif ($number >= 1000000) {
+            return number_format($number / 1000000, 1) . 'M'; // Millions
+        } elseif ($number >= 1000) {
+            return number_format($number / 1000, 1) . 'k'; // Thousands
+        }
+        return number_format($number); // Less than 1k
+    }
 }
 

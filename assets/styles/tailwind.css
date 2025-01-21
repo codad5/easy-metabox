@@ -1380,6 +1380,11 @@ video {
      object-fit: cover;
 }
 
+.object-none {
+  -o-object-fit: none;
+     object-fit: none;
+}
+
 .p-1 {
   padding: 0.25rem;
 }
@@ -1932,6 +1937,10 @@ select::-ms-expand {
 
   .lg\:order-3 {
     order: 3;
+  }
+
+  .lg\:block {
+    display: block;
   }
 
   .lg\:inline-block {
