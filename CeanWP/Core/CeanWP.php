@@ -219,11 +219,11 @@ class CeanWP
     static function get_board_of_trustees_list(): array
     {
         return [
-            ['since' => esc_html__('Since 2019', 'cean-wp-theme'), 'name' => esc_html__('Silverbird Cinemas', 'cean-wp-theme')],
-            ['since' => esc_html__('Since 2019', 'cean-wp-theme'), 'name' => esc_html__('Genesis Cinemas', 'cean-wp-theme')],
-            ['since' => esc_html__('Since 2019', 'cean-wp-theme'), 'name' => esc_html__('Viva Cinemas', 'cean-wp-theme')],
-            ['since' => esc_html__('Since 2019', 'cean-wp-theme'), 'name' => esc_html__('Ozone Cinemas', 'cean-wp-theme')],
-            ['since' => esc_html__('Since 2019', 'cean-wp-theme'), 'name' => esc_html__('Filmhouse Cinemas', 'cean-wp-theme')],
+            ['since' => esc_html__('Since 2019', 'cean-wp-theme'), 'name' => esc_html__('Silverbird Cinemas', 'cean-wp-theme'), 'logo' => 'silverbird'],
+            ['since' => esc_html__('Since 2019', 'cean-wp-theme'), 'name' => esc_html__('Genesis Cinemas', 'cean-wp-theme'), 'logo' => 'genesis'],
+            ['since' => esc_html__('Since 2019', 'cean-wp-theme'), 'name' => esc_html__('Viva Cinemas', 'cean-wp-theme'), 'logo' => 'viva'],
+            ['since' => esc_html__('Since 2019', 'cean-wp-theme'), 'name' => esc_html__('Ozone Cinemas', 'cean-wp-theme'), 'logo' => 'ozone'],
+            ['since' => esc_html__('Since 2019', 'cean-wp-theme'), 'name' => esc_html__('Filmhouse Cinemas', 'cean-wp-theme'), 'logo' => 'filmhouse'],
         ];
     }
 
@@ -235,18 +235,61 @@ class CeanWP
     static function get_esteemed_members_list(): array
     {
         return [
-            ['since' => esc_html__('Since 2019', 'cean-wp-theme'), 'name' => esc_html__('Silverbird Cinemas', 'cean-wp-theme')],
-            ['since' => esc_html__('Since 2019', 'cean-wp-theme'), 'name' => esc_html__('Ozone Cinemas', 'cean-wp-theme')],
-            ['since' => esc_html__('Since 2019', 'cean-wp-theme'), 'name' => esc_html__('Genesis Cinemas', 'cean-wp-theme')],
-            ['since' => esc_html__('Since 2019', 'cean-wp-theme'), 'name' => esc_html__('Filmhouse Cinemas', 'cean-wp-theme')],
-            ['since' => esc_html__('Since 2019', 'cean-wp-theme'), 'name' => esc_html__('Viva Cinemas', 'cean-wp-theme')],
-            ['since' => esc_html__('Since 2019', 'cean-wp-theme'), 'name' => esc_html__('Kada Cinemas', 'cean-wp-theme')],
-            ['since' => esc_html__('Since 2019', 'cean-wp-theme'), 'name' => esc_html__('Mees Palace Cinemas', 'cean-wp-theme')],
-            ['since' => esc_html__('Since 2019', 'cean-wp-theme'), 'name' => esc_html__('Cartege Cinemas', 'cean-wp-theme')],
-            ['since' => esc_html__('Since 2019', 'cean-wp-theme'), 'name' => esc_html__('Lighthouse Cinemas', 'cean-wp-theme')],
-            ['since' => esc_html__('Since 2019', 'cean-wp-theme'), 'name' => esc_html__('Grand Cinemas', 'cean-wp-theme')],
-            ['since' => esc_html__('Since 2019', 'cean-wp-theme'), 'name' => esc_html__('Maturion Cinemas', 'cean-wp-theme')],
-            ['since' => esc_html__('Since 2019', 'cean-wp-theme'), 'name' => esc_html__('Cartege Cinemas', 'cean-wp-theme')],
+            [
+                'since' => esc_html__('Since 2019', 'cean-wp-theme'),
+                'name' => esc_html__('Silverbird Cinemas', 'cean-wp-theme'),
+                'logo' => 'silverbird',
+            ],
+            [
+                'since' => esc_html__('Since 2019', 'cean-wp-theme'),
+                'name' => esc_html__('Ozone Cinemas', 'cean-wp-theme'),
+                'logo' => 'ozone',
+            ],
+            [
+                'since' => esc_html__('Since 2019', 'cean-wp-theme'),
+                'name' => esc_html__('Genesis Cinemas', 'cean-wp-theme'),
+                'logo' => 'genesis',
+            ],
+            [
+                'since' => esc_html__('Since 2019', 'cean-wp-theme'),
+                'name' => esc_html__('Filmhouse Cinemas', 'cean-wp-theme'),
+                'logo' => 'filmhouse',
+            ],
+            [
+                'since' => esc_html__('Since 2019', 'cean-wp-theme'),
+                'name' => esc_html__('Viva Cinemas', 'cean-wp-theme'),
+                'logo' => 'viva',
+            ],
+            [
+                'since' => esc_html__('Since 2019', 'cean-wp-theme'),
+                'name' => esc_html__('Kada Cinemas', 'cean-wp-theme'),
+                'logo' => 'kada',
+            ],
+            [
+                'since' => esc_html__('Since 2019', 'cean-wp-theme'),
+                'name' => esc_html__('ELC Cinemas', 'cean-wp-theme'),
+                'logo' => 'elc',
+            ],
+            [
+                'since' => esc_html__('Since 2019', 'cean-wp-theme'),
+                'name' => esc_html__('Gren Cinemas', 'cean-wp-theme'),
+                'logo' => 'gren',
+            ],
+            [
+                'since' => esc_html__('Since 2019', 'cean-wp-theme'),
+                'name' => esc_html__('Havana Cinemas', 'cean-wp-theme'),
+                'logo' => 'havana',
+            ],
+            [
+                'since' => esc_html__('Since 2019', 'cean-wp-theme'),
+                'name' => esc_html__('Sanford Cinemas', 'cean-wp-theme'),
+                'logo' => 'sanford',
+            ],
+            [
+                'since' => esc_html__('Since 2019', 'cean-wp-theme'),
+                'name' => esc_html__('Imperial Cinemas', 'cean-wp-theme'),
+                'logo' => 'imperial',
+            ],
         ];
     }
 
@@ -387,6 +430,21 @@ class CeanWP
                 'silverbird-distribution' => '/images/distributors/silverbird.png',
                 'nile-group' => '/images/distributors/nile-group.png',
                 'golden-effects' => '/images/distributors/golden-effects.png',
+
+                // New logos from partners directory
+                'imperial' => '/images/partners/Imperial.jpeg',
+                'elc' => '/images/partners/elc.png',
+                'gren' => '/images/partners/gren-logo.webp',
+                'havana' => '/images/partners/havana.png',
+                'kada' => '/images/partners/kada-logo.webp',
+                'nova' => '/images/partners/nova-logo.webp',
+                'sanford' => '/images/partners/sanford.webp',
+                'sky-cinema' => '/images/partners/sky-cenima.svg',
+                'viva' => '/images/partners/viva-logo.webp',
+                'wosam' => '/images/partners/wosam.png',
+
+
+//
             ]
         );
     }

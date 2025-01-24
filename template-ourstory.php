@@ -4,7 +4,7 @@
  */
 ?>
 <?php get_header(); ?>
-<div class="w-full px-4 lg:px-20 py-5 pt-28 lg:pt-0 lg:py-12">
+<div class="w-full px-4 lg:px-20 py-5 pt-28 lg:pt-0 lg:py-12 pb-0">
     <div class="w-full lg:px-20 lg:py-20 py-4 flex flex-col items-center lg:items-start lg:flex-row gap-7 lg:gap-20">
         <div class="w-full lg:w-1/2 lg:h-full flex flex-col gap-4">
             <h2 class="w-full font-bold text-2xl lg:text-4xl">
@@ -20,7 +20,7 @@
 
     </div>
 </div>
-<div class="w-full h-12 lg:h-16">
+<div class="w-full h-12 lg:h-16 hidden">
 
 </div>
 <?php get_template_part('template-parts/our-story/section', 'our-excos'); ?>
@@ -57,15 +57,16 @@
 
 <?php
 get_template_part(
-    'template-parts/commons/brand-list-1',
+    'template-parts/commons/brand-list-2',
     null,
     [
         'section_title' => 'Esteemed Members',
-        'section_description' => 'United by Passion, Driving Growth and Innovation in the Cinema Industry',
+        'section_description' => 'Our Esteemed Members represent a distinguished network of pioneers, innovators, and leaders who are shaping the future of the cinema industry. Bound by a shared passion for storytelling and entertainment, they champion creativity, drive technological advancements, and inspire growth within the industry. As the backbone of the cinema exhibition landscape in Nigeria, these trailblazers are committed to setting new benchmarks for excellence, fostering collaboration, and ensuring the sustained development of a vibrant and inclusive cinematic experience for audiences nationwide.',
         'section_icon' => CeanWP_Functions::get_common_icon_url('est-meb'),
         'section_items' => CeanWP_Functions::get_esteemed_members_list()
     ]
 );
+
 ?>
 
 <?php get_footer(); ?>

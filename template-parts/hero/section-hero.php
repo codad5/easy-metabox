@@ -3,8 +3,8 @@
     <div class=" w-full text-center lg:px-36 h-48 space-y-5 relative">
         <p class="text-2xl lg:text-5xl font-bold ">Promoting the big screen and transforming the movie going experience in Nigeria.</p>
         <div class="text-white  flex justify-center items-center gap-3">
-            <a href="#" class="bg-primary-green text-sm text-white px-5 py-3 rounded-md">Learn More</a>
-            <a href="#" class="bg-white text-secondary-black px-5 py-3 rounded-md">Our Services</a>
+            <a href="/our-story" class="bg-primary-green text-sm text-white px-5 py-3 rounded-md">Learn More</a>
+            <a href="/box-office" class="bg-white text-secondary-black px-5 py-3 rounded-md">Box Office</a>
         </div>
     </div>
 </div>
