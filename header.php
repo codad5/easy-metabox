@@ -56,7 +56,7 @@
 
         <!-- Signup/Login Section -->
         <div class="hidden lg:grid h-full px-20 place-items-center">
-            <div class="w-full h-full flex justify-center items-center gap-7">
+            <div class="w-full h-full flex justify-center items-center gap-7 hidden">
                 <div class="">
                     <a href="<?php echo get_home_url(); ?>">Signup</a>
                 </div>

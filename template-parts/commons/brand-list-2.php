@@ -1,7 +1,7 @@
-<div class="w-full px-4 lg:px-20 flex flex-col lg:flex-row flex-wrap items-center">
+<div class="w-full px-4 lg:px-20 flex flex-col flex-wrap items-center">
     <!-- Left Section: Title and Description -->
-    <div class="w-full lg:w-2/5 lg:basis-2/5 h-full grid place-items-center py-7 lg:py-0">
-        <div class="w-full lg:w-3/4 flex flex-col gap-5 lg:gap-7">
+    <div class="w-full  lg:basis-2/5 h-full grid  py-7 lg:py-0">
+        <div class="w-full flex flex-col gap-5 lg:gap-7">
             <!-- Icon Placeholder -->
             <div class="w-full h-20">
                 <div class="h-full aspect-square  grid place-items-center">
@@ -21,8 +21,8 @@
         </div>
     </div>
     <!-- Right Section: Dynamic Grid -->
-    <div class="w-full lg:w-3/5 lg:basis-3/5 py-7 lg:py-14">
-        <div class="w-full gap-x-3.5 gap-y-5 grid grid-cols-1 lg:grid-cols-2 grid-flow-row">
+    <div class="w-full lg:basis-3/5 py-7 lg:py-14">
+        <div class="w-full gap-x-3.5 gap-y-5 grid grid-cols-3 lg:grid-cols-6 grid-flow-row">
             <?php
             $items = $args['section_items'] ?? [];
             foreach ($items as $item) : ?>

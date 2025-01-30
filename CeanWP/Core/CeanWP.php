@@ -267,13 +267,13 @@ class CeanWP
             ],
             [
                 'since' => esc_html__('Since 2019', 'cean-wp-theme'),
-                'name' => esc_html__('ELC Cinemas', 'cean-wp-theme'),
-                'logo' => 'elc',
+                'name' => esc_html__('Ebonylife Cinemas', 'cean-wp-theme'),
+                'logo' => 'ebonylife',
             ],
             [
                 'since' => esc_html__('Since 2019', 'cean-wp-theme'),
                 'name' => esc_html__('Gren Cinemas', 'cean-wp-theme'),
-                'logo' => 'gren',
+                'logo' => 'grenhauz',
             ],
             [
                 'since' => esc_html__('Since 2019', 'cean-wp-theme'),
@@ -283,16 +283,105 @@ class CeanWP
             [
                 'since' => esc_html__('Since 2019', 'cean-wp-theme'),
                 'name' => esc_html__('Sanford Cinemas', 'cean-wp-theme'),
-                'logo' => 'sanford',
+                'logo' => 'sandford',
+            ],
+//            [
+//                'since' => esc_html__('Since 2019', 'cean-wp-theme'),
+//                'name' => esc_html__('Imperial Cinemas', 'cean-wp-theme'),
+//                'logo' => 'imperial',
+//            ],
+            [
+                'since' => esc_html__('Since 2019', 'cean-wp-theme'),
+                'name' => esc_html__('Blue Pictures', 'cean-wp-theme'),
+                'logo' => 'bluepicture',
             ],
             [
                 'since' => esc_html__('Since 2019', 'cean-wp-theme'),
-                'name' => esc_html__('Imperial Cinemas', 'cean-wp-theme'),
-                'logo' => 'imperial',
+                'name' => esc_html__('Brands Cinemas', 'cean-wp-theme'),
+                'logo' => 'brands',
+            ],
+            [
+                'since' => esc_html__('Since 2019', 'cean-wp-theme'),
+                'name' => esc_html__('Capricon Cinemas', 'cean-wp-theme'),
+                'logo' => 'capricon',
+            ],
+            [
+                'since' => esc_html__('Since 2019', 'cean-wp-theme'),
+                'name' => esc_html__('Citadel Cinemas', 'cean-wp-theme'),
+                'logo' => 'citadel',
+            ],
+            [
+                'since' => esc_html__('Since 2019', 'cean-wp-theme'),
+                'name' => esc_html__('Filmworld Cinemas', 'cean-wp-theme'),
+                'logo' => 'filmworld',
+            ],
+            [
+                'since' => esc_html__('Since 2019', 'cean-wp-theme'),
+                'name' => esc_html__('Grand Cinemas', 'cean-wp-theme'),
+                'logo' => 'grand',
+            ],
+            [
+                'since' => esc_html__('Since 2019', 'cean-wp-theme'),
+                'name' => esc_html__('Habitat Cinemas', 'cean-wp-theme'),
+                'logo' => 'habitat',
+            ],
+            [
+                'since' => esc_html__('Since 2019', 'cean-wp-theme'),
+                'name' => esc_html__('Heritage Cinemas', 'cean-wp-theme'),
+                'logo' => 'heritage',
+            ],
+            [
+                'since' => esc_html__('Since 2019', 'cean-wp-theme'),
+                'name' => esc_html__('Hogis Cinemas', 'cean-wp-theme'),
+                'logo' => 'hogis',
+            ],
+            [
+                'since' => esc_html__('Since 2019', 'cean-wp-theme'),
+                'name' => esc_html__('Magnificent Cinemas', 'cean-wp-theme'),
+                'logo' => 'magnificent',
+            ],
+            [
+                'since' => esc_html__('Since 2019', 'cean-wp-theme'),
+                'name' => esc_html__('MCrystal Cinemas', 'cean-wp-theme'),
+                'logo' => 'mcrystal',
+            ],
+            [
+                'since' => esc_html__('Since 2019', 'cean-wp-theme'),
+                'name' => esc_html__('Mega Cinemas', 'cean-wp-theme'),
+                'logo' => 'mega',
+            ],
+            [
+                'since' => esc_html__('Since 2019', 'cean-wp-theme'),
+                'name' => esc_html__('Mila Cinemas', 'cean-wp-theme'),
+                'logo' => 'mila',
+            ],
+            [
+                'since' => esc_html__('Since 2019', 'cean-wp-theme'),
+                'name' => esc_html__('OOPL Cinemas', 'cean-wp-theme'),
+                'logo' => 'oopl',
+            ],
+            [
+                'since' => esc_html__('Since 2019', 'cean-wp-theme'),
+                'name' => esc_html__('Rainbow Cinemas', 'cean-wp-theme'),
+                'logo' => 'rainbow',
+            ],
+            [
+                'since' => esc_html__('Since 2019', 'cean-wp-theme'),
+                'name' => esc_html__('Timsed Cinemas', 'cean-wp-theme'),
+                'logo' => 'timsed',
+            ],
+            [
+                'since' => esc_html__('Since 2019', 'cean-wp-theme'),
+                'name' => esc_html__('Voicenel Cinemas', 'cean-wp-theme'),
+                'logo' => 'voicenel',
+            ],
+            [
+                'since' => esc_html__('Since 2019', 'cean-wp-theme'),
+                'name' => esc_html__('Zara Cinemas', 'cean-wp-theme'),
+                'logo' => 'zara',
             ],
         ];
     }
-
 
     /**
      * Get the Team Members list.
@@ -396,15 +485,12 @@ class CeanWP
      *
      * @return array The common icons.
      */
-
-    static function common_icons()
+    static function common_icons(): array
     {
         return array_merge(
             self::common_social_icons(),
             [
-                'cean-logo' => '/images/cean-logo.png',
-
-//                assets icon
+                'cean-logo' => '/images/cean-logo.png',  // assets icon
                 'arrow-tr' => '/images/icons/arrow-tr.png',
                 'external-link' => '/images/icons/arrow-tr.png',
                 'white-left-arrow' => '/images/icons/arrow-l-w.svg',
@@ -419,7 +505,7 @@ class CeanWP
                 // Add the logos for partners and distributors here
                 'filmhouse' => '/images/partners/filmhouse.png',
                 'comscore' => '/images/partners/comscore.png',
-                'ebonylife' => '/images/partners/ebonylife.png',
+                'ebonylife' => '/images/partners/black-white/ebonylife.png', // Updated to black-white
                 'silverbird' => '/images/partners/silverbird.png',
                 'genesis' => '/images/partners/genesis.png',
                 'nfvcb' => '/images/partners/nfvcb.png',
@@ -436,19 +522,37 @@ class CeanWP
                 'elc' => '/images/partners/elc.png',
                 'gren' => '/images/partners/gren-logo.webp',
                 'havana' => '/images/partners/havana.png',
-                'kada' => '/images/partners/kada-logo.webp',
+                'kada' => '/images/partners/black-white/kada.png', // Updated to black-white
                 'nova' => '/images/partners/nova-logo.webp',
-                'sanford' => '/images/partners/sanford.webp',
                 'sky-cinema' => '/images/partners/sky-cenima.svg',
-                'viva' => '/images/partners/viva-logo.webp',
+                'viva' => '/images/partners/black-white/viva.png', // Updated to black-white
                 'wosam' => '/images/partners/wosam.png',
 
-
-//
+                // Adding new black-white partner icons
+                'ebonylife' => '/images/partners/black-white/ebonylife.png',
+                'bluepicture' => '/images/partners/black-white/bluepicture.png',
+                'brands' => '/images/partners/black-white/brands.png',
+                'capricon' => '/images/partners/black-white/capricon.png',
+                'citadel' => '/images/partners/black-white/citadel.png',
+                'filmworld' => '/images/partners/black-white/filmworld.png',
+                'grand' => '/images/partners/black-white/grand.png',
+                'grenhauz' => '/images/partners/black-white/grenhauz.png', // Already in black-white section
+                'habitat' => '/images/partners/black-white/habitat.png',
+                'heritage' => '/images/partners/black-white/heritage.png',
+                'hogis' => '/images/partners/black-white/hogis.png',
+                'magnificent' => '/images/partners/black-white/magnificent.png',
+                'mcrystal' => '/images/partners/black-white/mcrystal.png',
+                'mega' => '/images/partners/black-white/mega.png',
+                'mila' => '/images/partners/black-white/mila.png',
+                'oopl' => '/images/partners/black-white/oopl.png',
+                'rainbow' => '/images/partners/black-white/rainbow.png',
+                'timsed' => '/images/partners/black-white/timsed.png',
+                'voicenel' => '/images/partners/black-white/voicenel.png',
+                'zara' => '/images/partners/black-white/zara.png',
+                'sandford' => '/images/partners/black-white/sandford.png',
             ]
         );
     }
-
     /**
      * Get the URL of a common icon used in the theme.
      *
