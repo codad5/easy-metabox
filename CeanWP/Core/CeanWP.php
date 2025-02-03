@@ -158,11 +158,125 @@ class CeanWP
                 'description' => esc_html__('A popular cinema chain in Lagos, known for its state-of-the-art facilities and premium movie experience.', 'cean-wp-theme'),
                 'logo' => 'ozone',
             ],
-//            nile group
             [
                 'title' => esc_html__('Nile Group', 'cean-wp-theme'),
                 'description' => esc_html__('A leading film distribution company in Nigeria, with a focus on bringing quality international and local films to Nigerian audiences.', 'cean-wp-theme'),
                 'logo' => 'nile-group',
+            ],
+            [
+                'title' => esc_html__('Viva Cinemas', 'cean-wp-theme'),
+                'description' => esc_html__('A modern cinema chain providing quality entertainment experiences across Nigeria.', 'cean-wp-theme'),
+                'logo' => 'viva',
+            ],
+            [
+                'title' => esc_html__('Kada Cinemas', 'cean-wp-theme'),
+                'description' => esc_html__('A growing cinema chain delivering memorable movie experiences to Nigerian audiences.', 'cean-wp-theme'),
+                'logo' => 'kada',
+            ],
+            [
+                'title' => esc_html__('Gren Cinemas', 'cean-wp-theme'),
+                'description' => esc_html__('An innovative cinema chain focused on providing premium entertainment services.', 'cean-wp-theme'),
+                'logo' => 'grenhauz',
+            ],
+            [
+                'title' => esc_html__('Havana Cinemas', 'cean-wp-theme'),
+                'description' => esc_html__('A distinctive cinema brand offering unique movie-going experiences.', 'cean-wp-theme'),
+                'logo' => 'havana',
+            ],
+            [
+                'title' => esc_html__('Sanford Cinemas', 'cean-wp-theme'),
+                'description' => esc_html__('A respected cinema chain known for its quality service and facilities.', 'cean-wp-theme'),
+                'logo' => 'sandford',
+            ],
+            [
+                'title' => esc_html__('Blue Pictures', 'cean-wp-theme'),
+                'description' => esc_html__('A prominent entertainment company contributing to Nigeria\'s film industry growth.', 'cean-wp-theme'),
+                'logo' => 'bluepicture',
+            ],
+            [
+                'title' => esc_html__('Brands Cinemas', 'cean-wp-theme'),
+                'description' => esc_html__('A cinema chain dedicated to delivering exceptional movie experiences.', 'cean-wp-theme'),
+                'logo' => 'brands',
+            ],
+            [
+                'title' => esc_html__('Capricon Cinemas', 'cean-wp-theme'),
+                'description' => esc_html__('An emerging cinema brand offering contemporary entertainment solutions.', 'cean-wp-theme'),
+                'logo' => 'capricon',
+            ],
+            [
+                'title' => esc_html__('Citadel Cinemas', 'cean-wp-theme'),
+                'description' => esc_html__('A cinema chain committed to providing high-quality movie experiences.', 'cean-wp-theme'),
+                'logo' => 'citadel',
+            ],
+            [
+                'title' => esc_html__('Filmworld Cinemas', 'cean-wp-theme'),
+                'description' => esc_html__('A dynamic cinema chain enhancing Nigeria\'s entertainment landscape.', 'cean-wp-theme'),
+                'logo' => 'filmworld',
+            ],
+            [
+                'title' => esc_html__('Grand Cinemas', 'cean-wp-theme'),
+                'description' => esc_html__('A premier cinema destination offering memorable entertainment experiences.', 'cean-wp-theme'),
+                'logo' => 'grand',
+            ],
+            [
+                'title' => esc_html__('Habitat Cinemas', 'cean-wp-theme'),
+                'description' => esc_html__('An innovative cinema chain creating unique viewing experiences.', 'cean-wp-theme'),
+                'logo' => 'habitat',
+            ],
+            [
+                'title' => esc_html__('Heritage Cinemas', 'cean-wp-theme'),
+                'description' => esc_html__('A cinema chain preserving and promoting film culture in Nigeria.', 'cean-wp-theme'),
+                'logo' => 'heritage',
+            ],
+            [
+                'title' => esc_html__('Hogis Cinemas', 'cean-wp-theme'),
+                'description' => esc_html__('A modern cinema chain delivering quality entertainment services.', 'cean-wp-theme'),
+                'logo' => 'hogis',
+            ],
+            [
+                'title' => esc_html__('Magnificent Cinemas', 'cean-wp-theme'),
+                'description' => esc_html__('A distinguished cinema brand known for exceptional viewing experiences.', 'cean-wp-theme'),
+                'logo' => 'magnificent',
+            ],
+            [
+                'title' => esc_html__('MCrystal Cinemas', 'cean-wp-theme'),
+                'description' => esc_html__('A forward-thinking cinema chain expanding entertainment possibilities.', 'cean-wp-theme'),
+                'logo' => 'mcrystal',
+            ],
+            [
+                'title' => esc_html__('Mega Cinemas', 'cean-wp-theme'),
+                'description' => esc_html__('A leading cinema chain providing diverse entertainment options.', 'cean-wp-theme'),
+                'logo' => 'mega',
+            ],
+            [
+                'title' => esc_html__('Mila Cinemas', 'cean-wp-theme'),
+                'description' => esc_html__('An emerging cinema brand focused on customer satisfaction.', 'cean-wp-theme'),
+                'logo' => 'mila',
+            ],
+            [
+                'title' => esc_html__('OOPL Cinemas', 'cean-wp-theme'),
+                'description' => esc_html__('A contemporary cinema chain enriching Nigeria\'s entertainment sector.', 'cean-wp-theme'),
+                'logo' => 'oopl',
+            ],
+            [
+                'title' => esc_html__('Rainbow Cinemas', 'cean-wp-theme'),
+                'description' => esc_html__('A vibrant cinema chain delivering diverse entertainment experiences.', 'cean-wp-theme'),
+                'logo' => 'rainbow',
+            ],
+            [
+                'title' => esc_html__('Timsed Cinemas', 'cean-wp-theme'),
+                'description' => esc_html__('A progressive cinema chain committed to entertainment excellence.', 'cean-wp-theme'),
+                'logo' => 'timsed',
+            ],
+            [
+                'title' => esc_html__('Voicenel Cinemas', 'cean-wp-theme'),
+                'description' => esc_html__('An innovative cinema brand enhancing the movie-going experience.', 'cean-wp-theme'),
+                'logo' => 'voicenel',
+            ],
+            [
+                'title' => esc_html__('Zara Cinemas', 'cean-wp-theme'),
+                'description' => esc_html__('A modern cinema chain providing premium entertainment services.', 'cean-wp-theme'),
+                'logo' => 'zara',
             ],
         ];
 
@@ -205,6 +319,11 @@ class CeanWP
                 'title' => esc_html__('Golden Effects Pictures', 'cean-wp-theme'),
                 'description' => esc_html__('A film distribution company in Nigeria, with a focus on bringing quality films to Nigerian audiences.', 'cean-wp-theme'),
                 'logo' => 'golden-effects',
+            ],
+            [
+                'title' => esc_html__('Thc Cinemax', 'cean-wp-theme'),
+                'description' => esc_html__('A film distribution company in Nigeria, known for its commitment to delivering high-quality movies to the Nigerian audience.', 'cean-wp-theme'),
+                'logo' => 'thc-cinemax',
             ]
         ];
 
@@ -516,6 +635,7 @@ class CeanWP
                 'silverbird-distribution' => '/images/distributors/silverbird.png',
                 'nile-group' => '/images/distributors/nile-group.png',
                 'golden-effects' => '/images/distributors/golden-effects.png',
+                'thc-cinemax' => '/images/distributors/thc.png',
 
                 // New logos from partners directory
                 'imperial' => '/images/partners/Imperial.jpeg',
