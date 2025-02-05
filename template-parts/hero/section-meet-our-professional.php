@@ -34,7 +34,7 @@
                 <?php endforeach; ?>
             </div>
         </div>
-        <div class="w-full flex justify-center items-end pt-8">
+        <div class="w-full flex justify-center items-end pt-8 hidden">
             <div class="py-4 px-5 flex gap-5 justify-around items-center">
                 <span class="font-normal text-sm">
                     Meet Our Team

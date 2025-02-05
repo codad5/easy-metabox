@@ -20,14 +20,16 @@
                             'poster' => wp_get_attachment_image_url($data['movie_poster'] ?? '', 'full'),
                             'duration' => $data['duration'] ?? 'n/a',
                             'rating' => $data['rating'] ?? 'unrated',
-                            'permalink' => $data['permalink'] ?? '#'
+                            'permalink' => $data['permalink'] ?? '#',
+                            'box_office' => $data['box_office'] ?? 0
                         ];
-                    }, CeanWP_Functions::get_all_time_top_grossing_movies())
+                    }, CeanWP_Functions::get_all_time_top_grossing_movies()),
+                'sub' => fn($m) => "₦".CeanWP_Functions::formatBoxOffice($m['box_office'], 10E10)
             ]) ?>
             <?php $new_release = CeanWP_Functions::get_coming_soon_from_reach(); ?>
             <?php if(!isset($new_release['error']) && isset($new_release['data'])): ?>
                 <?php get_template_part('template-parts/movies/content-slider', null, [
-                        'title' => 'New Releases',
+                        'title' => 'New Releases This Week',
                         'swiper_class_name_suffix' => 'new-releases',
                         'movies' => array_map(function ($data) {
                             return [
@@ -49,9 +51,11 @@
                         'poster' => wp_get_attachment_image_url($data['movie_poster'] ?? '', 'full'),
                         'duration' => $data['duration'] ?? 'n/a',
                         'rating' => $data['rating'] ?? 'unrated',
-                        'permalink' => $data['permalink'] ?? '#'
+                        'permalink' => $data['permalink'] ?? '#',
+                        'box_office' => $data['box_office'] ?? 0
                     ];
-                }, CeanWP_Functions::get_all_time_top_grossing_movies('week'))
+                }, CeanWP_Functions::get_all_time_top_grossing_movies('week')),
+                'sub' => fn($m) => "₦".CeanWP_Functions::formatBoxOffice($m['box_office'], 10E8)
             ]) ?>
         </div>
     </div>

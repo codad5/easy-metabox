@@ -2,7 +2,7 @@
     <div class="w-full flex flex-col gap-10">
         <div class="w-full flex flex-col gap-2 justify-center items-center">
             <h2 class="w-full text-center text-2xl lg:text-4xl font-semibold">
-                Company Achievements
+                Achievements
             </h2>
             <div class="w-full lg:w-3/5 text-[#999999] text-sm lg:text-base text-center lg:text-center">
                 At CEAN, we take pride in our accomplishments and the positive impact we have made on the lives of our members. Here are some of our notable achievements

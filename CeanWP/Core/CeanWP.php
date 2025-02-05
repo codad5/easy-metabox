@@ -37,6 +37,12 @@ class CeanWP
         $cean_wp_functions->register_model(CeanWP_FAQ::get_instance());
         $cean_wp_functions->register_model(CeanWP_BoxOffice::get_instance());
         $cean_wp_functions->load();
+        // to temp remove ORI ADE FADAKA
+        add_filter('cean_wp_get_coming_soon_from_reach', function ($d){
+            $new_d = $d;
+            $new_d['data'] = array_filter($d['data'], fn($m) => !str_contains($m['name'], "ORI ADE FADAKA"));
+            return $new_d;
+        });
     }
 
     function load(): void
@@ -57,7 +63,7 @@ class CeanWP
 
     function register_model(Models $model): void
     {
-        if(!in_array($model, $this->models)){
+        if (!in_array($model, $this->models)) {
             $this->models[] = $model;
         }
     }
@@ -76,7 +82,7 @@ class CeanWP
         wp_enqueue_script('cean-phone-country-dropdown', get_template_directory_uri() . '/assets/scripts/phone-country-dropdown.js', array('jquery'), $ver, true);
         wp_enqueue_script('cean-w3-js', get_template_directory_uri() . '/assets/libs/w3/w3.js', [], $ver, true);
         wp_enqueue_script('cean-swiper-js', get_template_directory_uri() . '/assets/libs/swiper/swiper-bundle.min.js', [], $ver, true);
-        wp_enqueue_script('cean-slideshow', get_template_directory_uri() . '/assets/scripts/slideshow.js', array( 'jquery', 'cean-w3-js', 'cean-swiper-js'), $ver, true);
+        wp_enqueue_script('cean-slideshow', get_template_directory_uri() . '/assets/scripts/slideshow.js', array('jquery', 'cean-w3-js', 'cean-swiper-js'), $ver, true);
 
 
         wp_localize_script('cean-phone-country-dropdown', 'ceanPhoneCountryDropdown', [
@@ -282,6 +288,7 @@ class CeanWP
 
         return apply_filters('cean_wp_partners_list', $partners);
     }
+
     /**
      * Get a list of distributors.
      *
@@ -316,15 +323,15 @@ class CeanWP
                 'logo' => 'nile-group',
             ],
             [
-                'title' => esc_html__('Golden Effects Pictures', 'cean-wp-theme'),
+                'title' => esc_html__('Tribe Nation', 'cean-wp-theme'),
                 'description' => esc_html__('A film distribution company in Nigeria, with a focus on bringing quality films to Nigerian audiences.', 'cean-wp-theme'),
-                'logo' => 'golden-effects',
+                'logo' => 'tribe-nation',
             ],
             [
-                'title' => esc_html__('Thc Cinemax', 'cean-wp-theme'),
-                'description' => esc_html__('A film distribution company in Nigeria, known for its commitment to delivering high-quality movies to the Nigerian audience.', 'cean-wp-theme'),
-                'logo' => 'thc-cinemax',
-            ]
+                'title' => esc_html__('Cinemax', 'cean-wp-theme'),
+                'description' => esc_html__('A film distribution company in Nigeria, with a focus on bringing quality films to Nigerian audiences.', 'cean-wp-theme'),
+                'logo' => 'cinemax',
+            ],
         ];
 
         return apply_filters('cean_wp_distributors_list', $distributors);
@@ -499,6 +506,67 @@ class CeanWP
                 'name' => esc_html__('Zara Cinemas', 'cean-wp-theme'),
                 'logo' => 'zara',
             ],
+            [
+                'since' => esc_html__('Since 2019', 'cean-wp-theme'),
+                'name' => esc_html__('Imperial Cinemas', 'cean-wp-theme'),
+                'logo' => 'imperial',
+            ],
+            [
+                'since' => esc_html__('Since 2019', 'cean-wp-theme'),
+                'name' => esc_html__('Ojaja Cinemas', 'cean-wp-theme'),
+                'logo' => 'ojaja',
+            ],
+            [
+                'since' => esc_html__('Since 2019', 'cean-wp-theme'),
+                'name' => esc_html__('Platinum Cinemas', 'cean-wp-theme'),
+                'logo' => 'platnium',
+            ],
+            [
+                'since' => esc_html__('Since 2019', 'cean-wp-theme'),
+                'name' => esc_html__('Covenant Plus Cinemas', 'cean-wp-theme'),
+                'logo' => 'covenant-plus',
+            ],
+            [
+                'since' => esc_html__('Since 2019', 'cean-wp-theme'),
+                'name' => esc_html__('G2G Cinemas', 'cean-wp-theme'),
+                'logo' => 'g2g',
+            ],
+            [
+                'since' => esc_html__('Since 2019', 'cean-wp-theme'),
+                'name' => esc_html__('Fiesta Cinemas', 'cean-wp-theme'),
+                'logo' => 'fiesta',
+            ],
+            [
+                'since' => esc_html__('Since 2019', 'cean-wp-theme'),
+                'name' => esc_html__('Mees Palace Cinemas', 'cean-wp-theme'),
+                'logo' => 'mees-palace',
+            ],
+            [
+                'since' => esc_html__('Since 2019', 'cean-wp-theme'),
+                'name' => esc_html__('Pepperoni Cinemas', 'cean-wp-theme'),
+                'logo' => 'pepperoni',
+            ],
+            [
+                'since' => esc_html__('Since 2019', 'cean-wp-theme'),
+                'name' => esc_html__('Nile Cinemas', 'cean-wp-theme'),
+                'logo' => 'nile',
+            ],
+            [
+                'since' => esc_html__('Since 2019', 'cean-wp-theme'),
+                'name' => esc_html__('Nova Cinemas', 'cean-wp-theme'),
+                'logo' => 'nova',
+            ],
+            [
+                'since' => esc_html__('Since 2019', 'cean-wp-theme'),
+                'name' => esc_html__('Sky Cinemas', 'cean-wp-theme'),
+                'logo' => 'sky',
+            ],
+            [
+                'since' => esc_html__('Since 2019', 'cean-wp-theme'),
+                'name' => esc_html__('AA Cinemas', 'cean-wp-theme'),
+                'logo' => 'aa',
+            ],
+
         ];
     }
 
@@ -561,7 +629,8 @@ class CeanWP
     }
 
 
-    static function get_contact_socials() : array {
+    static function get_contact_socials(): array
+    {
         $socials = [
             [
                 'title' => 'Twitter',
@@ -585,7 +654,7 @@ class CeanWP
 
     /**
      * Get the common social media icons used in the theme.
- *
+     *
      * @return array The common social media icons.
      */
     static function common_social_icons(): array
@@ -636,27 +705,27 @@ class CeanWP
                 'nile-group' => '/images/distributors/nile-group.png',
                 'golden-effects' => '/images/distributors/golden-effects.png',
                 'thc-cinemax' => '/images/distributors/thc.png',
+                'tribe-nation' => '/images/distributors/tribe-nation.png',
 
                 // New logos from partners directory
-                'imperial' => '/images/partners/Imperial.jpeg',
+                'imperial' => '/images/partners/black-white/Imperial.png',
                 'elc' => '/images/partners/elc.png',
                 'gren' => '/images/partners/gren-logo.webp',
                 'havana' => '/images/partners/havana.png',
                 'kada' => '/images/partners/black-white/kada.png', // Updated to black-white
-                'nova' => '/images/partners/nova-logo.webp',
+//                'nova' => '/images/partners/nova-logo.webp',
                 'sky-cinema' => '/images/partners/sky-cenima.svg',
                 'viva' => '/images/partners/black-white/viva.png', // Updated to black-white
                 'wosam' => '/images/partners/wosam.png',
 
                 // Adding new black-white partner icons
-                'ebonylife' => '/images/partners/black-white/ebonylife.png',
                 'bluepicture' => '/images/partners/black-white/bluepicture.png',
                 'brands' => '/images/partners/black-white/brands.png',
                 'capricon' => '/images/partners/black-white/capricon.png',
                 'citadel' => '/images/partners/black-white/citadel.png',
                 'filmworld' => '/images/partners/black-white/filmworld.png',
                 'grand' => '/images/partners/black-white/grand.png',
-                'grenhauz' => '/images/partners/black-white/grenhauz.png', // Already in black-white section
+                'grenhauz' => '/images/partners/black-white/grenhauz.png',
                 'habitat' => '/images/partners/black-white/habitat.png',
                 'heritage' => '/images/partners/black-white/heritage.png',
                 'hogis' => '/images/partners/black-white/hogis.png',
@@ -670,9 +739,27 @@ class CeanWP
                 'voicenel' => '/images/partners/black-white/voicenel.png',
                 'zara' => '/images/partners/black-white/zara.png',
                 'sandford' => '/images/partners/black-white/sandford.png',
+
+                // Newly added images based on the directory listing
+                'ojaja' => '/images/partners/black-white/Ojaja.png',
+                'nova' => '/images/partners/black-white/nova.png',
+                'platnium' => '/images/partners/black-white/Platnium.png',
+                'covenant-plus' => '/images/partners/black-white/covenant-plus.png',
+                'g2g' => '/images/partners/black-white/g2g.png',
+                'fiesta' => '/images/partners/black-white/fiesta.png',
+                'mees-palace' => '/images/partners/black-white/mees-palace.png',
+                'pepperoni' => '/images/partners/black-white/pepperoni.png',
+                'silverbird-cinemas' => '/images/partners/black-white/silverbird-cinemas.png',
+                'nile' => '/images/partners/black-white/nile.png',
+                'sky' => '/images/partners/black-white/sky.png',
+                'sky-1' => '/images/partners/black-white/Sky 1.png',
+                'viva-logo-1' => '/images/partners/black-white/Viva logo 1.png',
+                'aa' => '/images/partners/black-white/aa.png',
+                'cinemax' => '/images/partners/black-white/cinemax.png',
             ]
         );
     }
+
     /**
      * Get the URL of a common icon used in the theme.
      *
@@ -680,7 +767,7 @@ class CeanWP
      *
      * @return string The URL of the icon.
      */
-    static function get_common_icon_url(string $key) : string
+    static function get_common_icon_url(string $key): string
     {
         $icons = self::common_icons();
         if (isset($icons[$key])) {
@@ -701,12 +788,12 @@ class CeanWP
     }
 
 
-    static function get_inquiry_type() : array
+    static function get_inquiry_type(): array
     {
         return CeanWP_Contact_Form::INQUIRY_TYPES;
     }
 
-    static function get_heard_about_us() : array
+    static function get_heard_about_us(): array
     {
         return CeanWP_Contact_Form::HEARD_ABOUT_US;
     }
@@ -734,7 +821,8 @@ class CeanWP
 
     static function get_coming_soon_from_reach(): array
     {
-        return ReachCinemaAPI::get_coming_soon_movies();
+        $d = ReachCinemaAPI::get_coming_soon_movies();
+        return !isset($d['error']) ?  apply_filters('cean_wp_get_coming_soon_from_reach', $d) :  $d;
     }
 
     static function get_movie_details_from_reach($film_id): ?array
@@ -747,7 +835,8 @@ class CeanWP
         return Cean_WP_Movies::map_reach_movie_data_to_cean_usable($movie_data);
     }
 
-    static function get_best_slide_show_content($limit = 5) : array {
+    static function get_best_slide_show_content($limit = 5): array
+    {
         $best = [];
         try {
             $best = ReachCinemaAPI::get_coming_soon_movies();
@@ -757,27 +846,31 @@ class CeanWP
                     return Cean_WP_Movies::map_reach_movie_data_to_cean_usable($movie);
                 }, $best);
                 return $best;
-            }
-            else {
+            } else {
                 $best = Cean_WP_Movies::get_top_grossing_movies();
             }
         } catch (\Exception $e) {
             $best = Cean_WP_Movies::get_top_grossing_movies();
-        }
-        finally {
+        } finally {
             return array_slice($best, 0, $limit);
         }
     }
 
 
-    static function get_hero_wallpaper() : string
+    static function get_hero_wallpaper(): string
     {
         $url = Settings::get('hero_wall_paper');
         return empty($url) ? get_theme_file_uri('assets/images/index-hero-image.png') : $url;
     }
 
-    static  function formatBoxOffice($number): string
+    static function formatBoxOffice($number, $after = null): string
     {
+        $number = (int) $number;
+
+        if ($after === null || $number < $after) {
+            return number_format($number); // Show full number if below the threshold
+        }
+
         if ($number >= 1000000000) {
             return number_format($number / 1000000000, 1) . 'B'; // Billions
         } elseif ($number >= 1000000) {
@@ -785,7 +878,9 @@ class CeanWP
         } elseif ($number >= 1000) {
             return number_format($number / 1000, 1) . 'k'; // Thousands
         }
-        return number_format($number); // Less than 1k
+
+        return number_format($number);
     }
+
 }
 

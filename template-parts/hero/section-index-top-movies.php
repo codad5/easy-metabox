@@ -1,3 +1,5 @@
+<?php $top_movies = CeanWP_Functions::get_all_time_top_grossing_movies($args['period'] ?? 'all_time'); ?>
+<?php if(!empty($top_movies)): ?>
 <div class=" w-full px-4 lg:px-20 py-3 lg:py-6">
     <div class=" w-full flex lg:h-24 flex-col lg:flex-row gap-4 lg:gap-0 py-6 lg:py-0">
         <div class="w-full lg:w-3/5 lg:h-full flex flex-col lg:inline-block gap-2.5 lg:gap-0">
@@ -24,7 +26,7 @@
         </a>
     </div>
 
-    <?php $top_movies = CeanWP_Functions::get_all_time_top_grossing_movies($args['period'] ?? 'all_time'); ?>
+
     <!-- Grid for Small Screens -->
     <div class="lg:hidden grid grid-cols-2 gap-4 py-10 gap-y-7">
         <?php foreach ($top_movies as $i => $movie_d): ?>
@@ -81,3 +83,4 @@
         </div>
     </div>
 </div>
+<?php endif; ?>
