@@ -486,15 +486,6 @@ class MetaBox
 
 
         return $this->save_fields($post_id);
-
-//        $final_bool = true;
-//        foreach ($names as $name) {
-//            $data = sanitize_text_field($_POST[$name] ?? '');
-//            // check if data is same as the one in the database
-//            $old_data = get_post_meta($post_id, $name, true);
-//            $final_bool = $final_bool && (update_post_meta($post_id, $name, $data) || $old_data == $data);
-//        }
-//        return $final_bool;
     }
 
 

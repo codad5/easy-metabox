@@ -38,29 +38,28 @@ trait Models
         $args =  array_merge(self::get_post_type_args(), [
             'show_in_menu' => false
         ]);
-//        echo "<pre>";
-//        print_r($args);
-//        echo "</pre>";
         return register_post_type(self::POST_TYPE, $args);
     }
     /**
      * Save meta box data
      */
-    function save_post($post_id): void {
+    function save_post($post_id): bool
+    {
         try {
             if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) {
-                return;
+                return false;
             }
 
             if (!current_user_can('edit_post', $post_id)) {
-                return;
+                return false;
             }
-            echo "<pre>";
             foreach($this->metaBoxes as $metaBox) {
                 $metaBox->save($post_id);
             }
+            return true;
         } catch (\Throwable $th) {
-            //throw $th;
+            //throw $th;re
+            return false;
         }
 
     }

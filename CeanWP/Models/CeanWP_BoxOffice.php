@@ -24,7 +24,7 @@ class CeanWP_BoxOffice implements Models
 
         // Register post type and meta boxes
         add_action('init', [self::$instance, 'register_post_type']);
-        add_action('save_post', [self::$instance, 'save_post']);
+        add_action("save_post_".self::POST_TYPE, [self::$instance, 'save_post']);
 
         // Add custom admin table columns
         add_filter('manage_' . self::POST_TYPE . '_posts_columns', [self::$instance, 'set_custom_columns']);

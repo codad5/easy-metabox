@@ -26,16 +26,16 @@ class CeanWP_FAQ implements Models
         if (isset(self::$instance)) {
             return self::$instance;
         }
+
         self::$instance = new self();
 
         // Register post type and meta boxes
         add_action('init', [self::$instance, 'register_post_type']);
-        add_action('save_post', [self::$instance, 'save_post']);
+        add_action("save_post_".self::POST_TYPE, [self::$instance, 'save_post']);
 
         // Add custom admin table columns
         add_filter('manage_' . self::POST_TYPE . '_posts_columns', [self::$instance, 'set_custom_columns']);
         add_action('manage_' . self::POST_TYPE . '_posts_custom_column', [self::$instance, 'custom_column_content'], 10, 2);
-
         self::$instance->setup_metabox();
 
         return self::$instance;

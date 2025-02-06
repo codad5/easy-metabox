@@ -11,7 +11,7 @@ interface Models
     static function get_instance(): self;
     static function register_post_type() : WP_Error|WP_Post_Type;
     function register_metabox(MetaBox $metabox): void;
-    function save_post(int $post_id): void;
+    function save_post(int $post_id): bool;
     /**
      * To get the post type arguments. to be used in the register_post_type function
      */
