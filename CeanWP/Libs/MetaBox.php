@@ -466,6 +466,7 @@ class MetaBox
         });
 
         if(!empty($has_error)){
+            var_dump("has error");
             if($this->show_admin_error){
                 add_filter('redirect_post_location', function($location) use ($has_error){
                     $error_message = implode(', ', array_map(function($field){
@@ -500,13 +501,11 @@ class MetaBox
     /**
      * Saves field values to post meta
      */
-    private function save_fields(int $post_id): bool
-    {
+    private function save_fields(int $post_id): bool {
         $success = true;
         foreach ($this->fields as $field) {
             $field_id = $field['id'];
-//            var_dump($field);
-            // Handle different field types
+
             if ($field['type'] === 'wp_media') {
                 // Handle multiple media values
                 $media_ids = isset($_POST[$field_id]) ? (array) $_POST[$field_id] : [];
@@ -518,22 +517,35 @@ class MetaBox
                 // Add new values
                 foreach ($sanitized_ids as $media_id) {
                     if ($media_id > 0) {
-                        add_post_meta($post_id, $field_id, $media_id);
+                        $success = add_post_meta($post_id, $field_id, $media_id) !== false;
                     }
                 }
             } else {
                 $value = $_POST[$field_id] ?? '';
                 $sanitized_value = $this->sanitize_field_value($value, $field['type']);
-                $success = $success && (update_post_meta($post_id, $field_id, $sanitized_value) !== false);
+
+                // Check if the meta exists
+                $exists = metadata_exists('post', $post_id, $field_id);
+
+                if ($exists) {
+                    // Update existing meta
+                    $old_value = get_post_meta($post_id, $field_id, true);
+                    $old_value = $this->sanitize_field_value($old_value, $field['type']);
+                    if ($old_value !== $sanitized_value) {
+                        $success = $success && (update_post_meta($post_id, $field_id, $sanitized_value) !== false);
+                    }
+                } else {
+                    // Add new meta
+                    $success = $success && (add_post_meta($post_id, $field_id, $sanitized_value, true) !== false);
+                }
             }
         }
         return $success;
     }
-
     /**
      * Sanitizes field value based on type
      */
-    private function sanitize_field_value($value, string $type)
+    private function sanitize_field_value($value, string $type): int|string
     {
         return match ($type) {
             'wp_media', 'number' => absint($value),

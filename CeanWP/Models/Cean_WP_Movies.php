@@ -21,19 +21,19 @@ class Cean_WP_Movies implements Models
     {
         if (!isset(self::$instance)) {
             self::$instance = new self();
+            // Register ost type and meta boxes
+            add_action('init', [self::$instance, 'register_post_type']);
+            add_action('save_post', [self::$instance, 'save_post']);
+
+            add_filter('manage_' . self::POST_TYPE . '_posts_columns', [self::$instance, 'set_custom_columns']);
+            add_action('manage_' . self::POST_TYPE . '_posts_custom_column', [self::$instance, 'custom_column_content'], 10, 2);
+            add_filter('manage_edit-' . self::POST_TYPE . '_sortable_columns', [self::$instance, 'set_sortable_columns']);
+
+            // Add hook for sorting functionality
+            add_action('pre_get_posts', [self::$instance, 'sort_columns']);
+
+            self::$instance->setup_metabox();
         }
-        // Register post type and meta boxes
-        add_action('init', [self::$instance, 'register_post_type']);
-        add_action('save_post', [self::$instance, 'save_post']);
-
-        add_filter('manage_' . self::POST_TYPE . '_posts_columns', [self::$instance, 'set_custom_columns']);
-        add_action('manage_' . self::POST_TYPE . '_posts_custom_column', [self::$instance, 'custom_column_content'], 10, 2);
-        add_filter('manage_edit-' . self::POST_TYPE . '_sortable_columns', [self::$instance, 'set_sortable_columns']);
-
-        // Add hook for sorting functionality
-        add_action('pre_get_posts', [self::$instance, 'sort_columns']);
-
-        self::$instance->setup_metabox();
         return self::$instance;
 
     }

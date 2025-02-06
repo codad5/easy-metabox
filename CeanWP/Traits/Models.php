@@ -26,6 +26,9 @@ trait Models
     }
 
     function register_metabox(MetaBox $metabox): void {
+        if(in_array($metabox, $this->metaBoxes)) {
+            return;
+        }
         $this->metaBoxes[] = $metabox;
         add_action("add_meta_boxes_".self::POST_TYPE, [$metabox, 'show']);
     }
@@ -52,7 +55,7 @@ trait Models
             if (!current_user_can('edit_post', $post_id)) {
                 return;
             }
-
+            echo "<pre>";
             foreach($this->metaBoxes as $metaBox) {
                 $metaBox->save($post_id);
             }
