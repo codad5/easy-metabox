@@ -13,12 +13,12 @@ module.exports = {
         urbanist: ['Urbanist', 'sans-serif'],
       },
       animation: {
-        marquee: 'marquee 15s linear infinite',
+        marquee: 'marquee 25s linear infinite',
       },
       keyframes: {
         marquee: {
           '0%': { transform: 'translateX(100%)' },
-          '100%': { transform: 'translateX(-100%)' },
+          '100%': { transform: 'translateX(-500%)' },
         },
       },
     },

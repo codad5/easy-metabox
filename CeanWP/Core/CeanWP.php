@@ -40,7 +40,7 @@ class CeanWP
         // to temp remove ORI ADE FADAKA
         add_filter('cean_wp_get_coming_soon_from_reach', function ($d){
             $new_d = $d;
-            $new_d['data'] = array_filter($d['data'], fn($m) => !str_contains($m['name'], "ORI ADE FADAKA"));
+            $new_d['data'] = array_filter($d['data'], fn($m) => !str_contains($m['name'], "ORI ADE FADAKA") && !str_contains($m['name'], "Captain America: Brave New World (3D)") && $m['isActive'] === true);
             return $new_d;
         });
     }
@@ -165,16 +165,6 @@ class CeanWP
                 'logo' => 'ozone',
             ],
             [
-                'title' => esc_html__('Nile Group', 'cean-wp-theme'),
-                'description' => esc_html__('A leading film distribution company in Nigeria, with a focus on bringing quality international and local films to Nigerian audiences.', 'cean-wp-theme'),
-                'logo' => 'nile-group',
-            ],
-            [
-                'title' => esc_html__('Viva Cinemas', 'cean-wp-theme'),
-                'description' => esc_html__('A modern cinema chain providing quality entertainment experiences across Nigeria.', 'cean-wp-theme'),
-                'logo' => 'viva',
-            ],
-            [
                 'title' => esc_html__('Kada Cinemas', 'cean-wp-theme'),
                 'description' => esc_html__('A growing cinema chain delivering memorable movie experiences to Nigerian audiences.', 'cean-wp-theme'),
                 'logo' => 'kada',
@@ -245,11 +235,6 @@ class CeanWP
                 'logo' => 'magnificent',
             ],
             [
-                'title' => esc_html__('MCrystal Cinemas', 'cean-wp-theme'),
-                'description' => esc_html__('A forward-thinking cinema chain expanding entertainment possibilities.', 'cean-wp-theme'),
-                'logo' => 'mcrystal',
-            ],
-            [
                 'title' => esc_html__('Mega Cinemas', 'cean-wp-theme'),
                 'description' => esc_html__('A leading cinema chain providing diverse entertainment options.', 'cean-wp-theme'),
                 'logo' => 'mega',
@@ -284,11 +269,75 @@ class CeanWP
                 'description' => esc_html__('A modern cinema chain providing premium entertainment services.', 'cean-wp-theme'),
                 'logo' => 'zara',
             ],
+            [
+                'title' => esc_html__('Imperial Cinemas', 'cean-wp-theme'),
+                'description' => esc_html__('A distinguished cinema chain offering premium movie experiences.', 'cean-wp-theme'),
+                'logo' => 'imperial',
+            ],
+            [
+                'title' => esc_html__('Ojaja Cinemas', 'cean-wp-theme'),
+                'description' => esc_html__('A cinema chain dedicated to delivering exceptional entertainment experiences.', 'cean-wp-theme'),
+                'logo' => 'ojaja',
+            ],
+            [
+                'title' => esc_html__('Platinum Cinemas', 'cean-wp-theme'),
+                'description' => esc_html__('A premium cinema chain offering luxurious movie-watching experiences.', 'cean-wp-theme'),
+                'logo' => 'platnium',
+            ],
+            [
+                'title' => esc_html__('Covenant Plus Cinemas', 'cean-wp-theme'),
+                'description' => esc_html__('A cinema chain committed to providing quality entertainment services.', 'cean-wp-theme'),
+                'logo' => 'covenant-plus',
+            ],
+            [
+                'title' => esc_html__('G2G Cinemas', 'cean-wp-theme'),
+                'description' => esc_html__('An innovative cinema chain delivering unique viewing experiences.', 'cean-wp-theme'),
+                'logo' => 'g2g',
+            ],
+            [
+                'title' => esc_html__('Fiesta Cinemas', 'cean-wp-theme'),
+                'description' => esc_html__('A vibrant cinema chain creating celebratory movie experiences.', 'cean-wp-theme'),
+                'logo' => 'fiesta',
+            ],
+            [
+                'title' => esc_html__('Mees Palace Cinemas', 'cean-wp-theme'),
+                'description' => esc_html__('A premium cinema destination offering exceptional entertainment services.', 'cean-wp-theme'),
+                'logo' => 'mees-palace',
+            ],
+            [
+                'title' => esc_html__('Pepperoni Cinemas', 'cean-wp-theme'),
+                'description' => esc_html__('A dynamic cinema chain providing engaging movie experiences.', 'cean-wp-theme'),
+                'logo' => 'pepperoni',
+            ],
+            [
+                'title' => esc_html__('Nile Cinemas', 'cean-wp-theme'),
+                'description' => esc_html__('A cinema chain dedicated to quality entertainment experiences.', 'cean-wp-theme'),
+                'logo' => 'nile',
+            ],
+            [
+                'title' => esc_html__('Nova Cinemas', 'cean-wp-theme'),
+                'description' => esc_html__('An innovative cinema chain offering modern movie experiences.', 'cean-wp-theme'),
+                'logo' => 'nova',
+            ],
+            [
+                'title' => esc_html__('Sky Cinemas', 'cean-wp-theme'),
+                'description' => esc_html__('A premier cinema chain delivering elevated entertainment experiences.', 'cean-wp-theme'),
+                'logo' => 'sky',
+            ],
+            [
+                'title' => esc_html__('AA Cinemas', 'cean-wp-theme'),
+                'description' => esc_html__('A cinema chain committed to providing quality movie experiences.', 'cean-wp-theme'),
+                'logo' => 'aa',
+            ],
+            [
+                'title' => esc_html__('Nile Group', 'cean-wp-theme'),
+                'description' => esc_html__('A leading film distribution company in Nigeria, with a focus on bringing quality international and local films to Nigerian audiences.', 'cean-wp-theme'),
+                'logo' => 'nile-group',
+            ],
         ];
 
         return apply_filters('cean_wp_partners_list', $partners);
     }
-
     /**
      * Get a list of distributors.
      *
@@ -839,7 +888,7 @@ class CeanWP
     {
         $best = [];
         try {
-            $best = ReachCinemaAPI::get_coming_soon_movies();
+            $best = self::get_coming_soon_from_reach();
             if (isset($best['data'])) {
                 $best = $best['data'];
                 $best = array_map(function ($movie) {

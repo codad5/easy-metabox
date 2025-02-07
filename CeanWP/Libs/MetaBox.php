@@ -129,6 +129,12 @@ class MetaBox
         );
     }
 
+    function show_quick_edit_field($column_name, $post_type)
+    {
+        if ($post_type !== $this->screen) return;
+        echo "bed";
+    }
+
     // enqueue scripts to the admin for post type ceanwp_widget
     function enqueue_scripts($path , $handle = 'ceanwp_admin_script', $deps = [], $ver = false, $in_footer = true): void {
         add_action('admin_enqueue_scripts', function() use ($path, $handle, $deps, $ver, $in_footer){
@@ -163,7 +169,8 @@ class MetaBox
             'type' => $type,
             'options' => $options,
             'attributes' => $attributes,
-            'default' => $attributes['value'] ?? $options_attributes['default'] ?? ''
+            'default' => $attributes['value'] ?? $options_attributes['default'] ?? '',
+            'allow_quick_edit' => $options_attributes['allow_quick_edit'] ?? false
         ];
         return $this;
     }

@@ -58,6 +58,7 @@ class Cean_WP_Movies implements Models
 
         // Add our custom columns
         $new_columns['box_office'] = __('Box Office', 'cean-wp-theme');
+        $new_columns['week_box_office'] = __('Week Box Office', 'cean-wp-theme');
         $new_columns['release_date'] = __('Release Date', 'cean-wp-theme');
 
         return $new_columns;
@@ -75,26 +76,31 @@ class Cean_WP_Movies implements Models
             case 'box_office':
                 $box_office = get_post_meta($post_id, self::META_PREFIX . 'box_office', true);
                 if ($box_office) {
-                    // Format the number with commas and dollar sign
                     echo '₦' . number_format($box_office, 0, '.', ',');
+                }
+                break;
+
+            case 'week_box_office':
+                $week_box_office = get_post_meta($post_id, self::META_PREFIX . 'week_box_office', true);
+                if ($week_box_office) {
+                    echo '₦' . number_format($week_box_office, 0, '.', ',');
                 }
                 break;
 
             case 'release_date':
                 $release_date = get_post_meta($post_id, self::META_PREFIX . 'release_date', true);
                 if ($release_date) {
-                    // Format the date
                     echo date('F j, Y', strtotime($release_date));
                 }
                 break;
         }
     }
-
     /**
      * Make custom columns sortable
      */
     function set_sortable_columns($columns): array {
         $columns['box_office'] = self::META_PREFIX . 'box_office';
+        $columns['week_box_office'] = self::META_PREFIX . 'week_box_office';
         $columns['release_date'] = self::META_PREFIX . 'release_date';
         return $columns;
     }
@@ -115,6 +121,11 @@ class Cean_WP_Movies implements Models
                 $query->set('orderby', 'meta_value_num');
                 break;
 
+            case self::META_PREFIX . 'week_box_office':
+                $query->set('meta_key', self::META_PREFIX . 'week_box_office');
+                $query->set('orderby', 'meta_value_num');
+                break;
+
             case self::META_PREFIX . 'release_date':
                 $query->set('meta_key', self::META_PREFIX . 'release_date');
                 $query->set('orderby', 'meta_value');
@@ -123,14 +134,13 @@ class Cean_WP_Movies implements Models
     }
 
 
-
     function setup_metabox(): void
     {
         // id, title, screen
         $meta_box = new MetaBox('movie_details', 'Movie Details', self::POST_TYPE);
-        $meta_box->add_field(self::META_PREFIX . 'box_office', 'Box Office', 'number', [], ['required' => true]);
+        $meta_box->add_field(self::META_PREFIX . 'box_office', 'Box Office', 'number', [], ['required' => true], ['allow_quick_edit' => true]);
 //        week box office amount
-        $meta_box->add_field(self::META_PREFIX . 'week_box_office', 'Week Box Office', 'number', [], ['required' => true]);
+        $meta_box->add_field(self::META_PREFIX . 'week_box_office', 'Week Box Office', 'number', [], ['required' => true], ['allow_quick_edit' => true]);
         $meta_box->add_field(self::META_PREFIX . 'movie_id', 'Movie ID', 'text');
         $meta_box->add_field(self::META_PREFIX . 'release_date', 'Release Date', 'date');
         $meta_box->add_field(self::META_PREFIX . 'image_url', 'Image URL', 'url');
@@ -225,6 +235,7 @@ class Cean_WP_Movies implements Models
                     'box_office'    => get_post_meta(get_the_ID(), self::META_PREFIX . 'box_office', true),
                     'week_box_office' => intval(get_post_meta(get_the_ID(), self::META_PREFIX . 'week_box_office', true)),
                     'movie_id'      => get_post_meta(get_the_ID(), self::META_PREFIX . 'movie_id', true),
+                    'id'      => get_post_meta(get_the_ID(), self::META_PREFIX . 'movie_id', true),
                     'release_date'  => get_post_meta(get_the_ID(), self::META_PREFIX . 'release_date', true),
                     'cinema_name'   => get_post_meta(get_the_ID(), self::META_PREFIX . 'cinema_name', true),
                     'genre'         => get_post_meta(get_the_ID(), self::META_PREFIX . 'genre', true),

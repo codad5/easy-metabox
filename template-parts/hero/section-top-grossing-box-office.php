@@ -5,13 +5,13 @@
     </div>
     <div class="w-full lg:inline-block flex flex-col gap-5">
         <div class="w-full font-semibold text-base lg:text-xl pb-5">
-            January 22
+            All Time
         </div>
         <div class="w-full grid grid-cols-1 lg:grid-cols-2 gap-x-10 gap-y-2.5">
             <?php $top_grossing = CeanWP_Functions::get_all_time_top_grossing_movies(); ?>
             <?php foreach($top_grossing as $i => $movie_d): ?>
-                <div class="w-full lg:w-2/3 h-24 p-5 border-l-4 border-l-[#262626]">
-                    <div class="w-full h-full flex">
+                <div class="w-full lg:w-2/3 p-5 border-l-4 border-l-[#262626]">
+                    <div class="w-full flex gap-4 justify-center items-center">
                         <div class="grid h-full aspect-square place-items-center text-[#018B8D] text-base font-semibold">
                             <?php echo $i+1; ?>
                         </div>
