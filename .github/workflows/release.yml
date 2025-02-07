@@ -1,4 +1,4 @@
-name: Build and Release WordPress Theme
+name: Build, Test, and Release WordPress Theme
 
 on:
   release:
@@ -6,20 +6,21 @@ on:
       - created
 
 jobs:
-  build-and-zip:
-    name: Build and Zip Theme
+  build-and-test:
+    name: Build, Test, and Zip Theme
     runs-on: ubuntu-latest
     permissions:
       contents: write
 
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v4.1.1
+        uses: actions/checkout@v4
 
+      # Setup Node.js for Tailwind and other front-end tasks
       - name: Set up Node.js
-        uses: actions/setup-node@v4.0.1
+        uses: actions/setup-node@v4
         with:
-          node-version: '20.11.0'
+          node-version: '20'
           cache: 'npm'
 
       - name: Install Node.js Dependencies
@@ -28,16 +29,31 @@ jobs:
       - name: Build TailwindCSS
         run: npm run build
 
+      # Setup PHP environment for testing
       - name: Set up PHP
         uses: shivammathur/setup-php@v2
         with:
           php-version: '8.3'
-          tools: composer:v2.7.1
+          tools: composer
 
+      - name: Install PHP Dependencies
+        run: composer install --no-dev --prefer-dist --optimize-autoloader
+
+      # Run PHP CodeSniffer for compatibility checks
+      - name: Run PHP CodeSniffer
+        run: composer phpcs
+
+#      # Run PHPUnit tests
+#      - name: Run PHPUnit Tests
+#        run: vendor/bin/phpunit
+
+      # Prepare Theme Zip
       - name: Prepare Theme Zip
         run: node ./build-tools/prepare-theme.js
 
+      # Upload Theme Zip as a Release Asset
       - name: Upload Release Asset
-        uses: softprops/action-gh-release@v0.1.15
+        uses: softprops/action-gh-release@v1
         with:
           files: cean-wp-theme.zip
+          fail_on_unmatched_files: true
