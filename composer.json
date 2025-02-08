@@ -1,0 +1,19 @@
+{
+    "name": "codad5/easy-metabox",
+    "description": "Your wp metabox library",
+    "type": "library",
+    "autoload": {
+        "psr-4": {
+            "Codad5\\EasyMetabox\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "codad5",
+            "email": "aniezeoformic@gmail.com"
+        }
+    ],
+    "require": {
+      "ext-fileinfo": "*"
+    }
+}
