@@ -5,10 +5,28 @@
         "psr-4": {
             "CeanWP\\": "CeanWP/",
             "YahnisElsts\\PluginUpdateChecker\\": "plugin-update-checker/"
-
         }
     },
     "require": {
-      "ext-fileinfo": "*"
+        "ext-fileinfo": "*"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^12.0",
+        "squizlabs/php_codesniffer": "^3.11",
+        "phpcompatibility/php-compatibility": "^9.3",
+        "dealerdirect/phpcodesniffer-composer-installer": "^1.0",
+        "wp-coding-standards/wpcs": "^3.1"
+    },
+    "scripts": {
+        "phpcs": "php -d memory_limit=2G vendor/bin/phpcs",
+        "phpcs:7.4": "composer phpcs --runtime-set testVersion 7.4",
+        "phpcs:8.0": "composer phpcs --runtime-set testVersion 8.0",
+        "phpcs:8.1": "composer phpcs --runtime-set testVersion 8.1",
+        "phpcs:8.2": "composer phpcs --runtime-set testVersion 8.2"
+    },
+    "config": {
+        "allow-plugins": {
+            "dealerdirect/phpcodesniffer-composer-installer": true
+        }
     }
 }

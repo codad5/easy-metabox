@@ -33,7 +33,7 @@
         <div class="flex flex-col gap-6 lg:gap-0 lg:flex-row bg-[#1A1A1A] px-10 py-8 rounded-lg">
             <div class="w-full lg:w-1/3 lg:basis-1/3 flex flex-col gap-2.5 grow-0">
                 <div class="w-full text-[#999999] text-sm lg:text-base font-semibold">
-                    Released Year
+                    Released Date
                 </div>
                 <div class="w-full text-white text-sm lg:text-base font-semibold">
                     <?php echo date('F d, Y', strtotime($post['release_date'])); ?>

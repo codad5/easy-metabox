@@ -5,7 +5,7 @@
     </div>
     <div class="w-full lg:inline-block flex flex-col gap-5">
         <div class="w-full font-semibold text-base lg:text-xl pb-5">
-            All Time
+            Of All Time
         </div>
         <div class="w-full grid grid-cols-1 lg:grid-cols-2 gap-x-10 gap-y-2.5">
             <?php $top_grossing = CeanWP_Functions::get_all_time_top_grossing_movies(); ?>

@@ -26,7 +26,7 @@
 // Ensure default_value is always an array for consistency
 $values = is_array($default_value) ? $default_value : ($default_value ? [$default_value] : []);
 ?>
-<div class="ceanwpmetabox-field ceanwpmetabox-media-field">
+<div class="ceanwpmetabox-field ceanwpmetabox-media-field form-field">
     <div class="media-items-container" id="<?php echo esc_attr($id . '_container'); ?>">
         <?php foreach ($values as $media_id): ?>
             <div class="media-item" data-media-id="<?php echo esc_attr($media_id); ?>">

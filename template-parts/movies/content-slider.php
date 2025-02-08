@@ -31,7 +31,7 @@
                     <div class="w-full h-full absolute inset-0 bg-gradient-to-b from-black/0 to-black/90"></div>
                 </div>
                 <div class="w-full  h-11">
-                    <h4 class="font-semibold text-sm"><a href="<?php echo $movie['permalink']; ?>" ><?php echo $movie['title']; ?></a></h4>
+                    <h4 class="font-semibold text-sm"><a <?php if(!empty($movie['permalink'])) : ?>  href="<?php echo $movie['permalink']; ?>" <?php endif; ?> ><?php echo $movie['title']; ?></a></h4>
                     <div class="font-normal text-xs text-[#78828A]"><?php echo isset($args['sub']) && is_callable($args['sub']) ? $args['sub']($movie) :  ($movie['distributor'] ?? ''); ?></div>
                 </div>
             </div>

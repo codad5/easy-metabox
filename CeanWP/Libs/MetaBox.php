@@ -50,6 +50,7 @@ class MetaBox
 
     /** @var string Path to templates directory */
     private string $templates_path;
+    private string $meta_prefix = '';
 
     /**
      * Constructor for the MetaBox class
@@ -72,6 +73,7 @@ class MetaBox
         // Make sure to add wp_enqueue_media() when needed
         add_action('admin_enqueue_scripts', function() {
             wp_enqueue_media();
+            $this->enqueue_quick_edit_script();
         });
 
     }
@@ -97,6 +99,22 @@ class MetaBox
     function set_nonce(string $nonce) : MetaBox {
         $this->nonce = $nonce;
         return $this;
+    }
+
+    function get_quick_edit_nonce(): string
+    {
+        return "cean-quick-edit-{$this->nonce}";
+    }
+
+    function set_prefix(string $prefix) : MetaBox {
+        $this->meta_prefix = $prefix;
+        return $this;
+    }
+
+    function setup_actions()
+    {
+        add_action("add_meta_boxes_".$this->screen, [$this, 'show']);
+        add_action('quick_edit_custom_box', [$this, 'show_quick_edit_field'], 10, 2);
     }
 
     /**
@@ -129,10 +147,40 @@ class MetaBox
         );
     }
 
+
     function show_quick_edit_field($column_name, $post_type)
     {
         if ($post_type !== $this->screen) return;
-        echo "bed";
+        static $printNonce = TRUE;
+        if ($printNonce) {
+            $printNonce = FALSE;
+            wp_nonce_field(basename(__FILE__), $this->nonce);
+            wp_nonce_field(basename(__FILE__), $this->get_quick_edit_nonce());
+        }
+
+        $field = $this->get_field('id', $column_name);
+//        var_dump($field, $column_name);
+        if(!$field) return;
+        if(isset($field['allow_quick_edit']) && $field['allow_quick_edit'] === true) {
+            $field['default'] = $this->get_field_value($field['id']);
+            $this->print_input_type($field['type'], $field['id'], $field);
+        }
+
+    }
+
+    /**
+     * Enqueue Quick Edit JavaScript
+     */
+    function enqueue_quick_edit_script(): void
+    {
+        $screen = get_current_screen();
+
+        // Only add to Movies admin list
+        if ($screen->post_type !== $this->screen || $screen->base !== 'edit') {
+            return;
+        }
+
+        wp_enqueue_script('cean-movie-quick-edit', get_template_directory_uri() . '/assets/scripts/movie-quick-edit.js', ['jquery', 'inline-edit-post'], '1.0.0', true);
     }
 
     // enqueue scripts to the admin for post type ceanwp_widget
@@ -162,8 +210,10 @@ class MetaBox
      */
     function add_field(string $id, string $label, string $type, array $options = [], array $attributes = [], array $options_attributes = []): MetaBox
     {
-        $this->fields[] = [
-            ...$options_attributes,
+        if(!empty($this->meta_prefix) && !str_starts_with($id, $this->meta_prefix)) {
+            $id = $this->meta_prefix . $id;
+        }
+        $this->fields[] = array_merge($options_attributes, [
             'id' => $id,
             'label' => $label,
             'type' => $type,
@@ -171,7 +221,7 @@ class MetaBox
             'attributes' => $attributes,
             'default' => $attributes['value'] ?? $options_attributes['default'] ?? '',
             'allow_quick_edit' => $options_attributes['allow_quick_edit'] ?? false
-        ];
+        ]);
         return $this;
     }
 
@@ -196,12 +246,14 @@ class MetaBox
     function callback(WP_Post $post = null): void
     {
         wp_nonce_field(basename(__FILE__), $this->nonce);
+        echo '<div class="form-wrap">';  // Added form-wrap here
         foreach ($this->fields as $field) {
             $m = isset($field['attributes']['multiple']) && $field['attributes']['multiple'] == true;
             $value = get_post_meta($post->ID, $field['id'], !$m);
             $field['default'] = $value;
             $this->print_input_type($field['type'], $field['id'], $field);
         }
+        echo '</div>';  // Close form-wrap
     }
 
     /**
@@ -313,30 +365,49 @@ class MetaBox
     function generate_default_input_type_html(string $type, string $id, array $data): string {
         $default_value = esc_attr($data['default'] ?? '');
         $attributes = isset($data['attributes']) && is_array($data['attributes']) ? $data['attributes'] : [];
-        $attributes['class'] = esc_attr(($attributes['class'] ?? '') . ' ceanwpmetabox-input');
+
+        // Default to no regular-text class to prevent overly wide inputs
+        $default_class = '';
+
+        // Add specific classes based on input type
+        switch ($type) {
+            case 'text':
+            case 'email':
+            case 'url':
+            case 'select':
+            case 'textarea':
+            case 'password':
+                $default_class = 'widefat';
+                break;
+            case 'number':
+                $default_class = 'small-text';
+                break;
+        }
+
+        // Merge default class with any custom classes
+        $attributes['class'] = esc_attr(($attributes['class'] ?? '') . ' ' . $default_class);
         $required = !empty($attributes['required']);
 
-        // Convert style array to string if necessary and escape
         if (isset($attributes['style'])) {
             $attributes['style'] = is_array($attributes['style']) ? esc_attr($this->style_to_string($attributes['style'])) : esc_attr($attributes['style']);
         }
-        // Escape individual attributes
         $attributes_as_string = $this->attributes_to_string($attributes);
 
-        $html = "<div class=\"ceanwpmetabox-field\">";
-        $html .= "<label for=\"" . esc_attr($id) . "\" class=\"ceanwpmetabox-label\">";
+        // Remove form-wrap, keep only form-field
+        $html = "<div class=\"form-field\" style=\"max-width: 500px;\">";
+        $html .= "<label for=\"" . esc_attr($id) . "\" class=\"form-label\">";
         $html .= esc_html($data['label']);
-        $html .= $required ? '<span class="ceanwpmetabox-required">*</span>' : '';
+        $html .= $required ? '<span class="required">*</span>' : '';
         $html .= "</label>";
 
         switch ($type) {
             case 'textarea':
-                $html .= "<textarea id=\"" . esc_attr($id) . "\" name=\"" . esc_attr($id) . "\" $attributes_as_string>";
+                $html .= "<textarea id=\"" . esc_attr($id) . "\" name=\"" . esc_attr($id) . "\" style=\"height: 100px;\" $attributes_as_string>";
                 $html .= esc_textarea($default_value);
                 $html .= "</textarea>";
                 break;
 
-            case 'select' :
+            case 'select':
                 $html .= "<select id=\"" . esc_attr($id) . "\" name=\"" . esc_attr($id . (($data['attributes']['multiple'] ?? false) ? '[]' : '')) . "\" $attributes_as_string>";
                 foreach ($data['options'] as $option => $option_data) {
                     $option_label = is_array($option_data) ? esc_html($option_data['label'] ?? $option) : esc_html($option_data);
@@ -350,20 +421,24 @@ class MetaBox
                 break;
 
             case 'checkbox':
+                $html .= "<span class=\"checkbox-wrap\">";
                 $checked = $default_value ? 'checked' : '';
                 $html .= "<input type=\"checkbox\" id=\"" . esc_attr($id) . "\" name=\"" . esc_attr($id) . "\" value=\"1\" $checked $attributes_as_string />";
+                $html .= "</span>";
                 break;
 
             case 'radio':
+                $html .= "<div class=\"radio-wrap\">";
                 foreach ($data['options'] as $option => $option_data) {
                     $option_label = is_array($option_data) ? esc_html($option_data['label'] ?? $option) : esc_html($option_data);
                     $checked = $default_value == $option ? 'checked' : '';
                     $other_attributes = is_array($option_data) ? $this->attributes_to_string(array_map('esc_attr', $option_data['attributes'] ?? [])) : '';
-                    $html .= "<label>";
+                    $html .= "<label class=\"radio-label\">";
                     $html .= "<input type=\"radio\" id=\"" . esc_attr($id) . "\" name=\"" . esc_attr($id) . "\" value=\"" . esc_attr($option) . "\" $checked $other_attributes $attributes_as_string />";
                     $html .= esc_html($option_label);
                     $html .= "</label>";
                 }
+                $html .= "</div>";
                 break;
 
             case "number":
@@ -371,7 +446,9 @@ class MetaBox
                 break;
 
             case "wp_media":
+                $html .= "<div class=\"wp-media-buttons\">";
                 $html .= $this->generate_wp_media_html($id, $data);
+                $html .= "</div>";
                 break;
 
             default:
@@ -379,10 +456,16 @@ class MetaBox
                 break;
         }
 
-        $html .= "</div>";
+        // Add description if it exists
+        if (!empty($data['description'])) {
+            $html .= "<p class=\"description\">" . esc_html($data['description']) . "</p>";
+        }
+
+        $html .= "</div>"; // .form-field
 
         return $html;
     }
+
 
     /**
      * Generates HTML for WordPress media input using template
@@ -444,10 +527,15 @@ class MetaBox
      */
     function save(int $post_id): bool {
 
-        if ( defined('DOING_AUTOSAVE') && DOING_AUTOSAVE ) {
+        $is_quick_edit = false;
+        $quick_edit_nonce = sanitize_text_field(wp_unslash($_POST[$this->get_quick_edit_nonce()] ?? ''));
+        if (wp_verify_nonce( $quick_edit_nonce, basename(__FILE__) ) ) {
+            $is_quick_edit = true;
+        }
+        if ( defined('DOING_AUTOSAVE') && DOING_AUTOSAVE && !$is_quick_edit) {
             return false;
         }
-        if (defined('DOING_AJAX') && DOING_AJAX) {
+        if (defined('DOING_AJAX') && DOING_AJAX && !$is_quick_edit) {
             return false;
         }
         // Check if the current user is authorized to do this action
@@ -464,7 +552,11 @@ class MetaBox
             return false;
         }
 
-        $has_error = array_filter($this->fields, function($field){
+        $check_field = $this->fields;
+        if($is_quick_edit){
+            $check_field = array_filter($check_field, fn($field) => $field['allow_quick_edit'] === true);
+        }
+        $has_error = array_filter($check_field, function($field){
             if((empty($_POST[$field['id']])) && ($field['attributes']['required'] ?? false) === false){
                 return false;
             }
@@ -487,9 +579,9 @@ class MetaBox
             return false;
         }
 
-        $names = array_map(function($field){
-            return $field['id'];
-        }, $this->fields);
+//        $names = array_map(function($field){
+//            return $field['id'];
+//        }, $check_field);
 
 
         return $this->save_fields($post_id);
@@ -610,6 +702,26 @@ class MetaBox
     }
 
     /**
+     * Gets a specific field by its property value
+     *
+     * @param string $by The property to search by (e.g., 'id', 'label', 'type')
+     * @param mixed $value The value to match
+     * @return array|null Returns the field configuration array if found, null otherwise
+     */
+    function get_field(string $by, mixed $value): ?array
+    {
+        if($by == 'id' && !empty($this->meta_prefix) && !str_starts_with($value, $this->meta_prefix)) {
+            $value = $this->meta_prefix . $value;
+        }
+        foreach ($this->fields as $field) {
+            if (isset($field[$by]) && $field[$by] === $value) {
+                return $field;
+            }
+        }
+        return null;
+    }
+
+    /**
      * Gets HTML for all registered fields
      *
      * @return array Array of generated HTML for each field
@@ -620,6 +732,52 @@ class MetaBox
             $html[] = $this->generate_default_input_type_html($field['type'], $field['id'], $field);
         }
         return $html;
+    }
+
+    /**
+     * Gets the value of a specific field for a given post
+     *
+     * @param string $field_id The ID of the field
+     * @param int|null $post_id Post ID (defaults to current post)
+     * @param bool $single Whether to return a single value (true) or array of values (false)
+     * @return mixed The field value(s) or null if not found
+     */
+    function get_field_value(string $field_id, ?int $post_id = null, bool $single = true): mixed
+    {
+        // If no post_id provided, try to get from current post
+        if (is_null($post_id)) {
+            $post_id = $this->post?->ID ?? get_the_ID();
+            if (!$post_id) {
+                return null;
+            }
+        }
+
+        // Check if field exists
+        $field = $this->get_field('id', $field_id);
+        if (!$field) {
+            return null;
+        }
+
+        // Get the value from post meta
+        $value = get_post_meta($post_id, $field_id, $single);
+
+        // If no value and field has default, return default
+        if (($value === '' || $value === false) && isset($field['default'])) {
+            return $field['default'];
+        }
+
+        // For wp_media type, maybe get attachment URL
+        if ($field['type'] === 'wp_media') {
+            if ($single) {
+                return wp_get_attachment_url($value) ?: $value;
+            } else {
+                return array_map(function($id) {
+                    return wp_get_attachment_url($id) ?: $id;
+                }, $value);
+            }
+        }
+
+        return $value;
     }
 
 

@@ -682,23 +682,20 @@ class CeanWP
     {
         $socials = [
             [
-                'title' => 'Twitter',
-                'url' => 'https://x.com/FusionIntelTech/',
-                'icon' => 'twitter',
-            ],
-            [
                 'title' => 'Instagram',
-                'url' => 'https://www.instagram.com/fusionintelligence/',
+                'url' => 'https://www.instagram.com/ceanigeria',
                 'icon' => 'instagram',
             ],
             [
-                'title' => 'LinkedIn',
-                'url' => 'https://www.linkedin.com/company/fusion-intelligence-technologies/',
-                'icon' => 'linkedin',
+                'title' => '+234 802 663 1773 - CEAN number in contact us',
+                'url' => 'tel:+2348026631773',
+                'icon' => 'phone',
             ],
         ];
         return apply_filters('cean_wp_contact_socials', $socials);
     }
+
+
 
 
     /**
@@ -713,6 +710,7 @@ class CeanWP
             'twitter' => '/images/icons/socials/twitter.svg',
             'linkedin' => '/images/icons/socials/linkedin.svg',
             'medium' => '/images/icons/socials/medium.svg',
+            'phone' => '/images/icons/phone.svg',
         ];
 
     }

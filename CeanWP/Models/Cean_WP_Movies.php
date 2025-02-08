@@ -138,6 +138,7 @@ class Cean_WP_Movies implements Models
     {
         // id, title, screen
         $meta_box = new MetaBox('movie_details', 'Movie Details', self::POST_TYPE);
+        $meta_box->set_prefix(self::META_PREFIX);
         $meta_box->add_field(self::META_PREFIX . 'box_office', 'Box Office', 'number', [], ['required' => true], ['allow_quick_edit' => true]);
 //        week box office amount
         $meta_box->add_field(self::META_PREFIX . 'week_box_office', 'Week Box Office', 'number', [], ['required' => true], ['allow_quick_edit' => true]);

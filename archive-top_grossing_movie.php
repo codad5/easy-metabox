@@ -21,7 +21,7 @@
                             'duration' => $data['duration'] ?? 'n/a',
                             'rating' => $data['rating'] ?? 'unrated',
 //                            'permalink' => $data['permalink'] ?? '#',
-                            'permalink' =>  "#{$data['id']}",
+                            'permalink' =>  false,
                             'box_office' => $data['box_office'] ?? 0
                         ];
                     }, CeanWP_Functions::get_all_time_top_grossing_movies()),
@@ -38,7 +38,7 @@
                                 'poster' => $data['posterUrl'] ?? get_theme_file_uri("assets/images/gang-of-lagos.jpg"),
                                 'duration' => $data['duration'] ?? 'n/a',
                                 'rating' => $data['filmRating'] ?? 'unrated',
-                                'permalink' => "#{$data['id']}"
+                                'permalink' => false
 //                                'permalink' => "/movies/{$data['id']}"
                             ];
                         }, $new_release['data'])
@@ -53,7 +53,7 @@
                         'poster' => wp_get_attachment_image_url($data['movie_poster'] ?? '', 'full'),
                         'duration' => $data['duration'] ?? 'n/a',
                         'rating' => $data['rating'] ?? 'unrated',
-                        'permalink' => "#{$data['id']}",
+                        'permalink' => false,
 //                        'permalink' => $data['permalink'] ?? '#',
                         'box_office' => $data['box_office'] ?? 0
                     ];

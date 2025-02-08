@@ -9,7 +9,7 @@
             </div>
         </div>
         <div class="w-full lg:py-5">
-            <div class="w-full h-[223px] lg:h-[465px] grid place-items-center relative">
+            <div class="w-full h-[223px] lg:h-[465px] grid place-items-center relative overflow-hidden">
               <img class="w-full h-full object-cover" src="<?php echo get_theme_file_uri("/assets/images/index-grid-image.png"); ?>"  alt=""/>
             </div>
             <div class="w-full p-6">

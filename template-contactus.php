@@ -15,8 +15,8 @@
                         'url' => 'https://ceanigeria.com',
                     ],
                     [
-                        'title' => '(084) 168-993-7763',
-                        'url' => 'tel:(084) 168-993-7763',
+                        'title' => '+234 802 663 1773 ',
+                        'url' => 'tel:+2348026631773',
                     ]
                 ]]); ?>
         </div>
@@ -29,8 +29,8 @@
                         'url' => 'mailto:contact@ceanigeria.com'
                     ],
                     [
-                        'title' => '0802 000 0000',
-                        'url' => 'tel:0802 000 0000',
+                        'title' => '+234 802 663 1773 ',
+                        'url' => 'tel:+2348026631773',
                     ]
                 ]]); ?>
         </div>
@@ -46,7 +46,7 @@
                         15 Commercial Avenue, Sabo Yaba, Lagos
                     </div>
                     <div class="w-max py-3.5 px-5 border border-[#262626] bg-[#1A1A1A] rounded-md">
-                        <a class="font-normal text-sm text-[#999999] flex gap-1" href="tel:(084) 168-993-7763">
+                        <a class="font-normal text-sm text-[#999999] flex gap-1" href="tel:+2348026631773">
                             Get Directions
                             <div class="inline-block w-5 aspect-square">
                                 <img src="<?php echo CeanWP_Functions::get_common_icon_url('external-link'); ?>" alt="external-link" class="w-full h-full object-contain" />
@@ -57,7 +57,7 @@
             </div>
         </div>
         <div class="w-full lg:w-1/4 py-5 lg:py-0">
-            <div class="w-full flex flex-col justify-center items- gap-5 lg:gap-7">
+            <div class="w-full flex flex-col justify-center items-center gap-5 lg:gap-7">
                 <div class="w-full ">
                     <h3 class="font-normal text-base lg:text-lg">
                         Connect with Us
@@ -65,7 +65,7 @@
                 </div>
                 <div class="w-full flex gap-2.5 h-12 justify-between lg:justify-start">
                     <?php
-                        $socials = CeanWP_Functions::get_contact_socials();
+                    $socials = CeanWP_Functions::get_contact_socials();
                     ?>
                     <?php foreach ($socials as $social) : ?>
                         <div class="h-full w-1/3 lg:w-max grid place-items-center px-3.5 bg-[#1A1A1A] rounded-md">
@@ -74,12 +74,10 @@
                             </a>
                         </div>
                     <?php endforeach; ?>
-
                 </div>
             </div>
         </div>
     </div>
-
 </div>
 <div class="w-full px-4 lg:px-20 bg-[#1A1A1A] py-16">
     <div class="w-full flex flex-col gap-2.5">
@@ -89,7 +87,7 @@
             </h3>
         </div>
         <div class="w-full font-normal text-base text-[#999999]">
-            We value your feedback, questions, and concerns at Nutritionist. Our dedicated team is here to assist you and provide the support you need on your nutritional journey. Please don't hesitate to reach out to us using any of the following contact methods
+            We value your feedback, questions, and concerns at Nutritionist. Our dedicated team is here to assist you and provide the support you need on your nutritional journey. Please don't hesitate to reach out to us using any of the following contact methods.
         </div>
     </div>
 </div>

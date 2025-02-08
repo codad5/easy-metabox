@@ -29,8 +29,9 @@ trait Models
         if(in_array($metabox, $this->metaBoxes)) {
             return;
         }
+        $metabox->setup_actions();
         $this->metaBoxes[] = $metabox;
-        add_action("add_meta_boxes_".self::POST_TYPE, [$metabox, 'show']);
+
     }
 
     final static function register_post_type(): \WP_Error|\WP_Post_Type
