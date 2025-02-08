@@ -63,6 +63,7 @@ class MetaBox
         $this->title = $title;
         $this->screen = $screen;
         $this->nonce = $id . '-nonce';
+        $this->meta_prefix = "{$this->id}_{$this->screen}_";
         $this->customise_callback = fn($post) => $this->callback($post);
         $this->show_admin_error();
 
@@ -782,6 +783,10 @@ class MetaBox
         $field = $this->get_field('id', $field_id);
         if (!$field) {
             return null;
+        }
+
+        if (!empty($this->meta_prefix) && !str_starts_with($field_id, $this->meta_prefix)) {
+            $field_id = $this->meta_prefix . $field_id;
         }
 
         // Get the value from post meta

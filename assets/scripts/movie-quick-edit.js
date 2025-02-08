@@ -1,4 +1,4 @@
- console.log("danger")
+
 document.addEventListener('DOMContentLoaded',  function() {
     var wp_inline_edit = inlineEditPost.edit;
     inlineEditPost.edit = function(id) {
@@ -20,25 +20,13 @@ document.addEventListener('DOMContentLoaded',  function() {
         const mataBoxId = window.codad5EasyMetaboxQuickEdit.meta_box_id
         Codad5EasyGetMetaData(mataBoxId, post_id).then(d => {
             const  fields = window.codad5EasyMetaboxQuickEdit.quick_edit_fields ?? [];
-            console.log(fields, d);
             fields.forEach(f => {
-                // let input = edit_row.querySelector('input[name="_cean_movie_box_office"]');
+                let input = edit_row.querySelector(`input[name="${f}"]`);
+                if(d?.[f]){
+                    input.value = d?.[f];
+                }
             })
         })
-
-        // Select the box office values from the post row
-        // var box_office_value = post_row.querySelector('.column-box_office')?.textContent.trim().replace('₦', '').replace(/,/g, '');
-        // var week_box_office_value = post_row.querySelector('.column-week_box_office')?.textContent.trim().replace('₦', '').replace(/,/g, '');
-        //
-        // console.log("Box Office:", box_office_value);
-        // console.log("Week Box Office:", week_box_office_value);
-        //
-        // // Populate the Quick Edit form fields
-        // var box_office_input = edit_row.querySelector('input[name="_cean_movie_box_office"]');
-        // var week_box_office_input = edit_row.querySelector('input[name="_cean_movie_week_box_office"]');
-        //
-        // if (box_office_input) box_office_input.value = box_office_value || '';
-        // if (week_box_office_input) week_box_office_input.value = week_box_office_value || '';
     };
 });
 

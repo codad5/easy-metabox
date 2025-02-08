@@ -119,14 +119,15 @@ function codad5_set_worker_columns($columns): array {
 }
 
 function codad5_worker_column_content($column, $post_id): void {
+    global $cem_metabox;
     switch ($column) {
         case 'worker_position':
-            $position = get_post_meta($post_id, 'worker_position', true);
+            $position = $cem_metabox->get_field_value('worker_position', $post_id);
             echo esc_html($position);
             break;
 
         case 'worker_experience':
-            $experience = get_post_meta($post_id, 'worker_experience', true);
+            $experience = $cem_metabox->get_field_value('worker_experience', $post_id);
             echo esc_html($experience);
             break;
     }
