@@ -1,38 +1,38 @@
+
 # EasyMetabox
 
 EasyMetabox is a WordPress library that simplifies the creation and management of custom meta boxes for posts, pages, and custom post types. It provides an intuitive API for adding custom fields with various input types and handling their data.
 
 ## Core Features
 
-- Quick Edit Support: Enables inline editing of custom post type fields directly from the post list table.
+- **Quick Edit Support:** Enables inline editing of custom post type fields directly from the post list table.
+  
+  **Important:** Adding a field for Quick Edit using the `allow_quick_edit` option only works if you also add that field as a column in the post list table. To do this, use the appropriate filters (like `manage_{post_type}_posts_columns` and `manage_{post_type}_posts_custom_column`) to include the field in the table display.
 
-- WordPress Media Integration: Provides a wp_media field type for seamless media uploads and management.
-
-
+- **WordPress Media Integration:** Provides a `wp_media` field type for seamless media uploads and management.
 
 ## Installation
 
 Since this is a WordPress library, you can't use Composer directly unless your application compiles Composer dependencies. Here are the installation steps:
 
 1. Download the source code from GitHub: [codad5/easy-metabox](https://github.com/codad5/easy-metabox)
-2. Place the files in your WordPress plugin or theme directory
+2. Place the files in your WordPress plugin or theme directory.
 3. Include the library in your code:
 
-```php
-require_once __DIR__ . '/path-to-easy-metabox/get-easy-metabox.php';
-```
+   ```php
+   require_once __DIR__ . '/path-to-easy-metabox/get-easy-metabox.php';
+   ```
 
 ## Basic Usage
 
 Here's a simple example of how to create a meta box:
 
 ```php
-
 // Create a new meta box
 $metabox = getEasyMetabox(
-    'my_meta_box',           // Unique identifier
+    'my_meta_box',            // Unique identifier
     'Additional Information', // Meta box title
-    'post'                   // Post type
+    'post'                    // Post type
 );
 
 // Add fields
@@ -69,14 +69,14 @@ When adding fields, you can specify various options:
 $metabox->add_field(
     'field_id',          // Field ID
     'Field Label',       // Field Label
-    'text',             // Field Type
-    [],                 // Options (for select, radio, checkbox)
-    [                   // HTML attributes
+    'text',              // Field Type
+    [],                  // Options (for select, radio, checkbox)
+    [                    // HTML attributes
         'class' => 'my-class',
         'required' => true,
         'placeholder' => 'Enter value'
     ],
-    [                   // Additional options
+    [                    // Additional options
         'allow_quick_edit' => true,
         'default' => 'Default value'
     ]
@@ -85,7 +85,7 @@ $metabox->add_field(
 
 ## Quick Edit Support
 
-To enable quick edit support for a field:
+To enable Quick Edit support for a field:
 
 ```php
 $metabox->add_field(
@@ -97,6 +97,8 @@ $metabox->add_field(
     ['allow_quick_edit' => true]
 );
 ```
+
+**Remember:** For the Quick Edit functionality to work, the field must also be added as a column in the post list table. You can do this by hooking into filters like `manage_{post_type}_posts_columns` to add the column and `manage_{post_type}_posts_custom_column` to output the field’s data. Without adding the field to the table, the Quick Edit option will not appear in your admin list.
 
 ## WordPress Media Integration
 
@@ -144,21 +146,21 @@ function register_product_post_type(): void {
     $labels = array(
         'name'               => 'Products',
         'singular_name'      => 'Product',
-        'menu_name'         => 'Products',
-        'add_new'           => 'Add New',
-        'add_new_item'      => 'Add New Product',
-        'edit_item'         => 'Edit Product',
-        'new_item'          => 'New Product',
-        'view_item'         => 'View Product',
-        'search_items'      => 'Search Products',
-        'not_found'         => 'No products found',
-        'not_found_in_trash'=> 'No products found in Trash'
+        'menu_name'          => 'Products',
+        'add_new'            => 'Add New',
+        'add_new_item'       => 'Add New Product',
+        'edit_item'          => 'Edit Product',
+        'new_item'           => 'New Product',
+        'view_item'          => 'View Product',
+        'search_items'       => 'Search Products',
+        'not_found'          => 'No products found',
+        'not_found_in_trash' => 'No products found in Trash'
     );
 
     $args = array(
-        'labels'              => $labels,
-        'public'              => true,
-        'publicly_queryable'  => true,
+        'labels'             => $labels,
+        'public'             => true,
+        'publicly_queryable' => true,
         'show_ui'            => true,
         'show_in_menu'       => true,
         'query_var'          => true,
@@ -181,16 +183,10 @@ add_action('init', 'register_product_post_type');
  * Create and configure the product meta box
  */
 function add_product_metabox(): void {
-    global $product_metabox; // Make it accessible globally if needed
+    global $product_metabox;
+    
+    $product_metabox = getEasyMetabox('product_details', 'Product Details', PRODUCT_POST_TYPE);
 
-    // Initialize the meta box
-    $product_metabox = getEasyMetabox(
-        'product_details',    // Meta box ID
-        'Product Details',    // Meta box title
-        PRODUCT_POST_TYPE    // Post type to attach to
-    );
-
-    // Add fields
     $product_metabox->add_field('price', 'Price', 'number', [], [
         'required' => true,
         'min' => 0,
@@ -207,14 +203,12 @@ function add_product_metabox(): void {
         'multiple' => true
     ]);
 
-    // Set up the meta box actions
     $product_metabox->setup_actions();
 }
 
-// Add the meta box when WordPress initializes the admin
 add_action('admin_init', 'add_product_metabox');
 
-/**
+**
  * Handle saving the meta box data
  */
 function save_product_meta($post_id): bool {
@@ -301,7 +295,6 @@ $metabox->set_input_type_html('custom_type', function($id, $data) {
     return "<input type='text' id='{$id}' name='{$id}' />";
 });
 ```
-
 ## License
 
 This project is licensed under the GPL-2.0+ License.
@@ -313,3 +306,5 @@ Created by [Codad5](https://codad5.me)
 ## Contributing
 
 Contributions are welcome! Please feel free to submit a Pull Request.
+
+
