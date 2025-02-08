@@ -2,6 +2,14 @@
 
 EasyMetabox is a WordPress library that simplifies the creation and management of custom meta boxes for posts, pages, and custom post types. It provides an intuitive API for adding custom fields with various input types and handling their data.
 
+## Core Features
+
+- Quick Edit Support: Enables inline editing of custom post type fields directly from the post list table.
+
+- WordPress Media Integration: Provides a wp_media field type for seamless media uploads and management.
+
+
+
 ## Installation
 
 Since this is a WordPress library, you can't use Composer directly unless your application compiles Composer dependencies. Here are the installation steps:
