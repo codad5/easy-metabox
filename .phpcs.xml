@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<ruleset name="CeanWP Theme Code Standards">
+    <description>PHP CodeSniffer configuration for CeanWP WordPress theme.</description>
+
+    <!-- Enable PHPCompatibility standard -->
+    <rule ref="PHPCompatibility">
+        <properties>
+            <!-- PHP version will be set dynamically via CLI -->
+        </properties>
+    </rule>
+
+    <!-- Define the directory to scan -->
+    <file>./</file>
+
+    <!-- Exclude certain directories -->
+    <exclude-pattern>vendor/*</exclude-pattern>
+    <exclude-pattern>node_modules/*</exclude-pattern>
+    <exclude-pattern>.idea/*</exclude-pattern>
+    <exclude-pattern>build-tools/*</exclude-pattern>
+    <exclude-pattern>*.zip</exclude-pattern>
+
+    <!-- Set default coding standards (WordPress Coding Standards) -->
+    <rule ref="WordPress-Core"/>
+    <rule ref="WordPress-Extra"/>
+    <rule ref="WordPress-Docs"/>
+    <!-- <rule ref="WordPress-Deprecated"/> Uncomment if installed -->
+</ruleset>
