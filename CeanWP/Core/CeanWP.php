@@ -803,6 +803,7 @@ class CeanWP
                 'viva-logo-1' => '/images/partners/black-white/Viva logo 1.png',
                 'aa' => '/images/partners/black-white/aa.png',
                 'cinemax' => '/images/partners/black-white/cinemax.png',
+                'jewel' => '/images/partners/black-white/jewel.png',
             ]
         );
     }

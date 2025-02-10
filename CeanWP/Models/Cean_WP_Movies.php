@@ -32,7 +32,7 @@ class Cean_WP_Movies implements Models
         add_filter('manage_edit-' . self::POST_TYPE . '_sortable_columns', [self::$instance, 'set_sortable_columns']);
 
         // Add hook for sorting functionality
-        add_action('pre_get_posts', [self::$instance, 'sort_columns']);
+//        add_action('pre_get_posts', [self::$instance, 'sort_columns']);
 
         self::$instance->setup_metabox();
         return self::$instance;
