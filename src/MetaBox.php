@@ -606,17 +606,20 @@ class MetaBox
 //        }, $check_field);
 
 
-        return $this->save_fields($post_id);
+        return $this->save_fields($post_id, $check_field);
     }
 
 
     /**
      * Saves field values to post meta
      */
-    private function save_fields(int $post_id): bool
+    private function save_fields(int $post_id, array $fields = []): bool
     {
         $success = true;
-        foreach ($this->fields as $field) {
+        if(empty($fields)){
+            $fields = $this->fields;
+        }
+        foreach ($fields as $field) {
             $field_id = $field['id'];
 
             if ($field['type'] === 'wp_media') {
