@@ -71,7 +71,7 @@ class InputValidator
         }
 
         foreach ($value as $file) {
-            $exists = wp_get_attachment_image_url($file);
+            $exists = wp_get_attachment_url($file);
             if(!$exists) {
                 return false;
             }
